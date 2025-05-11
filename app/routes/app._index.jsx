@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -14,11 +14,38 @@ import {
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
+import { json } from "@remix-run/node";
+import { fetchAlatarGraphQL } from "../lib/alatar-api.server.js";
 
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
 
-  return null;
+  let alatarUserData = null;
+  let alatarAuthError = null;
+
+  try {
+    const alatarMeQuery = `
+      query GetAlatarMe {
+        me {
+          id
+          email
+        }
+      }
+    `;
+    const alatarResponse = await fetchAlatarGraphQL(request, alatarMeQuery);
+    alatarUserData = alatarResponse?.me;
+  } catch (error) {
+    if (error instanceof Response) {
+      throw error;
+    }
+    console.error("Error fetching Alatar user data in loader:", error.message);
+    alatarAuthError = error.message;
+  }
+  
+  return json({
+    alatarUser: alatarUserData,
+    alatarAuthError: alatarAuthError,
+  });
 };
 
 export const action = async ({ request }) => {
@@ -80,13 +107,14 @@ export const action = async ({ request }) => {
   );
   const variantResponseJson = await variantResponse.json();
 
-  return {
+  return json({
     product: responseJson.data.productCreate.product,
     variant: variantResponseJson.data.productVariantsBulkUpdate.productVariants,
-  };
+  });
 };
 
 export default function Index() {
+  const { alatarUser, alatarAuthError } = useLoaderData();
   const fetcher = useFetcher();
   const shopify = useAppBridge();
   const isLoading =
@@ -106,11 +134,57 @@ export default function Index() {
 
   return (
     <Page>
-      <TitleBar title="Remix app template">
+      <TitleBar title="AlatarFE App">
         <button variant="primary" onClick={generateProduct}>
           Generate a product
         </button>
       </TitleBar>
+      <Layout>
+        <Layout.Section>
+          <Card>
+            <BlockStack gap="300">
+              <Text as="h2" variant="headingMd">
+                Alatar Connection Status
+              </Text>
+              {alatarAuthError && (
+                <Box borderColor="borderCritical" borderWidth="100" padding="200" background="bgSurfaceCritical">
+                  <Text as="p" variant="bodyMd" tone="critical">
+                    Error connecting to Alatar: {alatarAuthError}
+                  </Text>
+                  <Box paddingBlockStart="200">
+                    <Button url="/connect-alatar" variant="primary">
+                       Connect/Reconnect Alatar
+                    </Button>
+                  </Box>
+                </Box>
+              )}
+              {alatarUser && (
+                <BlockStack gap="200">
+                  <Text as="p" variant="bodyMd" tone="success">
+                    Successfully connected to Alatar.
+                  </Text>
+                  <Text as="h3" variant="headingSm">Your Alatar User Info:</Text>
+                  <Box padding="200" background="bgSurfaceHover" borderRadius="100">
+                    <pre style={{ margin: 0 }}>
+                      <code>{JSON.stringify(alatarUser, null, 2)}</code>
+                    </pre>
+                  </Box>
+                </BlockStack>
+              )}
+              {!alatarUser && !alatarAuthError && (
+                <BlockStack gap="200">
+                  <Text as="p" variant="bodyMd">
+                    Alatar account is not connected or data could not be fetched.
+                  </Text>
+                  <Button url="/connect-alatar" variant="primary">
+                    Connect to Alatar
+                  </Button>
+                </BlockStack>
+              )}
+            </BlockStack>
+          </Card>
+        </Layout.Section>
+      </Layout>
       <BlockStack gap="500">
         <Layout>
           <Layout.Section>
@@ -307,7 +381,7 @@ export default function Index() {
                       to get started
                     </List.Item>
                     <List.Item>
-                      Explore Shopify’s API with{" "}
+                      Explore Shopify's API with{" "}
                       <Link
                         url="https://shopify.dev/docs/apps/tools/graphiql-admin-api"
                         target="_blank"

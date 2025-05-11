@@ -3,11 +3,12 @@
 client_id = "e32b0eafd11b55dff3d8b9ea54587c86"
 name = "Alatar-3"
 handle = "alatar-3"
-application_url = "https://example.com/"
+application_url = "https://protocol-defend-technology-dress.trycloudflare.com"
 embedded = true
 
 [build]
 include_config_on_deploy = true
+automatically_update_urls_on_dev = true
 
 [webhooks]
 api_version = "2025-04"
@@ -25,7 +26,11 @@ api_version = "2025-04"
 scopes = "write_products"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://protocol-defend-technology-dress.trycloudflare.com/auth/callback",
+  "https://protocol-defend-technology-dress.trycloudflare.com/auth/shopify/callback",
+  "https://protocol-defend-technology-dress.trycloudflare.com/api/auth/callback"
+]
 
 [pos]
 embedded = false
