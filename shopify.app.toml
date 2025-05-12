@@ -3,23 +3,23 @@
 client_id = "e32b0eafd11b55dff3d8b9ea54587c86"
 name = "Alatar-3"
 handle = "alatar-3"
-application_url = "https://protocol-defend-technology-dress.trycloudflare.com"
+application_url = "https://4b9d-50-66-72-97.ngrok-free.app"
 embedded = true
 
 [build]
-include_config_on_deploy = true
 automatically_update_urls_on_dev = true
+include_config_on_deploy = true
 
 [webhooks]
 api_version = "2025-04"
 
   [[webhooks.subscriptions]]
-  topics = [ "app/uninstalled" ]
-  uri = "/webhooks/app/uninstalled"
-
-  [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
   uri = "/webhooks/app/scopes_update"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://protocol-defend-technology-dress.trycloudflare.com/auth/callback",
-  "https://protocol-defend-technology-dress.trycloudflare.com/auth/shopify/callback",
-  "https://protocol-defend-technology-dress.trycloudflare.com/api/auth/callback"
+  "https://4b9d-50-66-72-97.ngrok-free.app/auth/callback",
+  "https://4b9d-50-66-72-97.ngrok-free.app/auth/shopify/callback",
+  "https://4b9d-50-66-72-97.ngrok-free.app/api/auth/callback"
 ]
 
 [pos]
