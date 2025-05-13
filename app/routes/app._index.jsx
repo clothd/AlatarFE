@@ -1,76 +1,50 @@
 import { useState } from "react";
-import { Page, Card, TextField, Button, BlockStack, Box, Text } from "@shopify/polaris";
+import Sidebar from "../components/Sidebar";
+import SuggestionsList from "../components/SuggestionsList";
+import CenterInput from "../components/CenterInput";
+import DisplayContainer from "../components/DisplayContainer";
+import { QA_LIST } from "../constants/qa";
 
 export default function Index() {
+  const [activeId, setActiveId] = useState(QA_LIST[0].id);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([]); // {from: 'user'|'bot', text: string}
-  const [loading, setLoading] = useState(false);
 
-  async function sendMessage() {
-    if (!input.trim()) return;
-    setMessages((msgs) => [...msgs, { from: "user", text: input }]);
-    setLoading(true);
-    try {
-      const res = await fetch("https://51c1-50-66-72-97.ngrok-free.app/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
-      });
-      const data = await res.json();
-      setMessages((msgs) => [
-        ...msgs,
-        { from: "bot", text: JSON.stringify(data, null, 2) },
-      ]);
-    } catch (err) {
-      setMessages((msgs) => [
-        ...msgs,
-        { from: "bot", text: "Error: " + err.message },
-      ]);
-    }
+  // When user sends a message, set it as the active suggestion if it matches
+  function handleSend() {
+    const found = QA_LIST.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
+    if (found) setActiveId(found.id);
     setInput("");
-    setLoading(false);
   }
 
+  const activeQA = QA_LIST.find(q => q.id === activeId);
+
   return (
-    <Page title="Alatar">
-      <Card>
-        <BlockStack gap="200">
-          <Box minHeight="300px" maxHeight="400px" overflowY="auto" background="bgSurfaceHover" padding="200" borderRadius="100">
-            {messages.map((msg, i) => (
-              <Box key={i} padding="100" background={msg.from === "user" ? "bg-interactive" : "bg-surface"} borderRadius="100" marginBlockEnd="100" width="fit-content" maxWidth="80%" alignSelf={msg.from === "user" ? "flex-end" : "flex-start"}>
-                <Text as="p" variant="bodyMd" fontWeight={msg.from === "user" ? "bold" : undefined}>
-                  {msg.from === "user" ? "You" : "Alatar"}
-                </Text>
-                <pre style={{ margin: 0, whiteSpace: "pre-wrap", wordBreak: "break-all" }}>{msg.text}</pre>
-              </Box>
-            ))}
-            {loading && (
-              <Box padding="100" background="bg-surface" borderRadius="100" marginBlockEnd="100" width="fit-content" maxWidth="80%" alignSelf="flex-start">
-                <Text as="p" variant="bodyMd">Alatar</Text>
-                <Text as="p" variant="bodyMd">Thinking...</Text>
-              </Box>
-            )}
-          </Box>
-          <TextField
-            label="Your message"
-            labelHidden
+    <div style={{ display: "flex", minHeight: "100vh", background: "#f3f4f8" }}>
+      <Sidebar />
+      <div style={{ flex: 1, display: "flex", flexDirection: "row", alignItems: "stretch" }}>
+        {/* Suggestions List */}
+        <SuggestionsList
+          suggestions={QA_LIST}
+          activeId={activeId}
+          onSelect={setActiveId}
+        />
+        {/* Center Area */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ marginBottom: 32, color: "#bbb", fontSize: 20, textAlign: "center" }}>
+            How can I help you today?
+          </div>
+          <CenterInput
             value={input}
             onChange={setInput}
-            placeholder="Type your message to Alatar..."
-            autoComplete="off"
-            disabled={loading}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey && input.trim() && !loading) {
-                event.preventDefault();
-                sendMessage();
-              }
-            }}
+            onSend={handleSend}
+            disabled={false}
           />
-          <Button onClick={sendMessage} fullWidth variant="primary" disabled={!input.trim() || loading}>
-            Send
-          </Button>
-        </BlockStack>
-      </Card>
-    </Page>
+        </div>
+        {/* Display Container */}
+        <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <DisplayContainer qa={activeQA} />
+        </div>
+      </div>
+    </div>
   );
 }
