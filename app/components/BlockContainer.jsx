@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export default function BlockContainer({ title, text, image, style }) {
+export default function BlockContainer({ title, text, image, style, borderColor = "#b388ff", gradient }) {
   return (
     <motion.div
       layout
@@ -9,15 +9,23 @@ export default function BlockContainer({ title, text, image, style }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ type: "spring", stiffness: 400, damping: 32 }}
+      className="block-container"
       style={{
         borderRadius: 20,
         background: "#fff",
-        border: "2px solid #e0e0f0",
-        boxShadow: "0 2px 12px rgba(80,80,120,0.06)",
-        padding: 28,
-        minWidth: 260,
+        border: gradient
+          ? `3px solid transparent`
+          : `3px solid ${borderColor}`,
+        backgroundImage: gradient
+          ? `linear-gradient(#fff, #fff), ${gradient}`
+          : undefined,
+        backgroundOrigin: gradient ? "border-box" : undefined,
+        backgroundClip: gradient ? "padding-box, border-box" : undefined,
+        boxShadow: "0 4px 24px 0 rgba(160,120,255,0.08)",
+        padding: 10,
+        minWidth: 300,
         maxWidth: 400,
-        minHeight: 180,
+        minHeight: 220,
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
@@ -27,7 +35,7 @@ export default function BlockContainer({ title, text, image, style }) {
       {image && (
         <img src={image} alt="block visual" style={{ width: "100%", borderRadius: 16, marginBottom: 18, objectFit: "cover" }} />
       )}
-      <div style={{ fontWeight: 700, fontSize: 22, marginBottom: 10, color: "#222" }}>{title}</div>
+      <div style={{ fontWeight: 700, fontSize: 18, marginBottom: 10, color: "#222" }}>{title}</div>
       <div style={{ fontSize: 16, color: "#444" }}>{text}</div>
     </motion.div>
   );

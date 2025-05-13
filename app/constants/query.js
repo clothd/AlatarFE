@@ -6,17 +6,11 @@ export const QUERY_DATA = [
       "Checking consumer feedback...",
       "Comparing results..."
     ],
-    layout: [
-      { x: 0.1, y: 0.1 }, // Block 1 (left)
-      { x: 0.55, y: 0.05 }, // Block 2 (top center)
-      { x: 0.8, y: 0.4 }, // Block 3 (right)
-      { x: 0.4, y: 0.6 } // Block 4 (bottom center)
-    ],
+    layout: ["left", "center", "right", "bottom"],
     blocks: [
       {
         title: "Finibus Bonorum",
-        text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-        image: "https://placehold.co/320x200?text=Block+1"
+        text: "Sed ut. Nemo eniWhat are my biggest consumer painpoints?What are my biggest consumer painpoints?What are my biggest consumer painpoints?What are my biggest consumer painpoints?/n What are my biggest consumer painpoints?What are my biggest consumer painpoints?What are my biggest consumer painpoints?m ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
       },
       {
         title: "Finibus Eros",
@@ -42,11 +36,7 @@ export const QUERY_DATA = [
       "Reviewing product features...",
       "Synthesizing recommendations..."
     ],
-    layout: [
-      { x: 0.15, y: 0.2 }, // Block 1 (left)
-      { x: 0.7, y: 0.1 }, // Block 2 (top right)
-      { x: 0.5, y: 0.55 } // Block 3 (bottom center)
-    ],
+    layout: ["left", "right", "bottom"],
     blocks: [
       {
         title: "Conversion Insights",
@@ -72,10 +62,7 @@ export const QUERY_DATA = [
       "Analyzing market signals...",
       "Summarizing insights..."
     ],
-    layout: [
-      { x: 0.2, y: 0.15 }, // Block 1 (left)
-      { x: 0.7, y: 0.25 } // Block 2 (right)
-    ],
+    layout: ["left", "right"],
     blocks: [
       {
         title: "Trend Overview",

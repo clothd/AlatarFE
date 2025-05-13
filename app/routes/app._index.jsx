@@ -74,7 +74,7 @@ export default function Index() {
   const getCenter = rect => rect ? [rect.left + rect.width / 2, rect.top + rect.height / 2] : [0, 0];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f7f7fa", display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100vh", background: "#f7f7fa", display: "flex", flexDirection: "column", overflowY: "hidden" }}>
       {/* Top Bar */}
       <motion.div 
         initial={{ y: -20, opacity: 0 }}
@@ -118,7 +118,8 @@ export default function Index() {
           alignItems: "center",
           justifyContent: "center",
           pointerEvents: "none",
-          zIndex: 2
+          zIndex: 2,
+          background: "repeating-radial-gradient(circle at 0 0, #eaeaf5 1px, transparent 0 32px)",
         }}>
           <AnimatePresence mode="wait">
             {isLoading && activeQuery && (
@@ -146,26 +147,39 @@ export default function Index() {
                   position: "relative",
                   width: blockAreaWidth,
                   height: blockAreaHeight,
-                  display: "flex",
+                  display: "grid",
+                  gridTemplateColumns: activeQuery.layout.includes("center") ? "1fr 1fr 1fr" : "1fr 1fr",
+                  gridTemplateRows: activeQuery.layout.includes("bottom") ? "1fr 1fr" : "1fr",
+                  gap: 36,
                   alignItems: "center",
-                  justifyContent: "center",
+                  justifyItems: "center",
                   margin: "0 auto"
                 }}
               >
                 {activeQuery.blocks.map((block, i) => {
-                  const pos = activeQuery.layout && activeQuery.layout[i] ? activeQuery.layout[i] : { x: 0.5, y: 0.5 };
+                  const pos = activeQuery.layout && activeQuery.layout[i] ? activeQuery.layout[i] : "center";
+                  let gridColumn, gridRow, gradient;
+                  if (pos === "left") { gridColumn = 1; gridRow = 1; gradient = "linear-gradient(135deg,#b388ff,#8fd3f4)"; }
+                  else if (pos === "center") { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; }
+                  else if (pos === "right") { gridColumn = 3; gridRow = 1; gradient = "linear-gradient(135deg,#8fd3f4,#ff4ecd)"; }
+                  else if (pos === "bottom") { gridColumn = 2; gridRow = 2; gradient = "linear-gradient(135deg,#a3f7bf,#b388ff)"; }
+                  else { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; }
                   return (
                     <div
                       key={block.title + i}
                       ref={el => blocksRefs.current[i] = el}
                       style={{
-                        position: "absolute",
-                        left: pos.x * (blockAreaWidth - blockSize),
-                        top: pos.y * (blockAreaHeight - 220),
-                        zIndex: 2
+                        gridColumn,
+                        gridRow,
+                        zIndex: 2,
+                        width: 340,
+                        minHeight: 220,
+                        display: "flex",
+                        alignItems: "stretch",
+                        justifyContent: "center"
                       }}
                     >
-                      <BlockContainer {...block} />
+                      <BlockContainer {...block} gradient={gradient} />
                     </div>
                   );
                 })}
@@ -187,8 +201,10 @@ export default function Index() {
             >
               {blockPositions.map((blockRect, i) => {
                 if (!blockRect) return null;
-                const [x1, y1] = getCenter(inputPosition);
-                const [x2, y2] = getCenter(blockRect);
+                // Start at input center-top
+                const [x1, y1] = inputPosition ? [inputPosition.left + inputPosition.width / 2, inputPosition.top] : [0, 0];
+                // End at block center-bottom
+                const [x2, y2] = blockRect ? [blockRect.left + blockRect.width / 2, blockRect.top + blockRect.height] : [0, 0];
                 // Convert to SVG local coordinates
                 const sx = x1 - svgDims.left;
                 const sy = y1 - svgDims.top;
@@ -196,7 +212,7 @@ export default function Index() {
                 const ey = y2 - svgDims.top;
                 // Create a curved path
                 const mx = sx + (ex - sx) * 0.5;
-                const my = sy - 80 - 40 * i; // control point for curve
+                const my = sy + (ey - sy) * 0.3 - 60 + 30 * i; // control point for curve
                 const path = `M${sx},${sy} Q${mx},${my} ${ex},${ey}`;
                 return (
                   <motion.path
