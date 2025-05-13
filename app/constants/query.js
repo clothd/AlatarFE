@@ -6,6 +6,12 @@ export const QUERY_DATA = [
       "Checking consumer feedback...",
       "Comparing results..."
     ],
+    layout: [
+      { x: 0.1, y: 0.1 }, // Block 1 (left)
+      { x: 0.55, y: 0.05 }, // Block 2 (top center)
+      { x: 0.8, y: 0.4 }, // Block 3 (right)
+      { x: 0.4, y: 0.6 } // Block 4 (bottom center)
+    ],
     blocks: [
       {
         title: "Finibus Bonorum",
@@ -36,6 +42,11 @@ export const QUERY_DATA = [
       "Reviewing product features...",
       "Synthesizing recommendations..."
     ],
+    layout: [
+      { x: 0.15, y: 0.2 }, // Block 1 (left)
+      { x: 0.7, y: 0.1 }, // Block 2 (top right)
+      { x: 0.5, y: 0.55 } // Block 3 (bottom center)
+    ],
     blocks: [
       {
         title: "Conversion Insights",
@@ -60,6 +71,10 @@ export const QUERY_DATA = [
       "Gathering trend data...",
       "Analyzing market signals...",
       "Summarizing insights..."
+    ],
+    layout: [
+      { x: 0.2, y: 0.15 }, // Block 1 (left)
+      { x: 0.7, y: 0.25 } // Block 2 (right)
     ],
     blocks: [
       {
