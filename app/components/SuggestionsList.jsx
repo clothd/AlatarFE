@@ -1,31 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ITEM_HEIGHT = 56; // px
 const VISIBLE_COUNT = 7; // 3 above, 1 active, 3 below
+const AUTO_SCROLL_SPEED = 0.002; // items per frame
+const PAUSE_DURATION = 7000; // ms
 
 export default function SuggestionsList({ suggestions, activeId, onSelect }) {
   const [internalActive, setInternalActive] = useState(suggestions[0].id);
+  const [virtualIndex, setVirtualIndex] = useState(0); // float for smooth scroll
+  const [isPaused, setIsPaused] = useState(false);
+  const pauseTimeout = useRef(null);
+  const frameRef = useRef();
 
-  // Sync with external activeId
+  // Auto-scroll logic
+  useEffect(() => {
+    if (isPaused) return;
+    function step() {
+      setVirtualIndex((prev) => prev + AUTO_SCROLL_SPEED);
+      frameRef.current = requestAnimationFrame(step);
+    }
+    frameRef.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameRef.current);
+  }, [isPaused]);
+
+  // When virtualIndex passes an integer, update the active item
+  useEffect(() => {
+    const idx = Math.round(virtualIndex) % suggestions.length;
+    const id = suggestions[idx].id;
+    if (id !== internalActive) {
+      setInternalActive(id);
+      if (onSelect) onSelect(id);
+    }
+  }, [virtualIndex, suggestions, internalActive, onSelect]);
+
+  // Sync with external activeId (e.g., user click/input)
   useEffect(() => {
     if (activeId !== internalActive) setInternalActive(activeId);
+    // Also sync virtualIndex to match
+    const idx = suggestions.findIndex(item => item.id === activeId);
+    if (idx !== -1) setVirtualIndex(idx);
   }, [activeId]);
 
-  // Find the index of the active item
-  const activeIdx = suggestions.findIndex(item => item.id === internalActive);
+  // Pause/resume helpers
+  function pauseAutoScroll() {
+    setIsPaused(true);
+    if (pauseTimeout.current) clearTimeout(pauseTimeout.current);
+  }
+  function resumeAutoScroll() {
+    if (pauseTimeout.current) clearTimeout(pauseTimeout.current);
+    pauseTimeout.current = setTimeout(() => setIsPaused(false), PAUSE_DURATION);
+  }
 
   // Get the visible items (3 above, 1 active, 3 below)
+  const idx = Math.round(virtualIndex) % suggestions.length;
   let visible = [];
   for (let i = -3; i <= 3; i++) {
-    let idx = (activeIdx + i + suggestions.length) % suggestions.length;
-    visible.push({ ...suggestions[idx], offset: i });
+    let realIdx = (idx + i + suggestions.length) % suggestions.length;
+    visible.push({ ...suggestions[realIdx], offset: i });
   }
 
   // Animate to center on active
   function handleClick(id) {
+    pauseAutoScroll();
     setInternalActive(id);
     if (onSelect) onSelect(id);
+    const idx = suggestions.findIndex(item => item.id === id);
+    if (idx !== -1) setVirtualIndex(idx);
+    resumeAutoScroll();
   }
 
   return (
@@ -42,6 +84,8 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
         alignItems: "center",
         background: "rgba(255,255,255,0.0)",
       }}
+      onMouseEnter={pauseAutoScroll}
+      onMouseLeave={resumeAutoScroll}
     >
       <div style={{ position: "relative", width: "100%", height: ITEM_HEIGHT * VISIBLE_COUNT }}>
         <AnimatePresence initial={false}>
