@@ -1,102 +1,92 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const SCROLL_SPEED = 1; // px per frame
-const ITEM_HEIGHT = 56; // px (approximate, adjust as needed)
-const PAUSE_DURATION = 2000; // ms to pause on each item
+const ITEM_HEIGHT = 56; // px
+const VISIBLE_COUNT = 7; // 3 above, 1 active, 3 below
 
 export default function SuggestionsList({ suggestions, activeId, onSelect }) {
-  const [scrollTop, setScrollTop] = useState(0);
   const [internalActive, setInternalActive] = useState(suggestions[0].id);
-  const listRef = useRef(null);
-  const pauseRef = useRef(false);
-
-  // Infinite scroll logic
-  useEffect(() => {
-    let frame;
-    let lastSwitch = Date.now();
-    function animate() {
-      if (!pauseRef.current) {
-        setScrollTop((prev) => {
-          const totalHeight = suggestions.length * ITEM_HEIGHT;
-          let next = prev + SCROLL_SPEED;
-          if (next >= totalHeight) next = 0;
-          // Switch active when a new item is centered
-          const idx = Math.round(next / ITEM_HEIGHT) % suggestions.length;
-          const newActive = suggestions[idx].id;
-          if (newActive !== internalActive && Date.now() - lastSwitch > PAUSE_DURATION) {
-            setInternalActive(newActive);
-            lastSwitch = Date.now();
-          }
-          return next;
-        });
-      }
-      frame = requestAnimationFrame(animate);
-    }
-    frame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frame);
-  }, [suggestions, internalActive]);
-
-  // Pause on hover
-  function handleMouseEnter() { pauseRef.current = true; }
-  function handleMouseLeave() { pauseRef.current = false; }
-
-  // When user clicks, set active and pause
-  function handleClick(id) {
-    setInternalActive(id);
-    if (onSelect) onSelect(id);
-    pauseRef.current = true;
-    setTimeout(() => { pauseRef.current = false; }, PAUSE_DURATION);
-  }
 
   // Sync with external activeId
   useEffect(() => {
     if (activeId !== internalActive) setInternalActive(activeId);
   }, [activeId]);
 
-  // Render two copies for infinite effect
-  const items = [...suggestions, ...suggestions];
+  // Find the index of the active item
+  const activeIdx = suggestions.findIndex(item => item.id === internalActive);
+
+  // Get the visible items (3 above, 1 active, 3 below)
+  let visible = [];
+  for (let i = -3; i <= 3; i++) {
+    let idx = (activeIdx + i + suggestions.length) % suggestions.length;
+    visible.push({ ...suggestions[idx], offset: i });
+  }
+
+  // Animate to center on active
+  function handleClick(id) {
+    setInternalActive(id);
+    if (onSelect) onSelect(id);
+  }
 
   return (
     <div
-      style={{ width: 320, height: 280, overflow: "hidden", padding: 24, position: "relative" }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      ref={listRef}
+      style={{
+        width: 320,
+        height: ITEM_HEIGHT * VISIBLE_COUNT,
+        overflow: "hidden",
+        padding: 0,
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "rgba(255,255,255,0.0)",
+      }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: -scrollTop,
-          left: 0,
-          right: 0,
-          transition: "top 0.1s linear"
-        }}
-      >
-        {items.map((item, idx) => {
-          const isActive = item.id === internalActive;
-          return (
-            <div
-              key={idx + "-" + item.id}
-              onClick={() => handleClick(item.id)}
-              style={{
-                background: isActive ? "linear-gradient(90deg, #ff4ecd, #ffb86c)" : "#f3f4f8",
-                color: isActive ? "#fff" : "#888",
-                borderRadius: 24,
-                padding: "12px 24px",
-                fontWeight: 500,
-                cursor: "pointer",
-                boxShadow: isActive ? "0 2px 8px rgba(255,78,205,0.08)" : undefined,
-                transition: "background 0.3s, color 0.3s",
-                marginBottom: 8,
-                height: ITEM_HEIGHT - 8,
-                display: "flex",
-                alignItems: "center"
-              }}
-            >
-              {item.question}
-            </div>
-          );
-        })}
+      <div style={{ position: "relative", width: "100%", height: ITEM_HEIGHT * VISIBLE_COUNT }}>
+        <AnimatePresence initial={false}>
+          {visible.map((item, i) => {
+            const isActive = item.id === internalActive;
+            // Fade and scale for non-active items
+            const opacity = isActive ? 1 : 0.35 - 0.08 * Math.abs(item.offset);
+            const scale = isActive ? 1 : 0.96 - 0.04 * Math.abs(item.offset);
+            const y = (item.offset) * ITEM_HEIGHT;
+            return (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, y: y + 20, scale }}
+                animate={{ opacity, y, scale }}
+                exit={{ opacity: 0, y: y - 20, scale }}
+                transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                onClick={() => handleClick(item.id)}
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  top: "50%",
+                  transform: `translateY(-50%)`,
+                  background: isActive ? "linear-gradient(90deg, #ff4ecd, #ffb86c)" : "#f3f4f8",
+                  color: isActive ? "#fff" : "#888",
+                  borderRadius: 24,
+                  padding: "12px 24px",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  boxShadow: isActive ? "0 2px 8px rgba(255,78,205,0.08)" : undefined,
+                  marginBottom: 8,
+                  height: ITEM_HEIGHT - 8,
+                  display: "flex",
+                  alignItems: "center",
+                  zIndex: isActive ? 2 : 1,
+                  fontSize: isActive ? 18 : 16,
+                  transition: "background 0.3s, color 0.3s, font-size 0.3s"
+                }}
+              >
+                {item.question}
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
     </div>
   );

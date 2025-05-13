@@ -3,7 +3,7 @@
 client_id = "e32b0eafd11b55dff3d8b9ea54587c86"
 name = "Alatar-3"
 handle = "alatar-3"
-application_url = "https://suite-previous-bandwidth-placement.trycloudflare.com"
+application_url = "https://chemistry-organizational-paraguay-sin.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://suite-previous-bandwidth-placement.trycloudflare.com/auth/callback",
-  "https://suite-previous-bandwidth-placement.trycloudflare.com/auth/shopify/callback",
-  "https://suite-previous-bandwidth-placement.trycloudflare.com/api/auth/callback"
+  "https://chemistry-organizational-paraguay-sin.trycloudflare.com/auth/callback",
+  "https://chemistry-organizational-paraguay-sin.trycloudflare.com/auth/shopify/callback",
+  "https://chemistry-organizational-paraguay-sin.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
