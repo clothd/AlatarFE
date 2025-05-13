@@ -1,76 +1,281 @@
-import { useState } from "react";
-import { Page, Card, TextField, Button, BlockStack, Box, Text } from "@shopify/polaris";
+import { useState, useRef, useLayoutEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import SuggestionsList from "../components/SuggestionsList";
+import CenterInput from "../components/CenterInput";
+import DisplayContainer from "../components/DisplayContainer";
+import BlockContainer from "../components/BlockContainer";
+import Loader from "../components/Loader";
+import { QA_LIST } from "../constants/qa";
+import { QUERY_DATA } from "../constants/query";
 
 export default function Index() {
+  const [activeId, setActiveId] = useState(QA_LIST[0].id);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([]); // {from: 'user'|'bot', text: string}
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showBlocks, setShowBlocks] = useState(false);
+  const [activeQuery, setActiveQuery] = useState(null);
+  const inputRef = useRef();
+  const blocksRefs = useRef([]);
+  const [blockPositions, setBlockPositions] = useState([]);
+  const [inputPosition, setInputPosition] = useState(null);
+  const [svgDims, setSvgDims] = useState({ width: 0, height: 0, left: 0, top: 0 });
 
-  async function sendMessage() {
-    if (!input.trim()) return;
-    setMessages((msgs) => [...msgs, { from: "user", text: input }]);
-    setLoading(true);
-    try {
-      const res = await fetch("https://51c1-50-66-72-97.ngrok-free.app/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
-      });
-      const data = await res.json();
-      setMessages((msgs) => [
-        ...msgs,
-        { from: "bot", text: JSON.stringify(data, null, 2) },
-      ]);
-    } catch (err) {
-      setMessages((msgs) => [
-        ...msgs,
-        { from: "bot", text: "Error: " + err.message },
-      ]);
+  function handleSend() {
+    const found = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
+    if (found) {
+      setActiveQuery(found);
+      setIsLoading(true);
+      setShowBlocks(false);
+      setTimeout(() => {
+        setIsLoading(false);
+        setShowBlocks(true);
+      }, 5000);
+    } else {
+      const qaFound = QA_LIST.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
+      if (qaFound) setActiveId(qaFound.id);
     }
     setInput("");
-    setLoading(false);
   }
 
+  // Get input and block positions for SVGs
+  useLayoutEffect(() => {
+    if (showBlocks && inputRef.current) {
+      const inputRect = inputRef.current.getBoundingClientRect();
+      setInputPosition(inputRect);
+      const blockRects = blocksRefs.current.map(ref => ref ? ref.getBoundingClientRect() : null);
+      setBlockPositions(blockRects);
+      // Calculate SVG dimensions to cover from input to all blocks
+      let minX = inputRect.left, minY = inputRect.top, maxX = inputRect.right, maxY = inputRect.bottom;
+      blockRects.forEach(rect => {
+        if (rect) {
+          minX = Math.min(minX, rect.left);
+          minY = Math.min(minY, rect.top);
+          maxX = Math.max(maxX, rect.right);
+          maxY = Math.max(maxY, rect.bottom);
+        }
+      });
+      setSvgDims({
+        width: maxX - minX,
+        height: maxY - minY,
+        left: minX,
+        top: minY
+      });
+    }
+  }, [showBlocks, activeQuery]);
+
+  // Layout for blocks (relative positions)
+  const blockAreaWidth = 1200;
+  const blockAreaHeight = 500;
+  const blockSize = 320;
+
+  const activeQA = QA_LIST.find(q => q.id === activeId);
+
+  // Helper: get center of a rect
+  const getCenter = rect => rect ? [rect.left + rect.width / 2, rect.top + rect.height / 2] : [0, 0];
+
   return (
-    <Page title="Alatar">
-      <Card>
-        <BlockStack gap="200">
-          <Box minHeight="300px" maxHeight="400px" overflowY="auto" background="bgSurfaceHover" padding="200" borderRadius="100">
-            {messages.map((msg, i) => (
-              <Box key={i} padding="100" background={msg.from === "user" ? "bg-interactive" : "bg-surface"} borderRadius="100" marginBlockEnd="100" width="fit-content" maxWidth="80%" alignSelf={msg.from === "user" ? "flex-end" : "flex-start"}>
-                <Text as="p" variant="bodyMd" fontWeight={msg.from === "user" ? "bold" : undefined}>
-                  {msg.from === "user" ? "You" : "Alatar"}
-                </Text>
-                <pre style={{ margin: 0, whiteSpace: "pre-wrap", wordBreak: "break-all" }}>{msg.text}</pre>
-              </Box>
-            ))}
-            {loading && (
-              <Box padding="100" background="bg-surface" borderRadius="100" marginBlockEnd="100" width="fit-content" maxWidth="80%" alignSelf="flex-start">
-                <Text as="p" variant="bodyMd">Alatar</Text>
-                <Text as="p" variant="bodyMd">Thinking...</Text>
-              </Box>
+    <div style={{ minHeight: "100vh", background: "#f7f7fa", display: "flex", flexDirection: "column", overflowY: "hidden" }}>
+      {/* Top Bar */}
+      <motion.div 
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        style={{ 
+          height: 56, 
+          background: "#f7f7fa", 
+          display: "flex", 
+          alignItems: "center", 
+          padding: "0 32px", 
+          borderBottom: "1px solid #eee", 
+          fontWeight: 700, 
+          fontSize: 24, 
+          letterSpacing: 1 
+        }}
+      >
+        <span style={{ color: "#222", fontWeight: 700 }}>Alatar</span>
+        <span style={{ color: "#ff4ecd", fontWeight: 400, fontSize: 16, marginLeft: 12 }}>V1.1</span>
+      </motion.div>
+
+      {/* Main Content */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+          minHeight: 0,
+        }}
+      >
+        {/* Loader and Blocks Area (centered absolutely above input) */}
+        <div style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: "100%",
+          height: "100%",
+          display: (isLoading || showBlocks) ? "flex" : "none",
+          alignItems: "center",
+          justifyContent: "center",
+          pointerEvents: "none",
+          zIndex: 2,
+          background: "repeating-radial-gradient(circle at 0 0, #eaeaf5 1px, transparent 0 32px)",
+        }}>
+          <AnimatePresence mode="wait">
+            {isLoading && activeQuery && (
+              <motion.div
+                key="loader"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", width: "100%", pointerEvents: "auto" }}
+              >
+                <Loader textArray={activeQuery.loaderText} duration={5000} />
+              </motion.div>
             )}
-          </Box>
-          <TextField
-            label="Your message"
-            labelHidden
-            value={input}
-            onChange={setInput}
-            placeholder="Type your message to Alatar..."
-            autoComplete="off"
-            disabled={loading}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey && input.trim() && !loading) {
-                event.preventDefault();
-                sendMessage();
-              }
-            }}
-          />
-          <Button onClick={sendMessage} fullWidth variant="primary" disabled={!input.trim() || loading}>
-            Send
-          </Button>
-        </BlockStack>
-      </Card>
-    </Page>
+          </AnimatePresence>
+          <AnimatePresence mode="wait">
+            {showBlocks && activeQuery && (
+              <motion.div
+                key="blocks"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 40 }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  position: "relative",
+                  width: blockAreaWidth,
+                  height: blockAreaHeight,
+                  display: "grid",
+                  gridTemplateColumns: "1.2fr 1fr 1fr",
+                  gridTemplateRows: activeQuery.layout.includes("bottom") ? "1fr 0.7fr" : "1fr",
+                  gap: 48,
+                  alignItems: "center",
+                  justifyItems: "center",
+                  margin: "0 auto"
+                }}
+              >
+                {activeQuery.blocks.map((block, i) => {
+                  const pos = activeQuery.layout && activeQuery.layout[i] ? activeQuery.layout[i] : "center";
+                  let gridColumn, gridRow, gradient, size;
+                  if (pos === "left") { gridColumn = 1; gridRow = 1; gradient = "linear-gradient(135deg,#b388ff,#8fd3f4)"; size = "large"; }
+                  else if (pos === "center") { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; size = "medium"; }
+                  else if (pos === "right") { gridColumn = 3; gridRow = 1; gradient = "linear-gradient(135deg,#8fd3f4,#ff4ecd)"; size = "medium"; }
+                  else if (pos === "bottom") { gridColumn = 2; gridRow = 2; gradient = "linear-gradient(135deg,#a3f7bf,#b388ff)"; size = "small"; }
+                  else { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; size = "medium"; }
+                  return (
+                    <div
+                      key={block.title + i}
+                      ref={el => blocksRefs.current[i] = el}
+                      style={{
+                        gridColumn,
+                        gridRow,
+                        zIndex: 2,
+                        width: size === "large" ? 400 : size === "small" ? 300 : 340,
+                        minHeight: size === "large" ? 340 : size === "small" ? 120 : 220,
+                        display: "flex",
+                        alignItems: "stretch",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <BlockContainer {...block} gradient={gradient} size={size} />
+                    </div>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {/* SVGs for connections */}
+          {showBlocks && inputPosition && blockPositions.length > 0 && (
+            <svg
+              width={svgDims.width}
+              height={svgDims.height}
+              style={{
+                position: "absolute",
+                left: svgDims.left,
+                top: svgDims.top,
+                pointerEvents: "none",
+                zIndex: 1
+              }}
+            >
+              {blockPositions.map((blockRect, i) => {
+                if (!blockRect) return null;
+                // Start at input center-top
+                const [x1, y1] = inputPosition ? [inputPosition.left + inputPosition.width / 2, inputPosition.top] : [0, 0];
+                // End at block center-bottom
+                const [x2, y2] = blockRect ? [blockRect.left + blockRect.width / 2, blockRect.top + blockRect.height] : [0, 0];
+                // Convert to SVG local coordinates
+                const sx = x1 - svgDims.left;
+                const sy = y1 - svgDims.top;
+                const ex = x2 - svgDims.left;
+                const ey = y2 - svgDims.top;
+                // Create a curved path
+                const mx = sx + (ex - sx) * 0.5;
+                const my = sy + (ey - sy) * 0.3 + 40 * i; // control point for curve
+                const path = `M${sx},${sy} Q${mx},${my} ${ex},${ey}`;
+                return (
+                  <motion.path
+                    key={i}
+                    d={path}
+                    stroke="url(#arrow-gradient)"
+                    strokeWidth={4}
+                    fill="none"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 1.2, delay: 0.2 + i * 0.15, ease: "easeInOut" }}
+                    style={{ filter: "drop-shadow(0 2px 8px #a259ff33)" }}
+                  />
+                );
+              })}
+              <defs>
+                <linearGradient id="arrow-gradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#a259ff" />
+                  <stop offset="100%" stopColor="#ff4ecd" />
+                </linearGradient>
+              </defs>
+            </svg>
+          )}
+        </div>
+        {/* Suggestions and Display Container (hide during loading/blocks) */}
+        <AnimatePresence>
+          {!isLoading && !showBlocks && (
+            <motion.div
+              key="suggestions"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.5 }}
+              style={{ 
+                display: "flex", 
+                gap: "48px",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                maxWidth: "1200px"
+              }}
+            >
+              <SuggestionsList
+                suggestions={QA_LIST}
+                activeId={activeId}
+                onSelect={setActiveId}
+              />
+              <DisplayContainer qa={activeQA} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {/* Center Input (always visible at bottom) */}
+        <div style={{ width: "100%", display: "flex", justifyContent: "center", position: "fixed", left: 0, bottom: 32, zIndex: 10 }}>
+          <div ref={inputRef} style={{ width: 480 }}>
+            <CenterInput
+              value={input}
+              onChange={setInput}
+              onSend={handleSend}
+              disabled={false}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
