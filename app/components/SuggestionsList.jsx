@@ -67,7 +67,7 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
                   top: "50%",
                   transform: `translateY(-50%)`,
                   background: isActive ? "linear-gradient(90deg, #ff4ecd, #ffb86c)" : "#f3f4f8",
-                  color: isActive ? "#fff" : "#888",
+                  color: isActive ? "#fff" : "#000",
                   borderRadius: 24,
                   padding: "12px 24px",
                   fontWeight: 500,
