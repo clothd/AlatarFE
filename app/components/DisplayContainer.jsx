@@ -58,7 +58,6 @@ export default function DisplayContainer({ qa }) {
           transition={{ ...spring, delay: 0.1 }}
           style={{ fontSize: 18, fontWeight: 600, marginBottom: 16, color: "#ff4ecd" }}
         >
-          Alatar's Response
         </motion.div>
         <AnimatePresence mode="wait">
           <motion.div 

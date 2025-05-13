@@ -14,22 +14,24 @@ export default function Loader({ textArray = [], duration = 5000 }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 400, damping: 32 }}
+      exit={{ opacity: 0, scale: 0.85 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: 80,
-        minWidth: 320,
-        padding: 32,
-        borderRadius: 24,
-        background: "#f7f7fa",
-        boxShadow: "0 2px 12px rgba(80,80,120,0.06)",
-        border: "2px solid #e0e0f0"
+        minHeight: 64,
+        minWidth: 340,
+        maxWidth: 420,
+        padding: "24px 36px 18px 36px",
+        borderRadius: 32,
+        background: "linear-gradient(90deg, #a259ff 60%, #ff4ecd 100%)",
+        boxShadow: "0 4px 24px 0 rgba(160,120,255,0.12)",
+        border: "none",
+        position: "relative"
       }}
     >
       <AnimatePresence mode="wait">
@@ -40,12 +42,13 @@ export default function Loader({ textArray = [], duration = 5000 }) {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.4 }}
           style={{
-            color: "#a259ff",
-            fontWeight: 600,
+            color: "#fff",
+            fontWeight: 700,
             fontSize: 20,
             marginBottom: 18,
             minHeight: 28,
-            textAlign: "center"
+            textAlign: "center",
+            letterSpacing: 0.2
           }}
         >
           {textArray[step]}
@@ -58,10 +61,25 @@ export default function Loader({ textArray = [], duration = 5000 }) {
         style={{
           height: 6,
           borderRadius: 3,
-          background: "linear-gradient(90deg, #a259ff, #ff4ecd)",
-          marginTop: 8
+          background: "rgba(255,255,255,0.5)",
+          marginTop: 8,
+          position: "absolute",
+          left: 0,
+          bottom: 0,
+          width: "100%"
         }}
-      />
+      >
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: "100%" }}
+          transition={{ duration: duration / 1000, ease: "linear" }}
+          style={{
+            height: 6,
+            borderRadius: 3,
+            background: "linear-gradient(90deg, #fff 0%, #ffb6ff 100%)"
+          }}
+        />
+      </motion.div>
     </motion.div>
   );
 } 

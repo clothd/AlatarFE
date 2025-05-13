@@ -148,9 +148,9 @@ export default function Index() {
                   width: blockAreaWidth,
                   height: blockAreaHeight,
                   display: "grid",
-                  gridTemplateColumns: activeQuery.layout.includes("center") ? "1fr 1fr 1fr" : "1fr 1fr",
-                  gridTemplateRows: activeQuery.layout.includes("bottom") ? "1fr 1fr" : "1fr",
-                  gap: 36,
+                  gridTemplateColumns: "1.2fr 1fr 1fr",
+                  gridTemplateRows: activeQuery.layout.includes("bottom") ? "1fr 0.7fr" : "1fr",
+                  gap: 48,
                   alignItems: "center",
                   justifyItems: "center",
                   margin: "0 auto"
@@ -158,12 +158,12 @@ export default function Index() {
               >
                 {activeQuery.blocks.map((block, i) => {
                   const pos = activeQuery.layout && activeQuery.layout[i] ? activeQuery.layout[i] : "center";
-                  let gridColumn, gridRow, gradient;
-                  if (pos === "left") { gridColumn = 1; gridRow = 1; gradient = "linear-gradient(135deg,#b388ff,#8fd3f4)"; }
-                  else if (pos === "center") { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; }
-                  else if (pos === "right") { gridColumn = 3; gridRow = 1; gradient = "linear-gradient(135deg,#8fd3f4,#ff4ecd)"; }
-                  else if (pos === "bottom") { gridColumn = 2; gridRow = 2; gradient = "linear-gradient(135deg,#a3f7bf,#b388ff)"; }
-                  else { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; }
+                  let gridColumn, gridRow, gradient, size;
+                  if (pos === "left") { gridColumn = 1; gridRow = 1; gradient = "linear-gradient(135deg,#b388ff,#8fd3f4)"; size = "large"; }
+                  else if (pos === "center") { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; size = "medium"; }
+                  else if (pos === "right") { gridColumn = 3; gridRow = 1; gradient = "linear-gradient(135deg,#8fd3f4,#ff4ecd)"; size = "medium"; }
+                  else if (pos === "bottom") { gridColumn = 2; gridRow = 2; gradient = "linear-gradient(135deg,#a3f7bf,#b388ff)"; size = "small"; }
+                  else { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; size = "medium"; }
                   return (
                     <div
                       key={block.title + i}
@@ -172,14 +172,14 @@ export default function Index() {
                         gridColumn,
                         gridRow,
                         zIndex: 2,
-                        width: 340,
-                        minHeight: 220,
+                        width: size === "large" ? 400 : size === "small" ? 300 : 340,
+                        minHeight: size === "large" ? 340 : size === "small" ? 120 : 220,
                         display: "flex",
                         alignItems: "stretch",
                         justifyContent: "center"
                       }}
                     >
-                      <BlockContainer {...block} gradient={gradient} />
+                      <BlockContainer {...block} gradient={gradient} size={size} />
                     </div>
                   );
                 })}
@@ -212,7 +212,7 @@ export default function Index() {
                 const ey = y2 - svgDims.top;
                 // Create a curved path
                 const mx = sx + (ex - sx) * 0.5;
-                const my = sy + (ey - sy) * 0.3 - 60 + 30 * i; // control point for curve
+                const my = sy + (ey - sy) * 0.3 + 40 * i; // control point for curve
                 const path = `M${sx},${sy} Q${mx},${my} ${ex},${ey}`;
                 return (
                   <motion.path

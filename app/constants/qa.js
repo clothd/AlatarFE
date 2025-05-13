@@ -7,7 +7,7 @@ export const QA_LIST = [
     {
       id: 2,
       question: "Show me a sales graph for last month.",
-      answer: "Here is your sales graph for last month:",
+      answer: "Here is your sales graph for last monthHere is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month::",
       graph: "<GraphPlaceholder />"
     },
     {
