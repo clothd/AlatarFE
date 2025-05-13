@@ -96,10 +96,30 @@ export default function Index() {
       </motion.div>
 
       {/* Main Content */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", position: "relative" }}>
-        {/* Loader and Blocks Area */}
-        <div style={{ width: blockAreaWidth, height: blockAreaHeight, position: "relative", marginBottom: 120 }}>
-          {/* Loader above input */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+          minHeight: 0,
+        }}
+      >
+        {/* Loader and Blocks Area (centered absolutely above input) */}
+        <div style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: "100%",
+          height: "100%",
+          display: (isLoading || showBlocks) ? "flex" : "none",
+          alignItems: "center",
+          justifyContent: "center",
+          pointerEvents: "none",
+          zIndex: 2
+        }}>
           <AnimatePresence mode="wait">
             {isLoading && activeQuery && (
               <motion.div
@@ -108,13 +128,12 @@ export default function Index() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4 }}
-                style={{ position: "absolute", left: 0, right: 0, bottom: 80, display: "flex", justifyContent: "center", zIndex: 2 }}
+                style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", width: "100%", pointerEvents: "auto" }}
               >
                 <Loader textArray={activeQuery.loaderText} duration={5000} />
               </motion.div>
             )}
           </AnimatePresence>
-          {/* Blocks in unique layout */}
           <AnimatePresence mode="wait">
             {showBlocks && activeQuery && (
               <motion.div
@@ -123,7 +142,15 @@ export default function Index() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 40 }}
                 transition={{ duration: 0.5 }}
-                style={{ position: "absolute", left: 0, top: 0, width: blockAreaWidth, height: blockAreaHeight }}
+                style={{
+                  position: "relative",
+                  width: blockAreaWidth,
+                  height: blockAreaHeight,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto"
+                }}
               >
                 {activeQuery.blocks.map((block, i) => {
                   const pos = activeQuery.layout && activeQuery.layout[i] ? activeQuery.layout[i] : { x: 0.5, y: 0.5 };
