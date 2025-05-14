@@ -92,7 +92,7 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
           {visible.map((item, i) => {
             const isActive = item.id === internalActive;
             // Fade and scale for non-active items
-            const opacity = isActive ? 1 : 0.35 - 0.08 * Math.abs(item.offset);
+            const opacity = isActive ? 1 : 0.55 - 0.08 * Math.abs(item.offset);
             const scale = isActive ? 1 : 0.96 - 0.04 * Math.abs(item.offset);
             const y = (item.offset) * ITEM_HEIGHT;
             return (
@@ -110,8 +110,8 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
                   right: 0,
                   top: "50%",
                   transform: `translateY(-50%)`,
-                  background: isActive ? "linear-gradient(90deg, #ff4ecd, #ffb86c)" : "#f3f4f8",
-                  color: isActive ? "#fff" : "#000",
+                  background: isActive ? "linear-gradient(90deg, #ff4ecd, #ffb86c)" : "#fff",
+                  color: isActive ? "#fff" : "#555",
                   borderRadius: 24,
                   padding: "12px 24px",
                   fontWeight: 500,

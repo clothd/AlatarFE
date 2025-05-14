@@ -246,21 +246,46 @@ export default function Index() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.5 }}
-              style={{ 
-                display: "flex", 
-                gap: "48px",
-                alignItems: "center",
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
                 justifyContent: "center",
                 width: "100%",
-                maxWidth: "1200px"
+                maxWidth: "1400px",
+                gap: "40px",
               }}
             >
-              <SuggestionsList
-                suggestions={QA_LIST}
-                activeId={activeId}
-                onSelect={setActiveId}
-              />
-              <DisplayContainer qa={activeQA} />
+              <div style={{
+                width: 340,
+                minWidth: 260,
+                maxWidth: 360,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "stretch",
+                height: 520,
+                overflowY: "auto",
+              }}>
+                <SuggestionsList
+                  suggestions={QA_LIST}
+                  activeId={activeId}
+                  onSelect={setActiveId}
+                />
+              </div>
+              <div style={{
+                flex: 1,
+                minWidth: 420,
+                maxWidth: 700,
+                height: 520,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: 0,
+                position: "relative",
+                marginTop: "-62px",
+              }}>
+                <DisplayContainer qa={activeQA} />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
