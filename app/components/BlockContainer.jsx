@@ -59,6 +59,7 @@ export default function BlockContainer({
         exit={{ opacity: 0, scale: 0.92 }}
         transition={{ type: "spring", stiffness: 400, damping: 32 }}
         style={{
+          position: "relative",
           minWidth: 420,
           maxWidth: 600,
           minHeight: 340,
