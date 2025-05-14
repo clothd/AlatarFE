@@ -12,74 +12,72 @@ export default function Loader({ textArray = [], duration = 5000 }) {
     return () => clearInterval(interval);
   }, [textArray, duration]);
 
+  // Inline keyframes for animated gradient
+  const gradientKeyframes = `
+    @keyframes gradientMoveLoader {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  `;
+
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.85 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.85 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: 64,
-        minWidth: 340,
-        maxWidth: 420,
-        padding: "24px 36px 18px 36px",
-        borderRadius: 32,
-        background: "linear-gradient(90deg, #a259ff 60%, #ff4ecd 100%)",
-        boxShadow: "0 4px 24px 0 rgba(160,120,255,0.12)",
-        border: "none",
-        position: "relative"
-      }}
-    >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={textArray[step]}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.4 }}
-          style={{
-            color: "#fff",
-            fontWeight: 700,
-            fontSize: 20,
-            marginBottom: 18,
-            minHeight: 28,
-            textAlign: "center",
-            letterSpacing: 0.2
-          }}
-        >
-          {textArray[step]}
-        </motion.div>
-      </AnimatePresence>
+    <>
+      <style>{gradientKeyframes}</style>
       <motion.div
-        initial={{ width: 0 }}
-        animate={{ width: "100%" }}
-        transition={{ duration: duration / 1000, ease: "linear" }}
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.85 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
         style={{
-          height: 6,
-          borderRadius: 3,
-          background: "rgba(255,255,255,0.5)",
-          marginTop: 8,
-          position: "absolute",
-          left: 0,
-          bottom: 0,
-          width: "100%"
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: 48,
+          minWidth: 340,
+          maxWidth: 480,
+          padding: "12px 36px",
+          borderRadius: 32,
+          boxShadow: "0 4px 24px 0 rgba(160,120,255,0.12)",
+          border: "none",
+          position: "relative",
+          overflow: "hidden",
+          background: "linear-gradient(90deg, #6ee7ff, #a259ff, #ff4ecd, #6ee7ff)",
+          backgroundSize: "300% 300%",
+          animation: "gradientMoveLoader 12s linear infinite"
         }}
+        className="animated-gradient-loader"
       >
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: "100%" }}
-          transition={{ duration: duration / 1000, ease: "linear" }}
-          style={{
-            height: 6,
-            borderRadius: 3,
-            background: "linear-gradient(90deg, #fff 0%, #ffb6ff 100%)"
-          }}
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={textArray[step]}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4 }}
+            style={{
+              color: "#fff",
+              fontWeight: 700,
+              fontSize: 20,
+              minHeight: 28,
+              textAlign: "center",
+              letterSpacing: 0.2,
+              zIndex: 2,
+            }}
+          >
+            {textArray[step]}
+          </motion.div>
+        </AnimatePresence>
+        {/* Animated gradient background overlay */}
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          borderRadius: 32,
+          pointerEvents: "none",
+        }} className="animated-gradient-bg" />
       </motion.div>
-    </motion.div>
+    </>
   );
-} 
+}
