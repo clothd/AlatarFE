@@ -214,11 +214,24 @@ export default function Index() {
                       pointerEvents: "none"
                     }}
                   >
+                    {/* Blurred background overlay */}
+                    <div
+                      onClick={() => setExpandedBlock(null)}
+                      style={{
+                        position: "fixed",
+                        inset: 0,
+                        zIndex: 1100,
+                        background: "rgba(247,247,250,0.7)",
+                        backdropFilter: "blur(8px)",
+                        WebkitBackdropFilter: "blur(8px)",
+                        pointerEvents: "auto"
+                      }}
+                    />
                     <BlockContainer
                       {...activeQuery.blocks[expandedBlock]}
                       expanded={true}
                       onClose={() => setExpandedBlock(null)}
-                      style={{ pointerEvents: "auto" }}
+                      style={{ pointerEvents: "auto", zIndex: 1110 }}
                     />
                   </div>
                 )}
