@@ -35,7 +35,7 @@ export default function Loader({ textArray = [], duration = 5000 }) {
           alignItems: "center",
           justifyContent: "center",
           minHeight: 48,
-          minWidth: 340,
+          minWidth: 240,
           maxWidth: 480,
           padding: "12px 36px",
           borderRadius: 32,
@@ -45,7 +45,8 @@ export default function Loader({ textArray = [], duration = 5000 }) {
           overflow: "hidden",
           background: "linear-gradient(90deg, #6ee7ff, #a259ff, #ff4ecd, #6ee7ff)",
           backgroundSize: "300% 300%",
-          animation: "gradientMoveLoader 12s linear infinite"
+          animation: "gradientMoveLoader 12s linear infinite",
+          transition: "min-width 0.4s cubic-bezier(.4,0,.2,1), max-width 0.4s cubic-bezier(.4,0,.2,1), min-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.4s cubic-bezier(.4,0,.2,1)"
         }}
         className="animated-gradient-loader"
       >
@@ -58,8 +59,8 @@ export default function Loader({ textArray = [], duration = 5000 }) {
             transition={{ duration: 0.4 }}
             style={{
               color: "#fff",
-              fontWeight: 700,
-              fontSize: 20,
+              // fontWeight: 700,
+              fontSize: 16,
               minHeight: 28,
               textAlign: "center",
               letterSpacing: 0.2,
