@@ -22,6 +22,7 @@ export default function Index() {
   const [showLoaderDelayed, setShowLoaderDelayed] = useState(false);
   const [showBlocksDelayed, setShowBlocksDelayed] = useState(false);
   const [expandedBlock, setExpandedBlock] = useState(null);
+  const [chatHistory, setChatHistory] = useState([]);
 
   // Add this useEffect to monitor expandedBlock changes
   useEffect(() => {
@@ -41,6 +42,13 @@ export default function Index() {
     } else {
       const qaFound = QA_LIST.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
       if (qaFound) setActiveId(qaFound.id);
+    }
+    // Add to chat history
+    if (input.trim()) {
+      setChatHistory(prev => [
+        ...prev,
+        { question: input.trim(), answer: "This is a dummy answer.What are my biggest consumer painpoints?What are my biggest consumer painpoints?" }
+      ]);
     }
     setInput("");
   }
@@ -349,6 +357,7 @@ export default function Index() {
               onChange={setInput}
               onSend={handleSend}
               disabled={false}
+              chatHistory={chatHistory}
             />
           </div>
         </div>
