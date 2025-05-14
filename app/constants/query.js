@@ -10,7 +10,7 @@ export const QUERY_DATA = [
       { x: 0, y: 0 },         // Pain Points Analysis (large, left)
       { x: 420, y: 0 },       // Customer Feedback (medium, right)
       { x: 800, y: 0 },       // Support Analysis (small, bottom-right)
-      { x: 840, y: 300 }      // Solutions Overview (wide, center)
+      { x: 800, y: 260 }      // Solutions Overview (wide, center)
     ],
     blocks: [
       {
