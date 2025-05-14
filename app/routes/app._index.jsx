@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SuggestionsList from "../components/SuggestionsList";
 import CenterInput from "../components/CenterInput";
@@ -19,6 +19,8 @@ export default function Index() {
   const [blockPositions, setBlockPositions] = useState([]);
   const [inputPosition, setInputPosition] = useState(null);
   const [svgDims, setSvgDims] = useState({ width: 0, height: 0, left: 0, top: 0 });
+  const [showLoaderDelayed, setShowLoaderDelayed] = useState(false);
+  const [showBlocksDelayed, setShowBlocksDelayed] = useState(false);
 
   function handleSend() {
     const found = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
@@ -63,6 +65,28 @@ export default function Index() {
     }
   }, [showBlocks, activeQuery]);
 
+  // Delay loader appearance
+  useEffect(() => {
+    let loaderTimeout;
+    if (isLoading) {
+      loaderTimeout = setTimeout(() => setShowLoaderDelayed(true), 1000);
+    } else {
+      setShowLoaderDelayed(false);
+    }
+    return () => clearTimeout(loaderTimeout);
+  }, [isLoading]);
+
+  // Delay blocks appearance
+  useEffect(() => {
+    let blocksTimeout;
+    if (showBlocks) {
+      blocksTimeout = setTimeout(() => setShowBlocksDelayed(true), 1000);
+    } else {
+      setShowBlocksDelayed(false);
+    }
+    return () => clearTimeout(blocksTimeout);
+  }, [showBlocks]);
+
   // Layout for blocks (relative positions)
   const blockAreaWidth = 1200;
   const blockAreaHeight = 500;
@@ -79,6 +103,7 @@ export default function Index() {
       <motion.div 
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
         style={{ 
           height: 56, 
           background: "#f7f7fa", 
@@ -122,13 +147,13 @@ export default function Index() {
           background: "repeating-radial-gradient(circle at 0 0, #eaeaf5 1px, transparent 0 32px)",
         }}>
           <AnimatePresence mode="wait">
-            {isLoading && activeQuery && (
+            {isLoading && activeQuery && showLoaderDelayed && (
               <motion.div
                 key="loader"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
+                exit={{ opacity: 0, y: -40 }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
                 style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", width: "100%", pointerEvents: "auto" }}
               >
                 <Loader textArray={activeQuery.loaderText} duration={5000} />
@@ -136,13 +161,13 @@ export default function Index() {
             )}
           </AnimatePresence>
           <AnimatePresence mode="wait">
-            {showBlocks && activeQuery && (
+            {showBlocks && activeQuery && showBlocksDelayed && (
               <motion.div
                 key="blocks"
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 60 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 40 }}
-                transition={{ duration: 0.5 }}
+                exit={{ opacity: 0, y: 60 }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
                 style={{
                   position: "relative",
                   width: blockAreaWidth,
@@ -187,7 +212,7 @@ export default function Index() {
             )}
           </AnimatePresence>
           {/* SVGs for connections */}
-          {showBlocks && inputPosition && blockPositions.length > 0 && (
+          {showBlocks && inputPosition && blockPositions.length > 0 && showBlocksDelayed && (
             <svg
               width={svgDims.width}
               height={svgDims.height}
@@ -245,15 +270,15 @@ export default function Index() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              transition={{ duration: 0.5 }}
-              style={{
-                display: "flex",
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              style={{ 
+                display: "flex", 
                 flexDirection: "row",
                 alignItems: "flex-start",
                 justifyContent: "center",
                 width: "100%",
                 maxWidth: "1400px",
-                gap: "40px",
+                gap: "40px"
               }}
             >
               <div style={{
