@@ -28,6 +28,17 @@ export const QUERY_DATA = [
           "Unclear product descriptions leading to wrong purchases"
         ],
         link: "https://example.com/pain-points-analysis",
+        expandedContent: {
+          text: "In-depth analysis reveals that slow shipping is most acute in rural areas. Customers also cited lack of real-time tracking as a frustration. Return process complaints often mention confusing instructions and slow refunds. Product availability issues are most common during seasonal sales.",
+          images: [
+            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=250&fit=crop",
+            "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=250&fit=crop"
+          ],
+          references: [
+            { label: "Shipping Report 2024", url: "https://example.com/shipping-report" },
+            { label: "Returns Whitepaper", url: "https://example.com/returns-whitepaper" }
+          ]
+        },
         size: "large"
       },
       {
@@ -78,6 +89,17 @@ export const QUERY_DATA = [
           "Personalize product recommendations"
         ],
         link: "https://example.com/conversion-optimization",
+        expandedContent: {
+          text: "A/B testing shows that adding video demos to product pages increases engagement by 22%. Checkout improvements such as guest checkout and auto-fill reduce abandonment. Social proof is most effective when reviews are recent and include photos.",
+          images: [
+            "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=250&fit=crop",
+            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=250&fit=crop"
+          ],
+          references: [
+            { label: "Conversion Study 2024", url: "https://example.com/conversion-study" },
+            { label: "A/B Testing Guide", url: "https://example.com/ab-testing-guide" }
+          ]
+        },
         size: "large"
       },
       {

@@ -21,6 +21,12 @@ export default function Index() {
   const [svgDims, setSvgDims] = useState({ width: 0, height: 0, left: 0, top: 0 });
   const [showLoaderDelayed, setShowLoaderDelayed] = useState(false);
   const [showBlocksDelayed, setShowBlocksDelayed] = useState(false);
+  const [expandedBlock, setExpandedBlock] = useState(null);
+
+  // Add this useEffect to monitor expandedBlock changes
+  useEffect(() => {
+    console.log('expandedBlock state changed to:', expandedBlock);
+  }, [expandedBlock]);
 
   function handleSend() {
     const found = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
@@ -119,7 +125,7 @@ export default function Index() {
           display: (isLoading || showBlocks) ? "flex" : "none",
           alignItems: "center",
           justifyContent: "center",
-          pointerEvents: "none",
+          pointerEvents: "auto",
           zIndex: 2,
           background: "repeating-radial-gradient(circle at 0 0, #eaeaf5 1px, transparent 0 32px)",
         }}>
@@ -160,6 +166,8 @@ export default function Index() {
                     ? "linear-gradient(135deg,#a3f7bf,#b388ff)"
                     : "linear-gradient(135deg,#ffb86c,#ff4ecd)");
                   const size = block.size || "medium";
+                  // If expanded, render modal above all
+                  if (expandedBlock === i) return null;
                   return (
                     <div
                       key={block.title + i}
@@ -176,10 +184,44 @@ export default function Index() {
                         justifyContent: "center"
                       }}
                     >
-                      <BlockContainer {...block} gradient={gradient} size={size} />
+                      <BlockContainer
+                        {...block}
+                        gradient={gradient}
+                        size={size}
+                        expanded={false}
+                        onExpand={() => {
+                          console.log('onExpand called for block index:', i);
+                          console.log('Block title:', block.title);
+                          console.log('Current expandedBlock:', expandedBlock);
+                          setExpandedBlock(i);
+                          console.log('Set expandedBlock to:', i);
+                        }}
+                      />
                     </div>
                   );
                 })}
+                {/* Expanded block modal (rendered above all) */}
+                {expandedBlock !== null && activeQuery.blocks[expandedBlock] && (
+                  <div
+                    style={{
+                      position: "fixed",
+                      inset: 0,
+                      zIndex: 1100,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      paddingBottom: 96, // leave space for input bar (adjust as needed)
+                      pointerEvents: "none"
+                    }}
+                  >
+                    <BlockContainer
+                      {...activeQuery.blocks[expandedBlock]}
+                      expanded={true}
+                      onClose={() => setExpandedBlock(null)}
+                      style={{ pointerEvents: "auto" }}
+                    />
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
