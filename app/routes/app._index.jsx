@@ -131,7 +131,7 @@ export default function Index() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -40 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
-                style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", width: "100%", pointerEvents: "auto", marginTop: "320px" }}
+                style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", width: "100%", pointerEvents: "auto", marginTop: "380px" }}
               >
                 <Loader textArray={activeQuery.loaderText} duration={5000} />
               </motion.div>
