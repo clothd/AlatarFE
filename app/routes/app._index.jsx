@@ -94,31 +94,8 @@ export default function Index() {
 
   const activeQA = QA_LIST.find(q => q.id === activeId);
 
-  // Helper: get center of a rect
-  const getCenter = rect => rect ? [rect.left + rect.width / 2, rect.top + rect.height / 2] : [0, 0];
-
   return (
     <div style={{ minHeight: "100vh", background: "#f7f7fa", display: "flex", flexDirection: "column", overflowY: "hidden" }}>
-      {/* Top Bar */}
-      <motion.div 
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-        style={{ 
-          height: 56, 
-          background: "#f7f7fa", 
-          display: "flex", 
-          alignItems: "center", 
-          padding: "0 32px", 
-          borderBottom: "1px solid #eee", 
-          fontWeight: 700, 
-          fontSize: 24, 
-          letterSpacing: 1 
-        }}
-      >
-        <span style={{ color: "#222", fontWeight: 700 }}>Alatar</span>
-        <span style={{ color: "#ff4ecd", fontWeight: 400, fontSize: 16, marginLeft: 12 }}>V1.1</span>
-      </motion.div>
 
       {/* Main Content */}
       <div
@@ -129,7 +106,7 @@ export default function Index() {
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
-          minHeight: 0,
+          minHeight: "100vh",
         }}
       >
         {/* Loader and Blocks Area (centered absolutely above input) */}
@@ -172,33 +149,28 @@ export default function Index() {
                   position: "relative",
                   width: blockAreaWidth,
                   height: blockAreaHeight,
-                  display: "grid",
-                  gridTemplateColumns: "1.2fr 1fr 1fr",
-                  gridTemplateRows: activeQuery.layout.includes("bottom") ? "1fr 0.7fr" : "1fr",
-                  gap: 48,
-                  alignItems: "center",
-                  justifyItems: "center",
-                  margin: "0 auto"
+                  margin: "0 0"
                 }}
               >
                 {activeQuery.blocks.map((block, i) => {
-                  const pos = activeQuery.layout && activeQuery.layout[i] ? activeQuery.layout[i] : "center";
-                  let gridColumn, gridRow, gradient, size;
-                  if (pos === "left") { gridColumn = 1; gridRow = 1; gradient = "linear-gradient(135deg,#b388ff,#8fd3f4)"; size = "large"; }
-                  else if (pos === "center") { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; size = "medium"; }
-                  else if (pos === "right") { gridColumn = 3; gridRow = 1; gradient = "linear-gradient(135deg,#8fd3f4,#ff4ecd)"; size = "medium"; }
-                  else if (pos === "bottom") { gridColumn = 2; gridRow = 2; gradient = "linear-gradient(135deg,#a3f7bf,#b388ff)"; size = "small"; }
-                  else { gridColumn = 2; gridRow = 1; gradient = "linear-gradient(135deg,#ffb86c,#ff4ecd)"; size = "medium"; }
+                  const pos = activeQuery.layout && activeQuery.layout[i] ? activeQuery.layout[i] : { x: 0, y: 0 };
+                  const gradient = block.gradient || (block.size === "large"
+                    ? "linear-gradient(135deg,#b388ff,#8fd3f4)"
+                    : block.size === "small"
+                    ? "linear-gradient(135deg,#a3f7bf,#b388ff)"
+                    : "linear-gradient(135deg,#ffb86c,#ff4ecd)");
+                  const size = block.size || "medium";
                   return (
                     <div
                       key={block.title + i}
                       ref={el => blocksRefs.current[i] = el}
                       style={{
-                        gridColumn,
-                        gridRow,
+                        position: "absolute",
+                        left: pos.x,
+                        top: pos.y,
                         zIndex: 2,
-                        width: size === "large" ? 400 : size === "small" ? 300 : 340,
-                        minHeight: size === "large" ? 340 : size === "small" ? 120 : 220,
+                        width: size === "large" ? 400 : size === "small" ? 300 : size === "wide" ? 420 : 340,
+                        minHeight: size === "large" ? 340 : size === "small" ? 120 : size === "wide" ? 120 : 220,
                         display: "flex",
                         alignItems: "stretch",
                         justifyContent: "center"

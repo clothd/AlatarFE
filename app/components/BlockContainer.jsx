@@ -7,21 +7,21 @@ const sizeStyles = {
     maxWidth: 420,
     minHeight: 340,
     padding: 32,
-    fontSize: 20
+    fontSize: 14
   },
   medium: {
     minWidth: 320,
     maxWidth: 370,
     minHeight: 220,
     padding: 24,
-    fontSize: 18
+    fontSize: 14
   },
   small: {
     minWidth: 260,
     maxWidth: 320,
     minHeight: 120,
     padding: 16,
-    fontSize: 16
+    fontSize: 10
   }
 };
 

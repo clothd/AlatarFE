@@ -7,10 +7,10 @@ export const QUERY_DATA = [
       "Comparing results..."
     ],
     layout: [
-      { x: 40, y: 40 },         // Finibus Bonorum (large, left)
-      { x: 600, y: 40 },        // Finibus Eros (medium, right)
-      { x: 1050, y: 350 },      // Malorum (small, bottom-right)
-      { x: 600, y: 260 }        // Product Comparison (wide, center)
+      { x: 0, y: 0 },         // Finibus Bonorum (large, left)
+      { x: 420, y: 0 },        // Finibus Eros (medium, right)
+      { x: 800, y: 0 },      // Malorum (small, bottom-right)
+      { x: 840, y: 300 }        // Product Comparison (wide, center)
     ],
     blocks: [
       {
@@ -46,9 +46,9 @@ export const QUERY_DATA = [
       "Synthesizing recommendations..."
     ],
     layout: [
-      { x: 40, y: 40 },         // Conversion Insights (large, left)
-      { x: 600, y: 40 },        // Feature Analysis (medium, center)
-      { x: 1050, y: 40 }        // Market Comparison (medium, right)
+      { x: 0, y: 0 },         // Conversion Insights (large, left)
+      { x: 440, y: 0 },        // Feature Analysis (medium, center)
+      { x: 800, y: 0 },        // Market Comparison (medium, right)
     ],
     blocks: [
       {
@@ -61,40 +61,14 @@ export const QUERY_DATA = [
         title: "Feature Analysis",
         text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         image: "https://placehold.co/240x120?text=Block+2",
-        size: "medium"
+        size: "small"
       },
       {
         title: "Market Comparison",
         text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         image: "https://placehold.co/200x120?text=Block+3",
         size: "medium"
-      }
+      },
     ]
   },
-  {
-    question: "What are the top trends in my category?",
-    loaderText: [
-      "Gathering trend data...",
-      "Analyzing market signals...",
-      "Summarizing insights..."
-    ],
-    layout: [
-      { x: 40, y: 40 },         // Trend Overview (large, left)
-      { x: 600, y: 40 }         // Key Drivers (medium, right)
-    ],
-    blocks: [
-      {
-        title: "Trend Overview",
-        text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        image: "https://placehold.co/320x200?text=Block+1",
-        size: "large"
-      },
-      {
-        title: "Key Drivers",
-        text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.",
-        image: "https://placehold.co/240x120?text=Block+2",
-        size: "medium"
-      }
-    ]
-  }
 ]; 
