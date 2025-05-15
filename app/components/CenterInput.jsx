@@ -93,7 +93,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
           boxShadow: isAnimating 
             ? "0 4px 32px rgba(162, 89, 255, 0.12)" 
             : "0 4px 24px rgba(0, 0, 0, 0.08)",
-          padding: "8px 16px",
+          padding: "2px 16px",
           animation: isAnimating ? "borderColorTransition 5s linear" : "none",
           transition: "all 0.3s ease"
         }}>

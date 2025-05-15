@@ -17,9 +17,9 @@ export const QUERY_DATA = [
         title: "Top Consumer Pain Points",
         text: "Based on 10,000+ reviews and support tickets, here are the main issues customers face:",
         images: [
-          "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=300&h=200&fit=crop",
           "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop",
-          "https://images.unsplash.com/photo-1573166364392-d8c0c19bfed4?w=300&h=200&fit=crop"
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop",
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=cropp"
         ],
         details: [
           "Slow shipping times (mentioned by 34% of customers)",

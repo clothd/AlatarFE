@@ -36,7 +36,7 @@ export default function Loader({ textArray = [], duration = 5000 }) {
           justifyContent: "center",
           height: "100%",
           width: "480px",
-          padding: "12px 36px",
+          padding: "8px 36px",
           borderRadius: 32,
           boxShadow: "0 4px 24px 0 rgba(160,120,255,0.12)",
           border: "none",

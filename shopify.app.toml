@@ -3,7 +3,7 @@
 client_id = "e32b0eafd11b55dff3d8b9ea54587c86"
 name = "Alatar-3"
 handle = "alatar-3"
-application_url = "https://paragraphs-saved-nearest-nv.trycloudflare.com"
+application_url = "https://roger-m-therapy-hay.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://paragraphs-saved-nearest-nv.trycloudflare.com/auth/callback",
-  "https://paragraphs-saved-nearest-nv.trycloudflare.com/auth/shopify/callback",
-  "https://paragraphs-saved-nearest-nv.trycloudflare.com/api/auth/callback"
+  "https://roger-m-therapy-hay.trycloudflare.com/auth/callback",
+  "https://roger-m-therapy-hay.trycloudflare.com/auth/shopify/callback",
+  "https://roger-m-therapy-hay.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
