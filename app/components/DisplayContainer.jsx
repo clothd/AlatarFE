@@ -19,9 +19,9 @@ export default function DisplayContainer({ qa }) {
       exit={{ opacity: 0, scale: 0.9 }}
       transition={spring}
       style={{
-        minHeight: 400,
+        maxHeight: 250,
         width: "100%",
-        maxWidth: 520,
+        maxWidth: 1520,
         margin: "0 auto",
         borderRadius: 30,
         padding: 4, // for border thickness

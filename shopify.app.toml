@@ -3,7 +3,7 @@
 client_id = "e32b0eafd11b55dff3d8b9ea54587c86"
 name = "Alatar-3"
 handle = "alatar-3"
-application_url = "https://teenage-displayed-motorola-designed.trycloudflare.com"
+application_url = "https://inspections-cat-isle-impressed.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://teenage-displayed-motorola-designed.trycloudflare.com/auth/callback",
-  "https://teenage-displayed-motorola-designed.trycloudflare.com/auth/shopify/callback",
-  "https://teenage-displayed-motorola-designed.trycloudflare.com/api/auth/callback"
+  "https://inspections-cat-isle-impressed.trycloudflare.com/auth/callback",
+  "https://inspections-cat-isle-impressed.trycloudflare.com/auth/shopify/callback",
+  "https://inspections-cat-isle-impressed.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
