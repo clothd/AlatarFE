@@ -73,8 +73,8 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
   return (
     <div
       style={{
-        width: 320,
-        height: ITEM_HEIGHT * VISIBLE_COUNT,
+        width: 480,
+        height: (ITEM_HEIGHT * VISIBLE_COUNT) / 2,
         overflow: "hidden",
         padding: 0,
         position: "relative",
@@ -87,10 +87,12 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
       onMouseEnter={pauseAutoScroll}
       onMouseLeave={resumeAutoScroll}
     >
-      <div style={{ position: "relative", width: "100%", height: ITEM_HEIGHT * VISIBLE_COUNT }}>
+      <div style={{ position: "relative", width: "100%", height: (ITEM_HEIGHT * VISIBLE_COUNT) / 3 }}>
         <AnimatePresence initial={false}>
           {visible.map((item, i) => {
             const isActive = item.id === internalActive;
+            // Only render items with offset <= 0 (active and above)
+            if (item.offset > 0) return null;
             // Fade and scale for non-active items
             const opacity = isActive ? 1 : 0.55 - 0.08 * Math.abs(item.offset);
             const scale = isActive ? 1 : 0.96 - 0.04 * Math.abs(item.offset);

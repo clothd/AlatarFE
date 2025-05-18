@@ -20,8 +20,8 @@ export default function DisplayContainer({ qa }) {
       transition={spring}
       style={{
         minHeight: 400,
-        minWidth: 360,
-        maxWidth: 480,
+        width: "100%",
+        maxWidth: 520,
         margin: "0 auto",
         borderRadius: 30,
         padding: 4, // for border thickness
@@ -73,17 +73,39 @@ export default function DisplayContainer({ qa }) {
           </motion.div>
         </AnimatePresence>
         <AnimatePresence mode="wait">
-          {qa.image && (
-            <motion.img 
+          {qa.images && qa.images.length > 0 ? (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center', marginBottom: 12 }}>
+              {qa.images.map((img, idx) => (
+                <motion.img
+                  key={qa.id + "-img-" + idx}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ ...spring, delay: 0.2 + idx * 0.05 }}
+                  src={img}
+                  alt={`answer visual ${idx + 1}`}
+                  style={{
+                    maxWidth: 160 + 40 * (idx % 2),
+                    borderRadius: 18,
+                    marginBottom: 8,
+                    objectFit: 'cover',
+                    boxShadow: '0 2px 8px #a259ff11'
+                  }}
+                />
+              ))}
+            </div>
+          ) : qa.image && (
+            <motion.img
               key={qa.id + "-img"}
               layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ ...spring, delay: 0.2 }}
-              src={qa.image} 
-              alt="answer visual" 
-              style={{ maxWidth: 320, borderRadius: 22, marginBottom: 12 }} 
+              src={qa.image}
+              alt="answer visual"
+              style={{ maxWidth: 320, borderRadius: 22, marginBottom: 12 }}
             />
           )}
         </AnimatePresence>

@@ -3,17 +3,33 @@ export const QA_LIST = [
       id: 1,
       question: "How can I improve my products to better convert?",
       answer: "You can improve your product conversion by optimizing your product descriptions, using high-quality images, and offering limited-time discounts.",
+      images: [
+        "/images/convert-1.jpg",
+        "/images/convert-2.webp",
+        "/images/convert-3.png"
+      ],
+      image: "/images/convert-1.jpg"
     },
     {
       id: 2,
       question: "Show me a sales graph for last month.",
       answer: "Here is your sales graph for last monthHere is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month:Here is your sales graph for last month::",
-      graph: "<GraphPlaceholder />"
+      graph: "<GraphPlaceholder />",
+      images: [
+        "/images/sales-graph-1.png",
+        "/images/sales-graph-2.webp"
+      ],
+      image: "/images/sales-graph-1.png"
     },
     {
       id: 3,
       question: "What are my top selling products?",
       answer: "Your top selling products are: 1. Shopify T-shirt, 2. Alatar Mug, 3. Polaris Hoodie.",
+      images: [
+        "/images/top-products.png",
+        "/images/top-products.webp",
+        "/images/top-products-thumb.jpg"
+      ],
       image: "/images/top-products.png"
     },
     {
@@ -23,8 +39,8 @@ export const QA_LIST = [
     },
     {
       id: 5,
-      question: "What is my store’s conversion rate this week?",
-      answer: "Your store’s conversion rate for this week is 3.7%. That's a 0.5% increase from last week."
+      question: "What is my store's conversion rate this week?",
+      answer: "Your store's conversion rate for this week is 3.7%. That's a 0.5% increase from last week."
     },
     {
       id: 6,
@@ -38,7 +54,7 @@ export const QA_LIST = [
     },
     {
       id: 8,
-      question: "What’s my ad spend vs revenue ratio?",
+      question: "What's my ad spend vs revenue ratio?",
       answer: "Your ad spend to revenue ratio this month is 1:5, meaning for every $1 spent, you earned $5."
     }
   ];

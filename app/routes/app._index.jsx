@@ -297,54 +297,55 @@ export default function Index() {
             </svg>
           )}
         </div>
-        {/* Suggestions and Display Container (hide during loading/blocks) */}
+        {/* Suggestions, Display, and Input (vertical stack) */}
         <AnimatePresence>
           {!isLoading && !showBlocks && (
             <motion.div
-              key="suggestions"
+              key="vertical-stack"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.7, ease: "easeInOut" }}
-              style={{ 
-                display: "flex", 
-                flexDirection: "row",
-                alignItems: "flex-start",
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 justifyContent: "center",
                 width: "100%",
-                maxWidth: "1400px",
-                gap: "40px"
+                maxWidth: "100vw",
+                gap: "32px",
+                position: "relative",
+                marginBottom: 120 // leave space for input
               }}
             >
+              {/* DisplayContainer centered */}
+              <div style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: 24
+              }}>
+                <DisplayContainer qa={activeQA} />
+              </div>
+              {/* SuggestionsList floating above input */}
               <div style={{
                 width: 340,
                 minWidth: 260,
                 maxWidth: 360,
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "stretch",
-                height: 520,
-                overflowY: "auto",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                zIndex: 20,
+                marginBottom: 16
               }}>
                 <SuggestionsList
                   suggestions={QA_LIST}
                   activeId={activeId}
                   onSelect={setActiveId}
                 />
-              </div>
-              <div style={{
-                flex: 1,
-                minWidth: 420,
-                maxWidth: 700,
-                height: 520,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: 0,
-                position: "relative",
-                marginTop: "-62px",
-              }}>
-                <DisplayContainer qa={activeQA} />
               </div>
             </motion.div>
           )}
