@@ -328,31 +328,19 @@ export default function Index() {
               }}>
                 <DisplayContainer qa={activeQA} />
               </div>
-              {/* SuggestionsList floating above input */}
-              <div style={{
-                width: 340,
-                minWidth: 260,
-                maxWidth: 360,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                position: "relative",
-                zIndex: 20,
-                marginBottom: 16
-              }}>
-                <SuggestionsList
-                  suggestions={QA_LIST}
-                  activeId={activeId}
-                  onSelect={setActiveId}
-                />
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
         {/* Center Input (always visible at bottom) */}
-        <div style={{ width: "100%", display: "flex", justifyContent: "center", position: "fixed", left: 0, bottom: 32, zIndex: 10 }}>
-          <div ref={inputRef} style={{ width: 480 }}>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center", position: "fixed", left: 0, bottom: 32, zIndex: 10, flexDirection: "column", alignItems: "center" }}>
+          <div style={{ width: 480, maxWidth: "90vw", marginBottom: 8 }}>
+            <SuggestionsList
+              suggestions={QA_LIST}
+              activeId={activeId}
+              onSelect={setActiveId}
+            />
+          </div>
+          <div ref={inputRef} style={{ width: 480, maxWidth: "90vw" }}>
             <CenterInput
               value={input}
               onChange={setInput}
