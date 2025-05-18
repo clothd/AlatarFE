@@ -23,6 +23,7 @@ export default function Index() {
   const [showBlocksDelayed, setShowBlocksDelayed] = useState(false);
   const [expandedBlock, setExpandedBlock] = useState(null);
   const [chatHistory, setChatHistory] = useState([]);
+  const [hasQueried, setHasQueried] = useState(false);
 
   // Add this useEffect to monitor expandedBlock changes
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function Index() {
   }, [expandedBlock]);
 
   function handleSend() {
+    setHasQueried(true);
     const found = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
     if (found) {
       setActiveQuery(found);
@@ -299,7 +301,7 @@ export default function Index() {
         </div>
         {/* Suggestions, Display, and Input (vertical stack) */}
         <AnimatePresence>
-          {!isLoading && !showBlocks && (
+          {!isLoading && !showBlocks && input === '' && !hasQueried && (
             <motion.div
               key="vertical-stack"
               initial={{ opacity: 0, y: 40 }}
@@ -333,13 +335,15 @@ export default function Index() {
         </AnimatePresence>
         {/* Center Input (always visible at bottom) */}
         <div style={{ width: "100%", display: "flex", justifyContent: "center", position: "fixed", left: 0, bottom: 32, zIndex: 10, flexDirection: "column", alignItems: "center" }}>
-          <div style={{ width: 480, maxWidth: "90vw", marginBottom: 8 }}>
-            <SuggestionsList
-              suggestions={QA_LIST}
-              activeId={activeId}
-              onSelect={setActiveId}
-            />
-          </div>
+          {input === '' && !hasQueried && (
+            <div style={{ width: 480, maxWidth: "90vw", marginBottom: 8 }}>
+              <SuggestionsList
+                suggestions={QA_LIST}
+                activeId={activeId}
+                onSelect={setActiveId}
+              />
+            </div>
+          )}
           <div ref={inputRef} style={{ width: 480, maxWidth: "90vw" }}>
             <CenterInput
               value={input}
