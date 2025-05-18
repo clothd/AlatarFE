@@ -87,7 +87,7 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
                 ? "0 2px 8px rgba(255,78,205,0.08)"
                 : undefined,
               fontSize: isActive ? 18 : 15,
-              opacity: isActive ? 1 : 0.55,
+              opacity: isActive ? 1 : 0.95,
               transform: isActive ? "scale(1)" : "scale(0.96)",
               marginBottom: isActive ? 0 : 8,
               marginTop: isActive ? 0 : 0,
