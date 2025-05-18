@@ -16,9 +16,6 @@ export default function Index() {
   const [activeQuery, setActiveQuery] = useState(null);
   const inputRef = useRef();
   const blocksRefs = useRef([]);
-  const [blockPositions, setBlockPositions] = useState([]);
-  const [inputPosition, setInputPosition] = useState(null);
-  const [svgDims, setSvgDims] = useState({ width: 0, height: 0, left: 0, top: 0 });
   const [showLoaderDelayed, setShowLoaderDelayed] = useState(false);
   const [showBlocksDelayed, setShowBlocksDelayed] = useState(false);
   const [expandedBlock, setExpandedBlock] = useState(null);
@@ -40,7 +37,7 @@ export default function Index() {
       setTimeout(() => {
         setIsLoading(false);
         setShowBlocks(true);
-      }, 5000);
+      }, 6000);
     } else {
       const qaFound = QA_LIST.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
       if (qaFound) setActiveId(qaFound.id);
@@ -62,32 +59,6 @@ export default function Index() {
     }
     setInput("");
   }
-
-  // Get input and block positions for SVGs
-  useLayoutEffect(() => {
-    if (showBlocks && inputRef.current) {
-      const inputRect = inputRef.current.getBoundingClientRect();
-      setInputPosition(inputRect);
-      const blockRects = blocksRefs.current.map(ref => ref ? ref.getBoundingClientRect() : null);
-      setBlockPositions(blockRects);
-      // Calculate SVG dimensions to cover from input to all blocks
-      let minX = inputRect.left, minY = inputRect.top, maxX = inputRect.right, maxY = inputRect.bottom;
-      blockRects.forEach(rect => {
-        if (rect) {
-          minX = Math.min(minX, rect.left);
-          minY = Math.min(minY, rect.top);
-          maxX = Math.max(maxX, rect.right);
-          maxY = Math.max(maxY, rect.bottom);
-        }
-      });
-      setSvgDims({
-        width: maxX - minX,
-        height: maxY - minY,
-        left: minX,
-        top: minY
-      });
-    }
-  }, [showBlocks, activeQuery]);
 
   // Delay loader appearance
   useEffect(() => {
@@ -120,7 +91,6 @@ export default function Index() {
 
   return (
     <div style={{ minHeight: "100vh", background: "#f7f7fa", display: "flex", flexDirection: "column", overflowY: "hidden" }}>
-
       {/* Main Content */}
       <div
         style={{
@@ -256,56 +226,6 @@ export default function Index() {
               </motion.div>
             )}
           </AnimatePresence>
-          {/* SVGs for connections */}
-          {showBlocks && inputPosition && blockPositions.length > 0 && showBlocksDelayed && (
-            <svg
-              width={svgDims.width}
-              height={svgDims.height}
-              style={{
-                position: "absolute",
-                left: svgDims.left,
-                top: svgDims.top,
-                pointerEvents: "none",
-                zIndex: 1
-              }}
-            >
-              {blockPositions.map((blockRect, i) => {
-                if (!blockRect) return null;
-                // Start at input center-top
-                const [x1, y1] = inputPosition ? [inputPosition.left + inputPosition.width / 2, inputPosition.top] : [0, 0];
-                // End at block center-bottom
-                const [x2, y2] = blockRect ? [blockRect.left + blockRect.width / 2, blockRect.top + blockRect.height] : [0, 0];
-                // Convert to SVG local coordinates
-                const sx = x1 - svgDims.left;
-                const sy = y1 - svgDims.top;
-                const ex = x2 - svgDims.left;
-                const ey = y2 - svgDims.top;
-                // Create a curved path
-                const mx = sx + (ex - sx) * 0.5;
-                const my = sy + (ey - sy) * 0.3 + 40 * i; // control point for curve
-                const path = `M${sx},${sy} Q${mx},${my} ${ex},${ey}`;
-                return (
-                  <motion.path
-                    key={i}
-                    d={path}
-                    stroke="url(#arrow-gradient)"
-                    strokeWidth={4}
-                    fill="none"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.2, delay: 0.2 + i * 0.15, ease: "easeInOut" }}
-                    style={{ filter: "drop-shadow(0 2px 8px #a259ff33)" }}
-                  />
-                );
-              })}
-              <defs>
-                <linearGradient id="arrow-gradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#a259ff" />
-                  <stop offset="100%" stopColor="#ff4ecd" />
-                </linearGradient>
-              </defs>
-            </svg>
-          )}
         </div>
         {/* Suggestions, Display, and Input (vertical stack) */}
         <AnimatePresence>
