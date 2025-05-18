@@ -106,6 +106,7 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
                 backgroundSize: isActive ? "400% 400%" : undefined,
                 animation: isActive ? `gradientMoveSuggestionsBtn 16s ease-in-out infinite` : undefined,
                 outline: "none",
+                border: "none",
               }}
             >
               {item.question}
@@ -115,4 +116,4 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
       </div>
     </>
   );
-} 
+}

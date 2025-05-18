@@ -42,9 +42,8 @@ export default function DisplayContainer({ qa }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 4px 32px 0 rgba(162,89,255,0.18)",
+          // boxShadow: "0 4px 32px 0 rgba(162,89,255,0.18)",
           overflow: "visible",
-          border: "2.5px solid",
           // borderImage: "linear-gradient(90deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff) 1",
           // backgroundImage: "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)",
           backgroundSize: "400% 400%",
@@ -155,4 +154,4 @@ export default function DisplayContainer({ qa }) {
       </motion.div>
     </>
   );
-} 
+}
