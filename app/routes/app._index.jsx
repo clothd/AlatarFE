@@ -47,9 +47,17 @@ export default function Index() {
     }
     // Add to chat history
     if (input.trim()) {
+      // Try to find a dummy answer for the question in QUERY_DATA
+      const foundQuery = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
+      let dummyAnswer = "";
+      if (foundQuery && foundQuery.dummyAnswer) {
+        dummyAnswer = foundQuery.dummyAnswer;
+      } else {
+        dummyAnswer = "Sorry, no answer available.";
+      }
       setChatHistory(prev => [
         ...prev,
-        { question: input.trim(), answer: "This is a dummy answer.What are my biggest consumer painpoints?What are my biggest consumer painpoints?" }
+        { question: input.trim(), answer: dummyAnswer }
       ]);
     }
     setInput("");

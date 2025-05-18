@@ -1,6 +1,7 @@
 export const QUERY_DATA = [
   {
     question: "What are my biggest consumer painpoints?",
+    dummyAnswer: "Your biggest consumer pain points are slow shipping, complex returns, and unclear product descriptions.",
     loaderText: [
       "Analyzing customer reviews...",
       "Processing support tickets...",
@@ -63,6 +64,7 @@ export const QUERY_DATA = [
   },
   {
     question: "How can I improve my products to better convert?",
+    dummyAnswer: "Optimize product images, improve checkout flow, and add social proof to boost conversions.",
     loaderText: [
       "Analyzing conversion funnels...",
       "Processing A/B test results...",
