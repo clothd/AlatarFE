@@ -10,6 +10,17 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
   const [isPaused, setIsPaused] = useState(false);
   const pauseTimeout = useRef(null);
 
+  // Add animated gradient keyframes for the button
+  const gradientKeyframes = `
+    @keyframes gradientMoveSuggestionsBtn {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 50% 50%; }
+      50% { background-position: 100% 50%; }
+      75% { background-position: 50% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  `;
+
   // Auto-scroll effect
   useEffect(() => {
     if (isPaused) return;
@@ -51,55 +62,57 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
   if (idx >= 0) visible.push({ ...suggestions[idx], offset: 0 });
 
   return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: 480,
-        minHeight: ITEM_HEIGHT * visible.length,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        gap: 0,
-        background: "transparent",
-        zIndex: 11,
-        overflow: "hidden",
-        padding: 0,
-      }}
-    >
-      {visible.map((item, i) => {
-        const isActive = item.offset === 0;
-        return (
-          <button
-            key={item.id}
-            onClick={() => handleClick(item.id)}
-            style={{
-              background: isActive
-                ? "linear-gradient(90deg, #ff4ecd, #ffb86c)"
-                : "#fff",
-              color: isActive ? "#fff" : "#bbb",
-              border: "none",
-              borderRadius: 24,
-              padding: "12px 24px",
-              fontWeight: 500,
-              cursor: "pointer",
-              boxShadow: isActive
-                ? "0 2px 8px rgba(255,78,205,0.08)"
-                : undefined,
-              fontSize: isActive ? 18 : 15,
-              opacity: isActive ? 1 : 0.95,
-              transform: isActive ? "scale(1)" : "scale(0.96)",
-              marginBottom: isActive ? 0 : 8,
-              marginTop: isActive ? 0 : 0,
-              transition: "background 0.3s, color 0.3s, font-size 0.3s, opacity 0.3s, transform 0.3s",
-              width: "100%",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {item.question}
-          </button>
-        );
-      })}
-    </div>
+    <>
+      <style>{gradientKeyframes}</style>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 480,
+          minHeight: ITEM_HEIGHT * visible.length,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          gap: 0,
+          background: "transparent",
+          zIndex: 11,
+          overflow: "hidden",
+          padding: 0,
+        }}
+      >
+        {visible.map((item, i) => {
+          const isActive = item.offset === 0;
+          return (
+            <button
+              key={item.id}
+              onClick={() => handleClick(item.id)}
+              style={{
+                background: isActive
+                  ? "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)"
+                  : "#fff",
+                color: isActive ? "#fff" : "#bbb",
+                borderRadius: 24,
+                padding: "12px 24px",
+                fontWeight: 500,
+                cursor: "pointer",
+                fontSize: isActive ? 18 : 15,
+                opacity: isActive ? 1 : 0.85,
+                transform: isActive ? "scale(1)" : "scale(0.96)",
+                marginBottom: isActive ? 0 : 8,
+                marginTop: isActive ? 0 : 0,
+                transition: "background 0.3s, color 0.3s, font-size 0.3s, opacity 0.3s, transform 0.3s",
+                width: "100%",
+                whiteSpace: "nowrap",
+                backgroundSize: isActive ? "400% 400%" : undefined,
+                animation: isActive ? `gradientMoveSuggestionsBtn 16s ease-in-out infinite` : undefined,
+                outline: "none",
+              }}
+            >
+              {item.question}
+            </button>
+          );
+        })}
+      </div>
+    </>
   );
 } 

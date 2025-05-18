@@ -16,7 +16,9 @@ export default function Loader({ textArray = [], duration = 5000 }) {
   const gradientKeyframes = `
     @keyframes gradientMoveLoader {
       0% { background-position: 0% 50%; }
+      25% { background-position: 50% 50%; }
       50% { background-position: 100% 50%; }
+      75% { background-position: 50% 50%; }
       100% { background-position: 0% 50%; }
     }
   `;
@@ -42,9 +44,9 @@ export default function Loader({ textArray = [], duration = 5000 }) {
           border: "none",
           position: "relative",
           overflow: "hidden",
-          background: "linear-gradient(90deg, #6ee7ff, #a259ff, #ff4ecd, #6ee7ff)",
-          backgroundSize: "300% 300%",
-          animation: `gradientMoveLoader 12s linear infinite`,
+          background: "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)",
+          backgroundSize: "400% 400%",
+          animation: `gradientMoveLoader 16s ease-in-out infinite`,
           transition: "min-width 0.4s cubic-bezier(.4,0,.2,1), max-width 0.4s cubic-bezier(.4,0,.2,1), min-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.4s cubic-bezier(.4,0,.2,1)"
         }}
         className="animated-gradient-loader"
