@@ -5,6 +5,7 @@ import { FaPaperPlane } from "react-icons/fa";
 export default function CenterInput({ value, onChange, onSend, disabled, chatHistory = [] }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [historyVisible, setHistoryVisible] = useState(chatHistory.length > 0);
 
   const handleSend = () => {
     if (value.trim()) {
@@ -35,13 +36,24 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
     }
   `;
 
+  // Delay showing chat history for 5 seconds after a new query is submitted
+  useEffect(() => {
+    if (chatHistory.length === 0) {
+      setHistoryVisible(false);
+      return;
+    }
+    setHistoryVisible(false);
+    const timer = setTimeout(() => setHistoryVisible(true), 5000);
+    return () => clearTimeout(timer);
+  }, [chatHistory.length]);
+
   return (
     <>
       <style>{borderKeyframes}</style>
       <div style={{ position: "relative", width: "100%" }}
-        onMouseEnter={() => setShowHistory(true)}
+        onMouseEnter={() => historyVisible && setShowHistory(true)}
         onMouseLeave={() => setShowHistory(false)}
-        onFocus={() => setShowHistory(true)}
+        onFocus={() => historyVisible && setShowHistory(true)}
         onBlur={() => setShowHistory(false)}
         tabIndex={-1}
       >
