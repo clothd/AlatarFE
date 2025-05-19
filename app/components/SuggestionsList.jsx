@@ -92,7 +92,7 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
               style={{
                 background: isActive
                   ? "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)"
-                  : "#fff",
+                  : "#f9f9f9",
                 color: isActive ? "#fff" : "#bbb",
                 borderRadius: 24,
                 padding: "12px 24px",

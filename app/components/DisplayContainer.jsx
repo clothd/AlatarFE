@@ -254,7 +254,7 @@ export default function DisplayContainer({ qa }) {
           width: "100%",
           height: 400,
           borderRadius: 26,
-          background: "#fff",
+          background: "#f9f9f9",
           padding: 24,
           display: "flex",
           overflow: "hidden"

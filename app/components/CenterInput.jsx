@@ -154,7 +154,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
         <div style={{
           display: "flex",
           alignItems: "center",
-          background: "#fff",
+          background: "#f9f9f9",
           borderRadius: 24,
           border: `2px solid ${isAnimating ? '#6ee7ff' : '#e5e5e5'}`,
           boxShadow: isAnimating 

@@ -161,7 +161,7 @@ export default function BlockContainer({
           maxHeight: "80vh",
           overflowY: "auto",
           borderRadius: 24,
-          background: "#fff",
+          background: "#f9f9f9",
           boxShadow: "0 8px 48px 0 rgba(160,120,255,0.18)",
           padding: 36,
           display: "flex",
@@ -235,12 +235,12 @@ export default function BlockContainer({
       className="block-container"
       style={{
         borderRadius: 20,
-        background: "#fff",
+        background: "#f9f9f9",
         border: gradient
           ? `3px solid transparent`
           : `3px solid ${borderColor}`,
         backgroundImage: gradient
-          ? `linear-gradient(#fff, #fff), ${gradient}`
+          ? `linear-gradient(#f9f9f9, #f9f9f9), ${gradient}`
           : undefined,
         backgroundOrigin: gradient ? "border-box" : undefined,
         backgroundClip: gradient ? "padding-box, border-box" : undefined,
