@@ -170,9 +170,18 @@ export default function BlockContainer({
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
+          scrollbarWidth: "none",  /* Firefox */
+          msOverflowStyle: "none",  /* IE and Edge */
           ...style
         }}
       >
+        <style>
+          {`
+            .block-container::-webkit-scrollbar {
+              display: none;
+            }
+          `}
+        </style>
         {/* X button */}
         <button
           onClick={onClose}
@@ -265,27 +274,29 @@ export default function BlockContainer({
         {/* Chained queries navigation */}
         {activeChained === null && expandedContent?.chainedQueries && expandedContent.chainedQueries.length > 0 && (
           <div style={{ marginTop: 24, width: "100%" }}>
-            <div style={{ fontWeight: 600, color: "#a259ff", marginBottom: 8 }}>Continue the conversation:</div>
+            <div style={{ fontWeight: 600, color: "#a259ff", marginBottom: 8 }}>Suggested follow-up questions:</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {expandedContent.chainedQueries.map((cq, idx) => (
-                <button
+                <div
                   key={idx}
-                  onClick={() => setActiveChained(idx)}
                   style={{
-                    background: "linear-gradient(90deg, #a259ff 0%, #6ee7ff 100%)",
-                    color: "#fff",
+                    background: "rgba(162, 89, 255, 0.08)",
+                    color: "#a259ff",
                     border: "none",
                     borderRadius: 16,
                     padding: "10px 18px",
                     fontWeight: 500,
                     fontSize: 15,
                     cursor: "pointer",
-                    boxShadow: "0 2px 8px #a259ff11",
-                    transition: "background 0.2s"
+                    transition: "all 0.2s ease",
+                    ":hover": {
+                      background: "rgba(162, 89, 255, 0.15)",
+                      transform: "translateY(-1px)"
+                    }
                   }}
                 >
                   {cq.question}
-                </button>
+                </div>
               ))}
             </div>
           </div>

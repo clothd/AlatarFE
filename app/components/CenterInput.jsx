@@ -1,11 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { FaPaperPlane ,FaPaperclip} from "react-icons/fa";
+import { FaPaperPlane, FaPaperclip } from "react-icons/fa";
 
-export default function CenterInput({ value, onChange, onSend, disabled, chatHistory = [], isAwaitingBlocks, hideChatHistory = false }) {
+export default function CenterInput({ 
+  value, 
+  onChange, 
+  onSend, 
+  disabled, 
+  chatHistory = [], 
+  isAwaitingBlocks, 
+  hideChatHistory = false,
+  chainedQueryIndex,
+  setChainedQueryIndex
+}) {
   const [showHistory, setShowHistory] = useState(false);
   const [historyVisible, setHistoryVisible] = useState(chatHistory.length > 0);
   const [historyHover, setHistoryHover] = useState(false);
+  const [showChainedSuggestions, setShowChainedSuggestions] = useState(false);
 
   // Border animation is controlled by isAwaitingBlocks
   const isAnimating = !!isAwaitingBlocks;
@@ -17,6 +28,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
     if (hideHistoryTimeout.current) clearTimeout(hideHistoryTimeout.current);
     setShowHistory(true);
   };
+
   const handleHideHistory = () => {
     hideHistoryTimeout.current = setTimeout(() => setShowHistory(false), 1000);
   };
@@ -28,10 +40,6 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
   const handleSend = () => {
     if (value.trim()) {
       onSend();
-      // Stop the border animation after 8 seconds
-      setTimeout(() => {
-        // This is a placeholder for the animation logic
-      }, 9000);
     }
   };
 
@@ -40,6 +48,15 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
       handleSend();
     }
   };
+
+  // Show chained query suggestions when a block is expanded
+  useEffect(() => {
+    if (chainedQueryIndex !== null) {
+      setShowChainedSuggestions(true);
+    } else {
+      setShowChainedSuggestions(false);
+    }
+  }, [chainedQueryIndex]);
 
   // Inline keyframes for border color transition
   const borderKeyframes = `
@@ -173,7 +190,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
             onChange={(e) => onChange(e.target.value)}
             onKeyPress={handleKeyPress}
             disabled={disabled}
-            placeholder="Ask me anything..."
+            placeholder={showChainedSuggestions ? "Ask a follow-up question..." : "Ask me anything..."}
             style={{
               flex: 1,
               border: "none",

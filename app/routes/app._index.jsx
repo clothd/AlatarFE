@@ -14,6 +14,7 @@ export default function Index() {
   const [isLoading, setIsLoading] = useState(false);
   const [showBlocks, setShowBlocks] = useState(false);
   const [activeQuery, setActiveQuery] = useState(null);
+  const [chainedQueryIndex, setChainedQueryIndex] = useState(null);
   const inputRef = useRef();
   const blocksRefs = useRef([]);
   const [showLoaderDelayed, setShowLoaderDelayed] = useState(false);
@@ -29,22 +30,52 @@ export default function Index() {
 
   function handleSend() {
     setHasQueried(true);
+    
+    // Check if we're in a chained query
+    if (expandedBlock !== null && activeQuery) {
+      const chainedQueries = activeQuery.blocks[expandedBlock]?.expandedContent?.chainedQueries;
+      if (chainedQueries) {
+        const foundQuery = chainedQueries.find(q => 
+          q.question.toLowerCase() === input.trim().toLowerCase()
+        );
+        
+        if (foundQuery) {
+          setIsLoading(true);
+          setShowBlocks(false);
+          // Update chat history with the chained query
+          setChatHistory(prev => [
+            ...prev,
+            { question: input.trim(), answer: foundQuery.text }
+          ]);
+          setInput("");
+          
+          // Simulate loading for 5 seconds
+          setTimeout(() => {
+            setIsLoading(false);
+            setShowBlocks(true);
+          }, 5000);
+          return;
+        }
+      }
+    }
+
     const found = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
     if (found) {
       setActiveQuery(found);
       setIsLoading(true);
       setShowBlocks(false);
+      setChainedQueryIndex(null);
       setTimeout(() => {
         setIsLoading(false);
         setShowBlocks(true);
-  }, 9000);
+      }, 5000);
     } else {
       const qaFound = QA_LIST.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
       if (qaFound) setActiveId(qaFound.id);
     }
+    
     // Add to chat history
     if (input.trim()) {
-      // Try to find a dummy answer for the question in QUERY_DATA
       const foundQuery = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
       let dummyAnswer = "";
       if (foundQuery && foundQuery.dummyAnswer) {
@@ -290,8 +321,10 @@ export default function Index() {
               onSend={handleSend}
               disabled={false}
               chatHistory={chatHistory}
-              isAwaitingBlocks={isAwaitingBlocks}
+              isAwaitingBlocks={isLoading || (activeQuery && !showBlocks)}
               hideChatHistory={expandedBlock !== null}
+              chainedQueryIndex={chainedQueryIndex}
+              setChainedQueryIndex={setChainedQueryIndex}
             />
           </div>
         </div>
