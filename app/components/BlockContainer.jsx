@@ -184,12 +184,19 @@ export default function BlockContainer({
   gradient, 
   size = "medium",
   isLoading = false,
-  chainedResponse = null
+  chainedResponse = null,
+  onChainedQuery = null
 }) {
   const s = sizeStyles[size] || sizeStyles.medium;
   const [activeChained, setActiveChained] = useState(null);
   const showContent = activeChained === null ? expandedContent : expandedContent?.chainedQueries?.[activeChained];
   
+  const handleChainedQuery = (question) => {
+    if (onChainedQuery) {
+      onChainedQuery(question);
+    }
+  };
+
   // Modal/expanded styles
   if (expanded) {
     return (
@@ -337,6 +344,7 @@ export default function BlockContainer({
               {expandedContent.chainedQueries.map((cq, idx) => (
                 <div
                   key={idx}
+                  onClick={() => handleChainedQuery(cq.question)}
                   style={{
                     background: "rgba(162, 89, 255, 0.08)",
                     color: "#a259ff",
@@ -351,6 +359,14 @@ export default function BlockContainer({
                       background: "rgba(162, 89, 255, 0.15)",
                       transform: "translateY(-1px)"
                     }
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = "rgba(162, 89, 255, 0.15)";
+                    e.target.style.transform = "translateY(-1px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = "rgba(162, 89, 255, 0.08)";
+                    e.target.style.transform = "translateY(0)";
                   }}
                 >
                   {cq.question}

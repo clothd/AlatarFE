@@ -98,6 +98,35 @@ export default function Index() {
     }
   }
 
+  const handleChainedQuery = (question) => {
+    if (expandedBlock !== null && activeQuery) {
+      const chainedQueries = activeQuery.blocks[expandedBlock]?.expandedContent?.chainedQueries;
+      if (chainedQueries) {
+        const foundQuery = chainedQueries.find(q => 
+          q.question.toLowerCase() === question.toLowerCase()
+        );
+        
+        if (foundQuery) {
+          // Only set loading state for the expanded block
+          setIsLoading(true);
+          setChainedResponse(null);
+          
+          // Update chat history with the chained query
+          setChatHistory(prev => [
+            ...prev,
+            { question: question, answer: foundQuery.text }
+          ]);
+          
+          // Simulate loading for 5 seconds
+          setTimeout(() => {
+            setIsLoading(false);
+            setChainedResponse(foundQuery);
+          }, 5000);
+        }
+      }
+    }
+  };
+
   // Delay loader appearance
   useEffect(() => {
     let loaderTimeout;
@@ -277,6 +306,7 @@ export default function Index() {
                       style={{ pointerEvents: "auto", zIndex: 1110 }}
                       isLoading={isLoading}
                       chainedResponse={chainedResponse}
+                      onChainedQuery={handleChainedQuery}
                     />
                   </div>
                 )}
