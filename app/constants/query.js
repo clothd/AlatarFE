@@ -75,7 +75,7 @@ export const QUERY_DATA = [
       },
       {
         title: "Support Trends",
-        text: "40% increase in support tickets related to shipping delays in Q4.",
+        text: "40% increase in support tickets in Q4.",
         image: "/images/support-trends-chart.svg",
         expandedContent: {
           text: "Support tickets peaked in December, with most inquiries about delayed shipments and refund requests. Automation of common responses reduced average resolution time by 20%.",

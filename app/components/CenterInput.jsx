@@ -12,10 +12,10 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
       setIsAnimating(true);
       onSend();
       
-      // Stop the border animation after 5 seconds
+      // Stop the border animation after 8 seconds
       setTimeout(() => {
         setIsAnimating(false);
-      }, 5000);
+      }, 7000);
     }
   };
 
@@ -31,8 +31,8 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
       0% { border-color: #6ee7ff; box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
       25% { border-color: #a259ff; box-shadow: 0 0 0 4px rgba(162, 89, 255, 0.1); }
       50% { border-color: #ff4ecd; box-shadow: 0 0 0 4px rgba(255, 78, 205, 0.1); }
-      75% { border-color: #6ee7ff; box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
-      100% { border-color: #6ee7ff; box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
+      75% { border-color:rgb(110, 255, 182); box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
+      100% { border-color:rgb(255, 231, 110); box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
     }
   `;
 
@@ -107,7 +107,8 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
             : "0 4px 24px rgba(0, 0, 0, 0.08)",
           padding: "2px 16px",
           animation: isAnimating ? "borderColorTransition 5s linear" : "none",
-          transition: "all 0.3s ease"
+          transition: "all 0.3s ease",
+          position: "relative"
         }}>
           <input
             type="text"
@@ -146,10 +147,42 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
             }}
           >
             <FaPaperPlane />
-
           </motion.button>
-            <FaPaperclip style={{marginLeft: 10, marginRight: 10,fontSize: 16,color: "#999"}} />
+          <FaPaperclip style={{marginLeft: 10, marginRight: 10,fontSize: 16,color: "#999"}} />
         </div>
+        {/* Audio Icon Floating Button */}
+        <button
+          style={{
+            position: "absolute",
+            right: -48,
+            top: "50%",
+            transform: "translateY(-50%)",
+            background: "#000",
+            border: "none",
+            borderRadius: "50%",
+            width: 36,
+            height: 36,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginLeft: 4,
+            cursor: "pointer",
+            boxShadow: "0 2px 8px #0002"
+          }}
+          aria-label="Record audio"
+        >
+          <img
+            src="/audio.jpeg"
+            alt="audio icon"
+            style={{
+              width: 24,
+              height: 24,
+              borderRadius: "50%",
+              objectFit: "cover",
+              display: "block"
+            }}
+          />
+        </button>
       </div>
     </>
   );
