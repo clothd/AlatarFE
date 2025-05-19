@@ -33,6 +33,50 @@ const spring = {
   mass: 0.7
 };
 
+// Media resources for different query types
+const mediaResources = {
+  'improve products': {
+    type: 'video',
+    url: 'https://www.youtube.com/embed/8tPnX7OPo0Q',
+    title: 'Product Optimization Tips'
+  },
+  'reduce cart abandonment': {
+    type: 'video',
+    url: 'https://www.youtube.com/embed/jIM_vNtebM8',
+    title: 'Cart Abandonment Solutions'
+  },
+  'marketing campaign': {
+    type: 'image',
+    url: '/images/holiday-campaign-flow.png',
+    title: 'Holiday Campaign Strategy'
+  },
+  'trust signals': {
+    type: 'image',
+    url: '/images/trust-signals-infographic.png',
+    title: 'Building Trust with Customers'
+  },
+  'social proof': {
+    type: 'image',
+    url: '/images/social-proof-examples.png',
+    title: 'Social Proof Examples'
+  },
+  'conversion rate': {
+    type: 'image',
+    url: '/images/conversion-funnel.png',
+    title: 'Conversion Rate Optimization'
+  },
+  'traffic analytics': {
+    type: 'image',
+    url: '/images/traffic-sources.png',
+    title: 'Traffic Sources Overview'
+  },
+  'ad spend': {
+    type: 'image',
+    url: '/images/ad-performance-metrics.png',
+    title: 'Ad Performance Metrics'
+  }
+};
+
 // Function to generate chart data based on answer content
 const generateChartData = (answer) => {
   if (!answer) return null;
@@ -66,6 +110,17 @@ const getChartType = (answer) => {
   }
 };
 
+// Function to get appropriate media resource
+const getMediaResource = (question) => {
+  const questionLower = question.toLowerCase();
+  for (const [key, resource] of Object.entries(mediaResources)) {
+    if (questionLower.includes(key)) {
+      return resource;
+    }
+  }
+  return null;
+};
+
 export default function DisplayContainer({ qa }) {
   const [activeChartIndex, setActiveChartIndex] = useState(0);
   
@@ -73,6 +128,7 @@ export default function DisplayContainer({ qa }) {
   
   const chartData = generateChartData(qa.answer);
   const chartType = getChartType(qa.answer);
+  const mediaResource = getMediaResource(qa.question);
   
   const chartConfig = {
     labels: chartData?.labels || [],
@@ -117,6 +173,42 @@ export default function DisplayContainer({ qa }) {
         return <Doughnut data={chartConfig} options={chartOptions} />;
       default:
         return <Line data={chartConfig} options={chartOptions} />;
+    }
+  };
+
+  const renderMedia = () => {
+    if (!mediaResource) return null;
+
+    if (mediaResource.type === 'video') {
+      return (
+        <div style={{ width: "100%", height: 300, borderRadius: 12, overflow: "hidden" }}>
+          <iframe
+            width="100%"
+            height="100%"
+            src={mediaResource.url}
+            title={mediaResource.title}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ borderRadius: 12 }}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div style={{ width: "100%", height: 300, borderRadius: 12, overflow: "hidden" }}>
+          <img
+            src={mediaResource.url}
+            alt={mediaResource.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: 12
+            }}
+          />
+        </div>
+      );
     }
   };
 
@@ -233,7 +325,7 @@ export default function DisplayContainer({ qa }) {
           </AnimatePresence>
         </motion.div>
         
-        {/* Right Column - Chart */}
+        {/* Right Column - Chart or Media */}
         <motion.div 
           className="flex flex-col items-center"
           style={{ 
@@ -246,7 +338,7 @@ export default function DisplayContainer({ qa }) {
           }}
         >
           <div style={{ width: "100%", height: 300 }}>
-            {renderChart()}
+            {chartData && chartData.values.length > 0 ? renderChart() : renderMedia()}
           </div>
         </motion.div>
       </motion.div>

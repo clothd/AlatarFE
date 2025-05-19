@@ -37,10 +37,10 @@ export const QA_LIST = [
       question: "How can I reduce cart abandonment?",
       answer: "Here's a comprehensive strategy to reduce cart abandonment:\n\n1. Checkout Optimization:\n• Simplify the checkout process\n• Offer guest checkout option\n• Reduce form fields to essential ones\n\n2. Pricing Transparency:\n• Show all costs upfront\n• Display shipping costs early\n• Include tax calculations\n\n3. Trust Building:\n• Add security badges\n• Show customer reviews\n• Display return policy\n\n4. Recovery Tactics:\n• Implement exit-intent popups\n• Send abandoned cart emails\n• Offer limited-time discounts\n\n5. Mobile Optimization:\n• Ensure mobile-friendly checkout\n• Optimize page load speed\n• Simplify mobile forms",
       images: [
-        "/images/cart-abandonment-1.png",
-        "/images/cart-abandonment-2.webp"
+        "https://www.youtube.com/watch?v=jIM_vNtebM8",
+        "https://www.youtube.com/watch?v=jIM_vNtebM8"
       ],
-      image: "/images/cart-abandonment-1.png"
+      image: "https://www.youtube.com/watch?v=jIM_vNtebM8"
     },
     {
       id: 5,

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .box { fill: #f3e8ff; stroke: #7c3aed; stroke-width: 2; }
+    .arrow { stroke: #7c3aed; stroke-width: 2; fill: none; }
+    .text { font-family: Arial; font-size: 14px; fill: #1f2937; }
+    .title { font-family: Arial; font-size: 16px; font-weight: bold; fill: #7c3aed; }
+  </style>
+  
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" class="title">12 Days of Deals Holiday Campaign</text>
+  
+  <!-- Main Boxes -->
+  <rect x="50" y="80" width="200" height="60" rx="10" class="box"/>
+  <text x="150" y="115" text-anchor="middle" class="text">Campaign Setup</text>
+  
+  <rect x="300" y="80" width="200" height="60" rx="10" class="box"/>
+  <text x="400" y="115" text-anchor="middle" class="text">Email List Prep</text>
+  
+  <rect x="550" y="80" width="200" height="60" rx="10" class="box"/>
+  <text x="650" y="115" text-anchor="middle" class="text">Social Media Plan</text>
+  
+  <!-- Arrows -->
+  <path d="M250 110 L300 110" class="arrow"/>
+  <path d="M500 110 L550 110" class="arrow"/>
+  
+  <!-- Sub Boxes -->
+  <rect x="50" y="200" width="150" height="40" rx="5" class="box"/>
+  <text x="125" y="225" text-anchor="middle" class="text">Daily Deals</text>
+  
+  <rect x="250" y="200" width="150" height="40" rx="5" class="box"/>
+  <text x="325" y="225" text-anchor="middle" class="text">Gift Bundles</text>
+  
+  <rect x="450" y="200" width="150" height="40" rx="5" class="box"/>
+  <text x="525" y="225" text-anchor="middle" class="text">Email Strategy</text>
+  
+  <rect x="650" y="200" width="150" height="40" rx="5" class="box"/>
+  <text x="725" y="225" text-anchor="middle" class="text">Social Media</text>
+  
+  <!-- Features -->
+  <rect x="50" y="300" width="700" height="200" rx="10" class="box"/>
+  <text x="400" y="330" text-anchor="middle" class="title">Special Features</text>
+  
+  <text x="100" y="370" class="text">• Early VIP Access</text>
+  <text x="100" y="400" class="text">• Referral Rewards</text>
+  <text x="100" y="430" class="text">• Free Shipping</text>
+  <text x="100" y="460" class="text">• Gift Wrapping</text>
+  
+  <text x="400" y="370" class="text">• Daily Deals (10-50%)</text>
+  <text x="400" y="400" class="text">• Limited Quantity</text>
+  <text x="400" y="430" class="text">• Bundle Discounts</text>
+  <text x="400" y="460" class="text">• Premium Packaging</text>
+  
+  <text x="700" y="370" class="text">• Social Contests</text>
+  <text x="700" y="400" class="text">• UGC Campaigns</text>
+  <text x="700" y="430" class="text">• Countdown Timers</text>
+  <text x="700" y="460" class="text">• Personalized Recs</text>
+</svg> 
