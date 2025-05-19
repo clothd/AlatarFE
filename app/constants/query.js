@@ -48,6 +48,50 @@ export const QUERY_DATA = [
           references: [
             { label: "Shipping Report 2024", url: "https://example.com/shipping-report" },
             { label: "Returns Whitepaper", url: "https://example.com/returns-whitepaper" }
+          ],
+          chainedQueries: [
+            {
+              question: "How can I reduce shipping times further?",
+              text: "To reduce shipping times, consider partnering with local couriers and optimizing your warehouse locations.",
+              points: [
+                "Negotiate faster delivery SLAs with carriers.",
+                "Implement distributed warehousing.",
+                "Use predictive analytics for inventory placement."
+              ],
+              images: ["/images/faster-shipping.svg"],
+              video: { url: "https://www.youtube.com/embed/1Q8fG0TtVAY", title: "Reducing Shipping Delays" },
+              references: [
+                { label: "Logistics Optimization", url: "https://example.com/logistics-optimization" }
+              ]
+            },
+            {
+              question: "What are best practices for clear product descriptions?",
+              text: "Clear product descriptions reduce returns and increase satisfaction. Use bullet points, high-res images, and size guides.",
+              points: [
+                "Highlight key features in bullets.",
+                "Include multiple product images.",
+                "Provide sizing and compatibility info."
+              ],
+              images: ["/images/product-description-best.svg"],
+              video: { url: "https://www.youtube.com/embed/2Vv-BfVoq4g", title: "Writing Great Product Descriptions" },
+              references: [
+                { label: "Ecommerce Copywriting", url: "https://example.com/copywriting" }
+              ]
+            },
+            {
+              question: "How do I automate returns processing?",
+              text: "Automating returns can cut costs and improve customer experience. Use return portals and automated refund triggers.",
+              points: [
+                "Set up a self-service return portal.",
+                "Automate refund approvals for eligible items.",
+                "Integrate returns data with inventory."
+              ],
+              images: ["/images/automated-returns.svg"],
+              video: { url: "https://www.youtube.com/embed/3JZ_D3ELwOQ", title: "Returns Automation" },
+              references: [
+                { label: "Returns Automation Guide", url: "https://example.com/returns-automation" }
+              ]
+            }
           ]
         },
         size: "large"
@@ -69,7 +113,42 @@ export const QUERY_DATA = [
           video: {
             url: "https://www.youtube.com/embed/kLneJKAqRtk",
             title: "Improving Customer Satisfaction"
-          }
+          },
+          chainedQueries: [
+            {
+              question: "How can I improve satisfaction during holidays?",
+              text: "To improve satisfaction during holidays, increase staffing and communicate shipping delays proactively.",
+              points: [
+                "Send proactive delay notifications.",
+                "Offer holiday-specific promotions.",
+                "Increase support staff during peak times."
+              ],
+              images: ["/images/holiday-support.svg"],
+              video: { url: "https://www.youtube.com/embed/4UZrsTqkcW4", title: "Holiday Customer Service" }
+            },
+            {
+              question: "What packaging improvements reduce complaints?",
+              text: "Use sturdy, eco-friendly packaging and include a checklist to reduce missing parts complaints.",
+              points: [
+                "Switch to reinforced boxes.",
+                "Add packing checklists.",
+                "Use tamper-evident seals."
+              ],
+              images: ["/images/packaging-improvements.svg"],
+              video: { url: "https://www.youtube.com/embed/5MgBikgcWnY", title: "Packaging Best Practices" }
+            },
+            {
+              question: "How do I encourage more positive reviews?",
+              text: "Encourage reviews by sending follow-up emails and offering small incentives for feedback.",
+              points: [
+                "Send review requests post-purchase.",
+                "Offer discount codes for reviews.",
+                "Make review submission easy on mobile."
+              ],
+              images: ["/images/positive-reviews.svg"],
+              video: { url: "https://www.youtube.com/embed/6v2L2UGZJAM", title: "Getting More Reviews" }
+            }
+          ]
         },
         size: "medium"
       },
@@ -90,7 +169,42 @@ export const QUERY_DATA = [
           video: {
             url: "https://www.youtube.com/embed/jIM_vNtebM8",
             title: "Optimizing Customer Support"
-          }
+          },
+          chainedQueries: [
+            {
+              question: "How can I further reduce ticket resolution time?",
+              text: "Implement AI-powered chatbots and improve agent training to reduce resolution time.",
+              points: [
+                "Deploy chatbots for common issues.",
+                "Provide regular training for support agents.",
+                "Use ticket triage automation."
+              ],
+              images: ["/images/ai-support-bot.svg"],
+              video: { url: "https://www.youtube.com/embed/7QUtEmBT_-w", title: "AI in Customer Support" }
+            },
+            {
+              question: "What are the most common refund reasons?",
+              text: "The most common refund reasons are late delivery, damaged items, and incorrect products.",
+              points: [
+                "Late delivery: 42% of refunds.",
+                "Damaged items: 31% of refunds.",
+                "Incorrect products: 18% of refunds."
+              ],
+              images: ["/images/refund-reasons.svg"],
+              video: { url: "https://www.youtube.com/embed/8ZcmTl_1ER8", title: "Reducing Refunds" }
+            },
+            {
+              question: "How do I increase self-service support usage?",
+              text: "Promote your help center and add interactive FAQs to increase self-service support usage.",
+              points: [
+                "Highlight help center in navigation.",
+                "Add video tutorials to FAQs.",
+                "Use pop-up tips for common issues."
+              ],
+              images: ["/images/self-service-support.svg"],
+              video: { url: "https://www.youtube.com/embed/9bZkp7q19f0", title: "Self-Service Support" }
+            }
+          ]
         },
         size: "small"
       },
@@ -111,7 +225,42 @@ export const QUERY_DATA = [
           video: {
             url: "https://www.youtube.com/embed/ywk4eV6X1Ik",
             title: "Quick Wins Implementation Guide"
-          }
+          },
+          chainedQueries: [
+            {
+              question: "How do I implement express shipping?",
+              text: "To implement express shipping, partner with fast carriers and update your checkout options.",
+              points: [
+                "Negotiate express rates with carriers.",
+                "Add express option to checkout page.",
+                "Promote express shipping in marketing."
+              ],
+              images: ["/images/express-shipping.svg"],
+              video: { url: "https://www.youtube.com/embed/1Q8fG0TtVAY", title: "Express Shipping Setup" }
+            },
+            {
+              question: "What makes a product page more effective?",
+              text: "Effective product pages use high-quality images, clear CTAs, and trust signals like reviews.",
+              points: [
+                "Use at least 5 product images.",
+                "Add customer reviews and ratings.",
+                "Highlight free returns and guarantees."
+              ],
+              images: ["/images/effective-product-page.svg"],
+              video: { url: "https://www.youtube.com/embed/2Vv-BfVoq4g", title: "Product Page Optimization" }
+            },
+            {
+              question: "How do I communicate return policies better?",
+              text: "Communicate return policies with clear banners and FAQ sections on product pages.",
+              points: [
+                "Add a returns banner above the fold.",
+                "Include a link to the full policy.",
+                "Summarize key points in FAQs."
+              ],
+              images: ["/images/return-policy-banner.svg"],
+              video: { url: "https://www.youtube.com/embed/3JZ_D3ELwOQ", title: "Return Policy Communication" }
+            }
+          ]
         },
         size: "wide"
       }
@@ -164,6 +313,41 @@ export const QUERY_DATA = [
           references: [
             { label: "Conversion Study 2024", url: "https://example.com/conversion-study" },
             { label: "A/B Testing Guide", url: "https://example.com/ab-testing-guide" }
+          ],
+          chainedQueries: [
+            {
+              question: "How do I increase add-to-cart rates?",
+              text: "Increase add-to-cart rates by improving product images, adding clear CTAs, and using urgency messaging.",
+              points: [
+                "Use high-res, zoomable images.",
+                "Highlight limited stock.",
+                "Place CTAs above the fold."
+              ],
+              images: ["/images/add-to-cart-boost.svg"],
+              video: { url: "https://www.youtube.com/embed/1Q8fG0TtVAY", title: "Boosting Add-to-Cart" }
+            },
+            {
+              question: "What urgency tactics work best?",
+              text: "Countdown timers, low-stock warnings, and flash sales are effective urgency tactics.",
+              points: [
+                "Add countdown timers to product pages.",
+                "Show low-stock alerts.",
+                "Run limited-time flash sales."
+              ],
+              images: ["/images/urgency-tactics.svg"],
+              video: { url: "https://www.youtube.com/embed/2Vv-BfVoq4g", title: "Urgency Tactics" }
+            },
+            {
+              question: "How do I personalize recommendations?",
+              text: "Personalize recommendations using browsing history, purchase data, and AI algorithms.",
+              points: [
+                "Show related products based on cart.",
+                "Use AI to suggest trending items.",
+                "Segment recommendations by user type."
+              ],
+              images: ["/images/personalized-recommendations.svg"],
+              video: { url: "https://www.youtube.com/embed/3JZ_D3ELwOQ", title: "Personalization in E-commerce" }
+            }
           ]
         },
         size: "large"
@@ -185,7 +369,42 @@ export const QUERY_DATA = [
           video: {
             url: "https://www.youtube.com/embed/kLneJKAqRtk",
             title: "A/B Testing Best Practices"
-          }
+          },
+          chainedQueries: [
+            {
+              question: "How do I design better A/B tests?",
+              text: "Design better A/B tests by isolating variables and running tests for at least 2 weeks.",
+              points: [
+                "Test one change at a time.",
+                "Ensure statistical significance.",
+                "Use control and variant groups."
+              ],
+              images: ["/images/ab-test-design.svg"],
+              video: { url: "https://www.youtube.com/embed/1Q8fG0TtVAY", title: "A/B Test Design" }
+            },
+            {
+              question: "What metrics should I track in A/B tests?",
+              text: "Track conversion rate, bounce rate, and average order value in A/B tests.",
+              points: [
+                "Monitor conversion rate changes.",
+                "Check bounce rate for each variant.",
+                "Compare average order value."
+              ],
+              images: ["/images/ab-test-metrics.svg"],
+              video: { url: "https://www.youtube.com/embed/2Vv-BfVoq4g", title: "A/B Test Metrics" }
+            },
+            {
+              question: "How do I interpret A/B test results?",
+              text: "Interpret results by looking for statistical significance and considering external factors.",
+              points: [
+                "Use a significance calculator.",
+                "Account for seasonality.",
+                "Validate with follow-up tests."
+              ],
+              images: ["/images/ab-test-interpret.svg"],
+              video: { url: "https://www.youtube.com/embed/3JZ_D3ELwOQ", title: "Interpreting A/B Results" }
+            }
+          ]
         },
         size: "small"
       },
@@ -206,7 +425,42 @@ export const QUERY_DATA = [
           video: {
             url: "https://www.youtube.com/embed/jIM_vNtebM8",
             title: "Improving Mobile Conversion Rates"
-          }
+          },
+          chainedQueries: [
+            {
+              question: "How do I improve mobile conversion rates?",
+              text: "Improve mobile conversion rates by simplifying checkout and optimizing page speed.",
+              points: [
+                "Reduce checkout steps to 2 or fewer.",
+                "Compress images for faster load times.",
+                "Use mobile-friendly payment options."
+              ],
+              images: ["/images/mobile-conversion.svg"],
+              video: { url: "https://www.youtube.com/embed/1Q8fG0TtVAY", title: "Mobile Conversion Tips" }
+            },
+            {
+              question: "What causes high checkout abandonment?",
+              text: "High checkout abandonment is often caused by unexpected costs, required account creation, and slow loading.",
+              points: [
+                "Show all costs upfront.",
+                "Allow guest checkout.",
+                "Optimize checkout for speed."
+              ],
+              images: ["/images/checkout-abandonment.svg"],
+              video: { url: "https://www.youtube.com/embed/2Vv-BfVoq4g", title: "Checkout Abandonment" }
+            },
+            {
+              question: "How do I benchmark against competitors?",
+              text: "Benchmark by comparing your conversion rates and checkout flow to top industry competitors.",
+              points: [
+                "Use industry reports for comparison.",
+                "Analyze competitor checkout UX.",
+                "Adopt best practices from leaders."
+              ],
+              images: ["/images/benchmarking.svg"],
+              video: { url: "https://www.youtube.com/embed/3JZ_D3ELwOQ", title: "Benchmarking Conversion" }
+            }
+          ]
         },
         size: "medium"
       }

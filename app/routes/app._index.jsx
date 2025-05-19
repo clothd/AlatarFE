@@ -291,6 +291,7 @@ export default function Index() {
               disabled={false}
               chatHistory={chatHistory}
               isAwaitingBlocks={isAwaitingBlocks}
+              hideChatHistory={expandedBlock !== null}
             />
           </div>
         </div>
