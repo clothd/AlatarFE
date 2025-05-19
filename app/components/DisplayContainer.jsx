@@ -47,32 +47,32 @@ const mediaResources = {
   },
   'marketing campaign': {
     type: 'video',
-    url: 'https://www.youtube.com/watch?v=ywk4eV6X1Ik',
+    url: 'https://www.youtube.com/embed/ywk4eV6X1Ik',
     title: 'Holiday Campaign Strategy'
   },
   'trust signals': {
     type: 'image',
-    url: '/images/trust-signals-infographic.png',
+    url: '/images/trust-signals-infographic.svg',
     title: 'Building Trust with Customers'
   },
   'social proof': {
     type: 'image',
-    url: '/images/social-proof-examples.png',
+    url: '/images/social-proof-examples.svg',
     title: 'Social Proof Examples'
   },
   'conversion rate': {
     type: 'video',
-    url: 'https://www.youtube.com/watch?v=kLneJKAqRtk',
+    url: 'https://www.youtube.com/embed/kLneJKAqRtk',
     title: 'Conversion Rate Optimization'
   },
   'traffic analytics': {
     type: 'image',
-    url: '/images/traffic-sources.png',
+    url: '/images/traffic-sources.svg',
     title: 'Traffic Sources Overview'
   },
   'ad spend': {
     type: 'image',
-    url: '/images/ad-performance-metrics.png',
+    url: '/images/ad-performance-metrics.svg',
     title: 'Ad Performance Metrics'
   }
 };
