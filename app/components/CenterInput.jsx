@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaPaperPlane } from "react-icons/fa";
+import { FaPaperPlane ,FaPaperclip} from "react-icons/fa";
 
 export default function CenterInput({ value, onChange, onSend, disabled, chatHistory = [] }) {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -146,7 +146,9 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
             }}
           >
             <FaPaperPlane />
+
           </motion.button>
+            <FaPaperclip style={{marginLeft: 10, marginRight: 10,fontSize: 16,color: "#999"}} />
         </div>
       </div>
     </>
