@@ -41,6 +41,7 @@ export default function Index() {
         );
         
         if (foundQuery) {
+          // Only set loading state for the expanded block
           setIsLoading(true);
           setChainedResponse(null);
           
@@ -61,37 +62,40 @@ export default function Index() {
       }
     }
 
-    const found = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
-    if (found) {
-      setActiveQuery(found);
-      setIsLoading(true);
-      setShowBlocks(false);
-      setChainedQueryIndex(null);
-      setChainedResponse(null);
-      setTimeout(() => {
-        setIsLoading(false);
-        setShowBlocks(true);
-      }, 5000);
-    } else {
-      const qaFound = QA_LIST.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
-      if (qaFound) setActiveId(qaFound.id);
-    }
-    
-    // Add to chat history
-    if (input.trim()) {
-      const foundQuery = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
-      let dummyAnswer = "";
-      if (foundQuery && foundQuery.dummyAnswer) {
-        dummyAnswer = foundQuery.dummyAnswer;
+    // Only proceed with main loader and blocks if we're not in expanded mode
+    if (expandedBlock === null) {
+      const found = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
+      if (found) {
+        setActiveQuery(found);
+        setIsLoading(true);
+        setShowBlocks(false);
+        setChainedQueryIndex(null);
+        setChainedResponse(null);
+        setTimeout(() => {
+          setIsLoading(false);
+          setShowBlocks(true);
+        }, 5000);
       } else {
-        dummyAnswer = "Sorry, no answer available.";
+        const qaFound = QA_LIST.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
+        if (qaFound) setActiveId(qaFound.id);
       }
-      setChatHistory(prev => [
-        ...prev,
-        { question: input.trim(), answer: dummyAnswer }
-      ]);
+      
+      // Add to chat history
+      if (input.trim()) {
+        const foundQuery = QUERY_DATA.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
+        let dummyAnswer = "";
+        if (foundQuery && foundQuery.dummyAnswer) {
+          dummyAnswer = foundQuery.dummyAnswer;
+        } else {
+          dummyAnswer = "Sorry, no answer available.";
+        }
+        setChatHistory(prev => [
+          ...prev,
+          { question: input.trim(), answer: dummyAnswer }
+        ]);
+      }
+      setInput("");
     }
-    setInput("");
   }
 
   // Delay loader appearance
