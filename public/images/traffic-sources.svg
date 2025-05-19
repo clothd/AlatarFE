@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .box { fill: #f3e8ff; stroke: #7c3aed; stroke-width: 2; }
+    .text { font-family: Arial; font-size: 14px; fill: #1f2937; }
+    .title { font-family: Arial; font-size: 20px; font-weight: bold; fill: #7c3aed; }
+    .percentage { font-family: Arial; font-size: 16px; font-weight: bold; fill: #7c3aed; }
+    .arrow { stroke: #7c3aed; stroke-width: 2; fill: none; }
+  </style>
+  
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" class="title">Traffic Sources Overview</text>
+  
+  <!-- Center Circle -->
+  <circle cx="400" cy="300" r="100" class="box"/>
+  <text x="400" y="300" text-anchor="middle" class="text">Total Traffic</text>
+  <text x="400" y="320" text-anchor="middle" class="percentage">1,284</text>
+  
+  <!-- Organic Search -->
+  <rect x="50" y="150" width="200" height="80" rx="10" class="box"/>
+  <text x="150" y="190" text-anchor="middle" class="text">Organic Search</text>
+  <text x="150" y="210" text-anchor="middle" class="percentage">45%</text>
+  <path d="M250 190 L300 300" class="arrow"/>
+  
+  <!-- Social Media -->
+  <rect x="550" y="150" width="200" height="80" rx="10" class="box"/>
+  <text x="650" y="190" text-anchor="middle" class="text">Social Media</text>
+  <text x="650" y="210" text-anchor="middle" class="percentage">25%</text>
+  <path d="M550 190 L500 300" class="arrow"/>
+  
+  <!-- Direct -->
+  <rect x="50" y="370" width="200" height="80" rx="10" class="box"/>
+  <text x="150" y="410" text-anchor="middle" class="text">Direct</text>
+  <text x="150" y="430" text-anchor="middle" class="percentage">20%</text>
+  <path d="M250 410 L300 300" class="arrow"/>
+  
+  <!-- Referral -->
+  <rect x="550" y="370" width="200" height="80" rx="10" class="box"/>
+  <text x="650" y="410" text-anchor="middle" class="text">Referral</text>
+  <text x="650" y="430" text-anchor="middle" class="percentage">10%</text>
+  <path d="M550 410 L500 300" class="arrow"/>
+  
+  <!-- User Behavior -->
+  <rect x="250" y="500" width="300" height="80" rx="10" class="box"/>
+  <text x="400" y="530" text-anchor="middle" class="text">Average Session Duration: 4m 32s</text>
+  <text x="400" y="550" text-anchor="middle" class="text">Pages per Session: 3.8 | Bounce Rate: 35%</text>
+</svg> 

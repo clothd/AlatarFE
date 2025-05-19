@@ -24,7 +24,7 @@ export const QA_LIST = [
     {
       id: 3,
       question: "What are my top selling products?",
-      answer: "Your top performing products this month:\n\n1. Shopify T-shirt\n• Sales: 1,234 units\n• Revenue: $24,680\n• Growth: +15% from last month\n\n2. Alatar Mug\n• Sales: 987 units\n• Revenue: $19,740\n• Growth: +8% from last month\n\n3. Polaris Hoodie\n• Sales: 856 units\n• Revenue: $42,800\n• Growth: +12% from last month\n\nKey Trends:\n• Premium products showing strong growth\n• Seasonal items performing well\n• Bundle deals increasing average order value",
+      answer: "Your top performing products this month:\n\n1. Clothd Heavy T-shirt\n• Sales: 1,234 units\n• Revenue: $24,680\n• Growth: +14% from last month\n\n2.The Ugly Mug\n• Sales: 987 units\n• Revenue: $9,740\n• Growth: +8% from last month\n\n3. Polaris Hoodie\n• Sales: 856 units\n• Revenue: $42,800\n• Growth: +12% from last month\n\nKey Trends:\n• Premium products showing strong growth\n• Seasonal items performing well\n• Bundle deals increasing average order value",
       images: [
         "/images/top-products.png",
         "/images/top-products.webp",

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .funnel { fill: #f3e8ff; stroke: #7c3aed; stroke-width: 2; }
+    .text { font-family: Arial; font-size: 14px; fill: #1f2937; }
+    .title { font-family: Arial; font-size: 20px; font-weight: bold; fill: #7c3aed; }
+    .percentage { font-family: Arial; font-size: 16px; font-weight: bold; fill: #7c3aed; }
+    .arrow { stroke: #7c3aed; stroke-width: 2; fill: none; }
+  </style>
+  
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" class="title">Conversion Rate Optimization Funnel</text>
+  
+  <!-- Funnel Stages -->
+  <path d="M100 100 L700 100 L650 200 L150 200 Z" class="funnel"/>
+  <text x="400" y="150" text-anchor="middle" class="text">Website Visitors</text>
+  <text x="400" y="170" text-anchor="middle" class="percentage">100%</text>
+  
+  <path d="M150 200 L650 200 L600 300 L200 300 Z" class="funnel"/>
+  <text x="400" y="250" text-anchor="middle" class="text">Engaged Visitors</text>
+  <text x="400" y="270" text-anchor="middle" class="percentage">45%</text>
+  
+  <path d="M200 300 L600 300 L550 400 L250 400 Z" class="funnel"/>
+  <text x="400" y="350" text-anchor="middle" class="text">Add to Cart</text>
+  <text x="400" y="370" text-anchor="middle" class="percentage">25%</text>
+  
+  <path d="M250 400 L550 400 L500 500 L300 500 Z" class="funnel"/>
+  <text x="400" y="450" text-anchor="middle" class="text">Checkout Started</text>
+  <text x="400" y="470" text-anchor="middle" class="percentage">15%</text>
+  
+  <path d="M300 500 L500 500 L450 550 L350 550 Z" class="funnel"/>
+  <text x="400" y="525" text-anchor="middle" class="text">Completed Purchase</text>
+  <text x="400" y="545" text-anchor="middle" class="percentage">3.7%</text>
+  
+  <!-- Optimization Tips -->
+  <rect x="50" y="580" width="700" height="100" rx="10" class="funnel"/>
+  <text x="400" y="600" text-anchor="middle" class="text">Optimization Tips:</text>
+  <text x="400" y="625" text-anchor="middle" class="text">• Improve page load speed • Enhance mobile experience • Add social proof • Optimize checkout process</text>
+  <text x="400" y="650" text-anchor="middle" class="text">• Implement A/B testing • Add customer reviews • Simplify forms • Clear CTAs</text>
+</svg> 

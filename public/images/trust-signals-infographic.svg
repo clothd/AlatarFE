@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .box { fill: #f3e8ff; stroke: #7c3aed; stroke-width: 2; }
+    .icon { fill: #7c3aed; }
+    .text { font-family: Arial; font-size: 14px; fill: #1f2937; }
+    .title { font-family: Arial; font-size: 20px; font-weight: bold; fill: #7c3aed; }
+    .subtitle { font-family: Arial; font-size: 16px; font-weight: bold; fill: #4c1d95; }
+  </style>
+  
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" class="title">Building Trust with Your Customers</text>
+  
+  <!-- Security Section -->
+  <rect x="50" y="80" width="300" height="200" rx="10" class="box"/>
+  <text x="200" y="110" text-anchor="middle" class="subtitle">Security & Privacy</text>
+  
+  <!-- Security Icons -->
+  <circle cx="100" cy="150" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="100" y="155" text-anchor="middle" class="text" fill="white">🔒</text>
+  <text x="100" y="200" text-anchor="middle" class="text">SSL Certificate</text>
+  
+  <circle cx="200" cy="150" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="200" y="155" text-anchor="middle" class="text" fill="white">🛡️</text>
+  <text x="200" y="200" text-anchor="middle" class="text">Security Badges</text>
+  
+  <circle cx="300" cy="150" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="300" y="155" text-anchor="middle" class="text" fill="white">🔐</text>
+  <text x="300" y="200" text-anchor="middle" class="text">Privacy Policy</text>
+  
+  <!-- Social Proof Section -->
+  <rect x="450" y="80" width="300" height="200" rx="10" class="box"/>
+  <text x="600" y="110" text-anchor="middle" class="subtitle">Social Proof</text>
+  
+  <!-- Social Proof Icons -->
+  <circle cx="500" cy="150" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="500" y="155" text-anchor="middle" class="text" fill="white">⭐</text>
+  <text x="500" y="200" text-anchor="middle" class="text">Customer Reviews</text>
+  
+  <circle cx="600" cy="150" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="600" y="155" text-anchor="middle" class="text" fill="white">📸</text>
+  <text x="600" y="200" text-anchor="middle" class="text">User Photos</text>
+  
+  <circle cx="700" cy="150" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="700" y="155" text-anchor="middle" class="text" fill="white">📊</text>
+  <text x="700" y="200" text-anchor="middle" class="text">Ratings</text>
+  
+  <!-- Shipping & Returns -->
+  <rect x="50" y="320" width="300" height="200" rx="10" class="box"/>
+  <text x="200" y="350" text-anchor="middle" class="subtitle">Shipping & Returns</text>
+  
+  <!-- Shipping Icons -->
+  <circle cx="100" cy="390" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="100" y="395" text-anchor="middle" class="text" fill="white">🚚</text>
+  <text x="100" y="440" text-anchor="middle" class="text">Free Shipping</text>
+  
+  <circle cx="200" cy="390" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="200" y="395" text-anchor="middle" class="text" fill="white">📦</text>
+  <text x="200" y="440" text-anchor="middle" class="text">Tracking Info</text>
+  
+  <circle cx="300" cy="390" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="300" y="395" text-anchor="middle" class="text" fill="white">↩️</text>
+  <text x="300" y="440" text-anchor="middle" class="text">Easy Returns</text>
+  
+  <!-- Customer Service -->
+  <rect x="450" y="320" width="300" height="200" rx="10" class="box"/>
+  <text x="600" y="350" text-anchor="middle" class="subtitle">Customer Service</text>
+  
+  <!-- Service Icons -->
+  <circle cx="500" cy="390" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="500" y="395" text-anchor="middle" class="text" fill="white">💬</text>
+  <text x="500" y="440" text-anchor="middle" class="text">Live Chat</text>
+  
+  <circle cx="600" cy="390" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="600" y="395" text-anchor="middle" class="text" fill="white">📞</text>
+  <text x="600" y="440" text-anchor="middle" class="text">24/7 Support</text>
+  
+  <circle cx="700" cy="390" r="30" class="icon" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="700" y="395" text-anchor="middle" class="text" fill="white">📧</text>
+  <text x="700" y="440" text-anchor="middle" class="text">Quick Response</text>
+</svg> 

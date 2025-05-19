@@ -46,8 +46,8 @@ const mediaResources = {
     title: 'Cart Abandonment Solutions'
   },
   'marketing campaign': {
-    type: 'image',
-    url: '/images/holiday-campaign-flow.png',
+    type: 'video',
+    url: 'https://www.youtube.com/watch?v=ywk4eV6X1Ik',
     title: 'Holiday Campaign Strategy'
   },
   'trust signals': {
@@ -61,8 +61,8 @@ const mediaResources = {
     title: 'Social Proof Examples'
   },
   'conversion rate': {
-    type: 'image',
-    url: '/images/conversion-funnel.png',
+    type: 'video',
+    url: 'https://www.youtube.com/watch?v=kLneJKAqRtk',
     title: 'Conversion Rate Optimization'
   },
   'traffic analytics': {

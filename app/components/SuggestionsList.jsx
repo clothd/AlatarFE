@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const ITEM_HEIGHT = 56; // px
-const AUTO_SCROLL_INTERVAL = 8000; // ms
+const AUTO_SCROLL_INTERVAL = 12000; // ms
 const PAUSE_DURATION = 7000; // ms
 
 export default function SuggestionsList({ suggestions, activeId, onSelect }) {
