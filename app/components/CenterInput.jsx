@@ -29,16 +29,26 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
   // Inline keyframes for border color transition
   const borderKeyframes = `
     @keyframes borderColorTransition {
-      0% { border-color: #6ee7ff; box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
-      25% { border-color: #a259ff; box-shadow: 0 0 0 4px rgba(162, 89, 255, 0.1); }
-      50% { border-color: #ff4ecd; box-shadow: 0 0 0 4px rgba(255, 78, 205, 0.1); }
-      75% { border-color:rgb(110, 255, 182); box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
-      100% { border-color:rgb(255, 231, 110); box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
+      0% { border-color: #6ee7ff; box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); background-position: 0% 50%; }
+      25% { border-color: #a259ff; box-shadow: 0 0 0 4px rgba(162, 89, 255, 0.1); background-position: 50% 50%; }
+      50% { border-color: #ff4ecd; box-shadow: 0 0 0 4px rgba(255, 78, 205, 0.1); background-position: 100% 50%; }
+      75% { border-color:rgb(110, 255, 182); box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); background-position: 50% 50%; }
+      100% { border-color:rgb(255, 231, 110); box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); background-position: 0% 50%; }
     }
-    /* Hide scrollbar but keep scroll */
+    @keyframes gradientMoveChatBubble {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 50% 50%; }
+      50% { background-position: 100% 50%; }
+      75% { background-position: 50% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     .custom-history-scroll::-webkit-scrollbar { display: none; }
     .custom-history-scroll { scrollbar-width: none; -ms-overflow-style: none; }
   `;
+
+  // Default and expanded heights for chat history
+  const defaultHistoryHeight = 180;
+  const expandedHistoryHeight = 360;
 
   // Delay showing chat history for 5 seconds after a new query is submitted
   useEffect(() => {
@@ -70,52 +80,60 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
             right: 0,
             bottom: "100%",
             marginBottom: 12,
-            maxHeight: showHistory ? 180 : 0,
+            maxHeight: showHistory ? expandedHistoryHeight : defaultHistoryHeight,
             opacity: showHistory ? 1 : 0,
             pointerEvents: showHistory ? "auto" : "none",
             transform: showHistory ? "translateY(0) scaleY(1)" : "translateY(20px) scaleY(0.8)",
-            transition: "opacity 0.35s cubic-bezier(.4,2,.6,1), transform 0.35s cubic-bezier(.4,2,.6,1), max-height 0.35s cubic-bezier(.4,2,.6,1)",
+            transition: "opacity 0.35s cubic-bezier(.4,2,.6,1), transform 0.35s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)",
             background: "rgba(255,255,255,0.85)",
             boxShadow: "0 8px 32px 0 rgba(160,120,255,0.18)",
-            borderRadius: 18,
+            borderRadius: 22,
             overflow: "hidden",
             overflowY: "auto",
             filter: "blur(0.5px)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
             border: "1.5px solid #eaeaf5",
             zIndex: 10,
-            padding: showHistory ? "16px 18px 12px 18px" : "0 18px",
+            padding: showHistory ? "18px 22px 16px 22px" : "0 22px",
             display: chatHistory.length === 0 ? "none" : "block",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            position: "absolute",
+            // Fading edges using mask-image (for modern browsers)
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%)",
+            maskImage: "linear-gradient(to bottom, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%)"
           }}
         >
           {chatHistory.slice(-10).map((item, idx) => (
-            <div key={idx} style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", marginBottom: 14, gap: 10 }}>
+            <div key={idx} style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", marginBottom: 18, gap: 18 }}>
               {/* Answer bubble (left) */}
               <div style={{
-                background: "rgba(240,240,240,0.95)",
+                background: "rgba(240,240,240,0.97)",
                 color: "#444",
-                borderRadius: "16px 8px 8px 16px",
-                padding: "10px 16px",
-                fontSize: 14,
+                borderRadius: "18px 10px 10px 18px",
+                padding: "16px 22px",
+                fontSize: 16,
                 maxWidth: "60%",
                 boxShadow: "0 2px 8px #a259ff11",
-                marginRight: "auto"
+                marginRight: "auto",
+                lineHeight: 1.7,
+                fontWeight: 500
               }}>{item.answer}</div>
-              {/* Query bubble (right) */}
+              {/* Query bubble (right) with animated gradient */}
               <div style={{
-                background: "linear-gradient(90deg, #a259ff, #6ee7ff, #ff4ecd)",
+                background: "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)",
                 color: "#fff",
-                borderRadius: "8px 16px 16px 8px",
-                padding: "10px 16px",
-                fontWeight: 600,
-                fontSize: 14,
+                borderRadius: "10px 18px 18px 10px",
+                padding: "16px 22px",
+                fontWeight: 700,
+                fontSize: 16,
                 maxWidth: "40%",
                 marginLeft: "auto",
                 boxShadow: "0 2px 8px #a259ff22",
                 textAlign: "right",
-                whiteSpace: "pre-line"
+                whiteSpace: "pre-line",
+                backgroundSize: "400% 400%",
+                animation: "gradientMoveChatBubble 8s ease-in-out infinite"
               }}>{item.question}</div>
             </div>
           ))}
