@@ -92,7 +92,16 @@ export default function Index() {
   const isAwaitingBlocks = isLoading || (activeQuery && !showBlocks);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f7f7fa", display: "flex", flexDirection: "column", overflowY: "hidden" }}>
+    <div style={{
+      minHeight: "100vh",
+      background: "white",
+      backgroundImage: "url('/Dot Grid Pattern (3).svg')",
+      backgroundRepeat: "repeat",
+      backgroundSize: "cover",
+      display: "flex",
+      flexDirection: "column",
+      overflowY: "hidden"
+    }}>
       {/* Main Content */}
       <div
         style={{
