@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { FaPaperPlane, FaPaperclip } from "react-icons/fa";
+import { FaPaperclip } from "react-icons/fa";
 
 export default function CenterInput({ 
   value, 
@@ -102,7 +102,7 @@ export default function CenterInput({
         onMouseLeave={handleHideHistory}
       >
         {/* Chat History Panel */}
-        {!hideChatHistory && (
+        {!hideChatHistory && !isAwaitingBlocks && (
           <div
             className="custom-history-scroll"
             onMouseEnter={() => setHistoryHover(true)}
@@ -116,8 +116,7 @@ export default function CenterInput({
               maxHeight: showHistory ? (historyHover ? expandedHistoryHeight : defaultHistoryHeight) : 0,
               opacity: showHistory ? 1 : 0,
               pointerEvents: showHistory ? "auto" : "none",
-              transform: showHistory ? "translateY(0) scaleY(1)" : "translateY(20px) scaleY(0.8)",
-              transition: "opacity 0.5s cubic-bezier(.4,2,.6,1), transform 0.5s cubic-bezier(.4,2,.6,1), max-height 1.2s cubic-bezier(.4,2,.6,1)",
+              transition: "opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 1.2s cubic-bezier(.4,2,.6,1)",
               background: "rgba(255,255,255,0.85)",
               boxShadow: "0 8px 32px 0 rgba(160,120,255,0.18)",
               borderRadius: 22,
@@ -184,6 +183,7 @@ export default function CenterInput({
           transition: "all 0.3s ease",
           position: "relative"
         }}>
+          
           <input
             type="text"
             value={value}
@@ -197,32 +197,35 @@ export default function CenterInput({
               outline: "none",
               background: "transparent",
               fontSize: 16,
-              padding: "12px 16px",
+              padding: "12px 10px",
               color: "#333"
             }}
-          />
+          />          <FaPaperclip style={{marginLeft: 10, marginRight: 10,fontSize: 16,color: "#999"}} />
+
           <motion.button
             onClick={handleSend}
             disabled={disabled || !value.trim()}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             style={{
-              background: value.trim() 
-                ? "linear-gradient(135deg, #a259ff, #ff4ecd)" 
-                : "#f0f0f0",
+              // background: value.trim() 
+              //   ? "linear-gradient(135deg, #a259ff, #ff4ecd)" 
+              //   : "#f0f0f0",
               color: value.trim() ? "#fff" : "#999",
               border: "none",
               borderRadius: 20,
-              padding: "10px 20px",
+              padding: "10px 10px",
               cursor: value.trim() ? "pointer" : "not-allowed",
               fontWeight: 600,
               fontSize: 14,
-              transition: "all 0.2s ease"
+              transition: "all 0.2s ease",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
             }}
           >
-            <FaPaperPlane />
+            <img src="/send.svg" alt="Send" style={{ width: 26, height: 20, display: "block" }} />
           </motion.button>
-          <FaPaperclip style={{marginLeft: 10, marginRight: 10,fontSize: 16,color: "#999"}} />
         </div>
         {/* Audio Icon Floating Button */}
         <button
