@@ -1,18 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { FaPaperPlane ,FaPaperclip} from "react-icons/fa";
 
 export default function CenterInput({ value, onChange, onSend, disabled, chatHistory = [], isAwaitingBlocks }) {
   const [showHistory, setShowHistory] = useState(false);
   const [historyVisible, setHistoryVisible] = useState(chatHistory.length > 0);
+  const [historyHover, setHistoryHover] = useState(false);
 
   // Border animation is controlled by isAwaitingBlocks
   const isAnimating = !!isAwaitingBlocks;
 
+  // Delay hiding chat history after mouse leave
+  const hideHistoryTimeout = useRef();
+
+  const handleShowHistory = () => {
+    if (hideHistoryTimeout.current) clearTimeout(hideHistoryTimeout.current);
+    setShowHistory(true);
+  };
+  const handleHideHistory = () => {
+    hideHistoryTimeout.current = setTimeout(() => setShowHistory(false), 1000);
+  };
+
+  useEffect(() => {
+    return () => { if (hideHistoryTimeout.current) clearTimeout(hideHistoryTimeout.current); };
+  }, []);
+
   const handleSend = () => {
     if (value.trim()) {
       onSend();
-      
       // Stop the border animation after 8 seconds
       setTimeout(() => {
         // This is a placeholder for the animation logic
@@ -48,7 +63,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
 
   // Default and expanded heights for chat history
   const defaultHistoryHeight = 180;
-  const expandedHistoryHeight = 360;
+  const expandedHistoryHeight = 400;
 
   // Delay showing chat history for 5 seconds after a new query is submitted
   useEffect(() => {
@@ -65,26 +80,26 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
     <>
       <style>{borderKeyframes}</style>
       <div style={{ position: "relative", width: "100%" }}
-        onMouseEnter={() => historyVisible && setShowHistory(true)}
-        onMouseLeave={() => setShowHistory(false)}
-        onFocus={() => historyVisible && setShowHistory(true)}
-        onBlur={() => setShowHistory(false)}
         tabIndex={-1}
+        onMouseEnter={handleShowHistory}
+        onMouseLeave={handleHideHistory}
       >
         {/* Chat History Panel */}
         <div
           className="custom-history-scroll"
+          onMouseEnter={() => setHistoryHover(true)}
+          onMouseLeave={() => setHistoryHover(false)}
           style={{
             position: "absolute",
             left: 0,
             right: 0,
             bottom: "100%",
             marginBottom: 12,
-            maxHeight: showHistory ? expandedHistoryHeight : defaultHistoryHeight,
+            maxHeight: showHistory ? (historyHover ? expandedHistoryHeight : defaultHistoryHeight) : 0,
             opacity: showHistory ? 1 : 0,
             pointerEvents: showHistory ? "auto" : "none",
             transform: showHistory ? "translateY(0) scaleY(1)" : "translateY(20px) scaleY(0.8)",
-            transition: "opacity 0.35s cubic-bezier(.4,2,.6,1), transform 0.35s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)",
+            transition: "opacity 0.5s cubic-bezier(.4,2,.6,1), transform 0.5s cubic-bezier(.4,2,.6,1), max-height 1.2s cubic-bezier(.4,2,.6,1)",
             background: "rgba(255,255,255,0.85)",
             boxShadow: "0 8px 32px 0 rgba(160,120,255,0.18)",
             borderRadius: 22,
@@ -99,35 +114,20 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
             display: chatHistory.length === 0 ? "none" : "block",
             boxSizing: "border-box",
             position: "absolute",
-            // Fading edges using mask-image (for modern browsers)
             WebkitMaskImage: "linear-gradient(to bottom, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%)",
             maskImage: "linear-gradient(to bottom, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%)"
           }}
         >
           {chatHistory.slice(-10).map((item, idx) => (
-            <div key={idx} style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", marginBottom: 18, gap: 18 }}>
-              {/* Answer bubble (left) */}
-              <div style={{
-                background: "rgba(240,240,240,0.97)",
-                color: "#444",
-                borderRadius: "18px 10px 10px 18px",
-                padding: "16px 22px",
-                fontSize: 16,
-                maxWidth: "60%",
-                boxShadow: "0 2px 8px #a259ff11",
-                marginRight: "auto",
-                lineHeight: 1.7,
-                fontWeight: 500
-              }}>{item.answer}</div>
-              {/* Query bubble (right) with animated gradient */}
+            <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "stretch", marginBottom: 18, gap: 8 }}>
+              {/* Query bubble (top, right-aligned) */}
               <div style={{
                 background: "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)",
                 color: "#fff",
-                borderRadius: "10px 18px 18px 10px",
-                padding: "16px 22px",
-                fontWeight: 700,
-                fontSize: 16,
-                maxWidth: "40%",
+                borderRadius: "24px 24px 24px 24px",
+                padding: "12px 12px",
+                fontSize: 14,
+                maxWidth: "90%",
                 marginLeft: "auto",
                 boxShadow: "0 2px 8px #a259ff22",
                 textAlign: "right",
@@ -135,6 +135,18 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
                 backgroundSize: "400% 400%",
                 animation: "gradientMoveChatBubble 8s ease-in-out infinite"
               }}>{item.question}</div>
+              {/* Answer bubble (bottom, left-aligned) */}
+              <div style={{
+                background: "rgba(240,240,240,0.97)",
+                color: "#444",
+                borderRadius: "18px 10px 10px 18px",
+                padding: "12px 12px",
+                fontSize: 14,
+                maxWidth: "70%",
+                boxShadow: "0 2px 8px #a259ff11",
+                marginRight: "auto",
+                lineHeight: 1.7,
+              }}>{item.answer}</div>
             </div>
           ))}
         </div>
