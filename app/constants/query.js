@@ -98,14 +98,15 @@ export const QUERY_DATA = [
       },
       {
         title: "Customer Sentiment",
-        text: "Overall satisfaction score: 3.4/5. Main concerns center around delivery and product quality.",
+        text: "Overall satisfaction score: 3.4/5. Main concerns center around delivery and product quality. Customer satisfaction is highest during the first 30 days of purchase.",
         // image: "/images/sentiment-trend-chart.svg",
         expandedContent: {
           text: "Customer sentiment analysis shows a dip in satisfaction during peak shipping periods. Product quality issues are often related to packaging and missing parts.",
           points: [
             "Satisfaction drops by 0.5 points during holidays.",
             "Most negative reviews mention late deliveries.",
-            "Positive reviews highlight easy website navigation."
+            "Positive reviews highlight easy website navigation.",
+            "Customer satisfaction is highest during the first 30 days of purchase."
           ],
           images: [
             "/images/satisfaction-breakdown.svg"
