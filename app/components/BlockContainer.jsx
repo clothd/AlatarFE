@@ -185,7 +185,9 @@ export default function BlockContainer({
   size = "medium",
   isLoading = false,
   chainedResponse = null,
-  onChainedQuery = null
+  onChainedQuery = null,
+  shopItems = [],
+  shopItemsExpanded = false
 }) {
   const s = sizeStyles[size] || sizeStyles.medium;
   const [activeChained, setActiveChained] = useState(null);
@@ -287,6 +289,42 @@ export default function BlockContainer({
               </ul>
             )}
           </div>
+        ) : expandedContent?.shopItems ? (
+          <div style={{ width: "100%" }}>
+            <div style={{ fontSize: 15, color: "#444", marginBottom: 12, lineHeight: 1.7 }}>
+              {expandedContent.text}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: 16, marginBottom: 8, justifyContent: 'center' }}>
+              {expandedContent.shopItems.map((item, idx) => (
+                <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 80 }}>
+                  <div style={{
+                    width: 72,
+                    height: 72,
+                    borderRadius: 12,
+                    background: '#eee',
+                    marginBottom: 8,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                  }}>
+                    {item.image ? (
+                      <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 12 }} />
+                    ) : null}
+                  </div>
+                  <div style={{
+                    width: 60,
+                    height: 12,
+                    background: '#e0e0e0',
+                    borderRadius: 6,
+                    marginBottom: 4,
+                  }} />
+                  <div style={{ fontSize: 15, color: '#444', fontWeight: 500, marginBottom: 2 }}>{item.price}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize: 14, color: '#bbb', marginTop: 8, fontWeight: 400 }}>{expandedContent.fadedText}</div>
+          </div>
         ) : (
           <>
             {/* Expanded images or chart */}
@@ -380,6 +418,78 @@ export default function BlockContainer({
   }
 
   // Normal block (clickable to expand)
+  if (!expanded && shopItems && shopItems.length > 0) {
+    return (
+      <motion.div
+        layout
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        transition={{ type: "spring", stiffness: 400, damping: 32 }}
+        className="block-container"
+        style={{
+          borderRadius: 20,
+          background: "#f9f9f9",
+          border: gradient
+            ? `3px solid transparent`
+            : `3px solid ${borderColor}`,
+          backgroundImage: gradient
+            ? `linear-gradient(#f9f9f9, #f9f9f9), ${gradient}`
+            : undefined,
+          backgroundOrigin: gradient ? "border-box" : undefined,
+          backgroundClip: gradient ? "padding-box, border-box" : undefined,
+          boxShadow: "0 4px 24px 0 rgba(160,120,255,0.08)",
+          padding: s.padding,
+          minWidth: s.minWidth,
+          maxWidth: s.maxWidth,
+          minHeight: s.minHeight,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          cursor: onExpand ? "pointer" : undefined,
+          ...style
+        }}
+        onClick={() => {
+          if (onExpand) {
+            onExpand();
+          }
+        }}
+      >
+        <div style={{ fontSize: s.fontSize, color: "#444", marginBottom: 10, lineHeight: 1.7 }}>{text}</div>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: 12, marginBottom: 8, justifyContent: 'center', width: '100%' }}>
+          {shopItems.map((item, idx) => (
+            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 60 }}>
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: 8,
+                background: '#eee',
+                marginBottom: 6,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+              }}>
+                {item.image ? (
+                  <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                ) : null}
+              </div>
+              <div style={{
+                width: 40,
+                height: 8,
+                background: '#e0e0e0',
+                borderRadius: 4,
+                marginBottom: 2,
+              }} />
+              <div style={{ fontSize: 13, color: '#444', fontWeight: 500 }}>{item.price}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 12, color: '#bbb', marginTop: 4, fontWeight: 400 }}>{expandedContent?.fadedText}</div>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       layout

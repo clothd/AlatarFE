@@ -98,58 +98,27 @@ export const QUERY_DATA = [
       },
       {
         title: "Customer Sentiment",
-        text: "Overall satisfaction score: 3.4/5. Main concerns center around delivery and product quality. Customer satisfaction is highest during the first 30 days of purchase.",
-        // image: "/images/sentiment-trend-chart.svg",
+        text: "Check out some of our most popular items and their current prices.",
         expandedContent: {
-          text: "Customer sentiment analysis shows a dip in satisfaction during peak shipping periods. Product quality issues are often related to packaging and missing parts.",
-          points: [
-            "Satisfaction drops by 0.5 points during holidays.",
-            "Most negative reviews mention late deliveries.",
-            "Positive reviews highlight easy website navigation.",
-            "Customer satisfaction is highest during the first 30 days of purchase."
-          ],
-          images: [
-            "/images/satisfaction-breakdown.svg"
-          ],
-          video: {
-            url: "https://www.youtube.com/embed/kLneJKAqRtk",
-            title: "Improving Customer Satisfaction"
-          },
-          chainedQueries: [
+          text: "Discover our trending products, handpicked for quality and value. These items are loved by our customers and come with exclusive offers.",
+          shopItems: [
             {
-              question: "How can I improve satisfaction during holidays?",
-              text: "To improve satisfaction during holidays, increase staffing and communicate shipping delays proactively.",
-              points: [
-                "Send proactive delay notifications.",
-                "Offer holiday-specific promotions.",
-                "Increase support staff during peak times."
-              ],
-              images: ["/images/holiday-support.svg"],
-              video: { url: "https://www.youtube.com/embed/4UZrsTqkcW4", title: "Holiday Customer Service" }
+              name: "Minimalist Chair",
+              price: "$199.99",
+              image: "https://imgs.search.brave.com/Dj5x5mwGNP1PxX0N2wEMwOuvI9ZgQEICRq0eAeRYm-w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTU3/MzE2NDI2L3Bob3Rv/L3NvYXAuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPW9GQi1f/dnNFWGU4cjQyLXpv/eXhjWVljVU9wb2Jm/VWZZd2xXMUE0RW44/VHc9"
             },
             {
-              question: "What packaging improvements reduce complaints?",
-              text: "Use sturdy, eco-friendly packaging and include a checklist to reduce missing parts complaints.",
-              points: [
-                "Switch to reinforced boxes.",
-                "Add packing checklists.",
-                "Use tamper-evident seals."
-              ],
-              images: ["/images/packaging-improvements.svg"],
-              video: { url: "https://www.youtube.com/embed/5MgBikgcWnY", title: "Packaging Best Practices" }
+              name: "Modern Lamp",
+              price: "$89.99",
+              image: "https://imgs.search.brave.com/Dj5x5mwGNP1PxX0N2wEMwOuvI9ZgQEICRq0eAeRYm-w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTU3/MzE2NDI2L3Bob3Rv/L3NvYXAuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPW9GQi1f/dnNFWGU4cjQyLXpv/eXhjWVljVU9wb2Jm/VWZZd2xXMUE0RW44/VHc9"
             },
             {
-              question: "How do I encourage more positive reviews?",
-              text: "Encourage reviews by sending follow-up emails and offering small incentives for feedback.",
-              points: [
-                "Send review requests post-purchase.",
-                "Offer discount codes for reviews.",
-                "Make review submission easy on mobile."
-              ],
-              images: ["/images/positive-reviews.svg"],
-              video: { url: "https://www.youtube.com/embed/6v2L2UGZJAM", title: "Getting More Reviews" }
+              name: "Cozy Sofa",
+              price: "$499.99",
+              image: "https://imgs.search.brave.com/Dj5x5mwGNP1PxX0N2wEMwOuvI9ZgQEICRq0eAeRYm-w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTU3/MzE2NDI2L3Bob3Rv/L3NvYXAuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPW9GQi1f/dnNFWGU4cjQyLXpv/eXhjWVljVU9wb2Jm/VWZZd2xXMUE0RW44/VHc9"
             }
-          ]
+          ],
+          fadedText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit?"
         },
         size: "medium"
       },

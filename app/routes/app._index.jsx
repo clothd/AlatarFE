@@ -262,6 +262,7 @@ export default function Index() {
                           setExpandedBlock(i);
                           console.log('Set expandedBlock to:', i);
                         }}
+                        shopItems={block.title === 'Customer Sentiment' && block.expandedContent && block.expandedContent.shopItems ? block.expandedContent.shopItems : []}
                       />
                     </div>
                   );
