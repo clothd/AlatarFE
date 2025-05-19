@@ -133,7 +133,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
                 textAlign: "right",
                 whiteSpace: "pre-line",
                 backgroundSize: "400% 400%",
-                animation: "gradientMoveChatBubble 8s ease-in-out infinite"
+                animation: "gradientMoveChatBubble 18s ease-in-out infinite"
               }}>{item.question}</div>
               {/* Answer bubble (bottom, left-aligned) */}
               <div style={{
