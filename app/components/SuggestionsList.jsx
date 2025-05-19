@@ -56,10 +56,13 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
 
   // Find the index of the active item
   const idx = suggestions.findIndex(item => item.id === internalActive);
-  // Get the visible items: one above and the active
+  // Get the visible items: two above and the active, with looping
   const visible = [];
-  if (idx > 0) visible.push({ ...suggestions[idx - 1], offset: -1 });
-  if (idx >= 0) visible.push({ ...suggestions[idx], offset: 0 });
+  const total = suggestions.length;
+  for (let offset = -2; offset <= 0; offset++) {
+    const i = (idx + offset + total) % total;
+    visible.push({ ...suggestions[i], offset });
+  }
 
   return (
     <>
@@ -96,8 +99,8 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
                 fontWeight: 500,
                 cursor: "pointer",
                 fontSize: isActive ? 18 : 15,
-                opacity: isActive ? 1 : 0.85,
-                transform: isActive ? "scale(1)" : "scale(0.96)",
+                opacity: isActive ? 1 : 0.65,
+                // transform: isActive ? "scale(1)" : "scale(0.96)",
                 marginBottom: isActive ? 0 : 8,
                 marginTop: isActive ? 0 : 0,
                 transition: "background 0.3s, color 0.3s, font-size 0.3s, opacity 0.3s, transform 0.3s",
