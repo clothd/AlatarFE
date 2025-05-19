@@ -15,6 +15,7 @@ export default function Index() {
   const [showBlocks, setShowBlocks] = useState(false);
   const [activeQuery, setActiveQuery] = useState(null);
   const [chainedQueryIndex, setChainedQueryIndex] = useState(null);
+  const [chainedResponse, setChainedResponse] = useState(null);
   const inputRef = useRef();
   const blocksRefs = useRef([]);
   const [showLoaderDelayed, setShowLoaderDelayed] = useState(false);
@@ -41,7 +42,8 @@ export default function Index() {
         
         if (foundQuery) {
           setIsLoading(true);
-          setShowBlocks(false);
+          setChainedResponse(null);
+          
           // Update chat history with the chained query
           setChatHistory(prev => [
             ...prev,
@@ -52,7 +54,7 @@ export default function Index() {
           // Simulate loading for 5 seconds
           setTimeout(() => {
             setIsLoading(false);
-            setShowBlocks(true);
+            setChainedResponse(foundQuery);
           }, 5000);
           return;
         }
@@ -65,6 +67,7 @@ export default function Index() {
       setIsLoading(true);
       setShowBlocks(false);
       setChainedQueryIndex(null);
+      setChainedResponse(null);
       setTimeout(() => {
         setIsLoading(false);
         setShowBlocks(true);
@@ -240,13 +243,16 @@ export default function Index() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      paddingBottom: 96, // leave space for input bar (adjust as needed)
+                      paddingBottom: 96,
                       pointerEvents: "none"
                     }}
                   >
                     {/* Blurred background overlay */}
                     <div
-                      onClick={() => setExpandedBlock(null)}
+                      onClick={() => {
+                        setExpandedBlock(null);
+                        setChainedResponse(null);
+                      }}
                       style={{
                         position: "fixed",
                         inset: 0,
@@ -260,8 +266,13 @@ export default function Index() {
                     <BlockContainer
                       {...activeQuery.blocks[expandedBlock]}
                       expanded={true}
-                      onClose={() => setExpandedBlock(null)}
+                      onClose={() => {
+                        setExpandedBlock(null);
+                        setChainedResponse(null);
+                      }}
                       style={{ pointerEvents: "auto", zIndex: 1110 }}
+                      isLoading={isLoading}
+                      chainedResponse={chainedResponse}
                     />
                   </div>
                 )}

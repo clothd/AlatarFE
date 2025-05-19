@@ -127,6 +127,47 @@ function renderChartBlock({ title, details, text }) {
   return <div style={style}><Line data={chartConfig} options={chartOptions} /></div>;
 }
 
+// Add SkeletonLoader component
+const SkeletonLoader = () => (
+  <div style={{ width: "100%", padding: "20px 0" }}>
+    <div style={{ 
+      height: "24px", 
+      background: "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+      backgroundSize: "200% 100%",
+      animation: "shimmer 1.5s infinite",
+      borderRadius: "4px",
+      marginBottom: "16px",
+      width: "70%"
+    }} />
+    <div style={{ 
+      height: "16px", 
+      background: "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+      backgroundSize: "200% 100%",
+      animation: "shimmer 1.5s infinite",
+      borderRadius: "4px",
+      marginBottom: "12px",
+      width: "90%"
+    }} />
+    <div style={{ 
+      height: "16px", 
+      background: "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+      backgroundSize: "200% 100%",
+      animation: "shimmer 1.5s infinite",
+      borderRadius: "4px",
+      marginBottom: "12px",
+      width: "85%"
+    }} />
+    <div style={{ 
+      height: "16px", 
+      background: "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+      backgroundSize: "200% 100%",
+      animation: "shimmer 1.5s infinite",
+      borderRadius: "4px",
+      width: "60%"
+    }} />
+  </div>
+);
+
 export default function BlockContainer({ 
   title, 
   text, 
@@ -141,7 +182,9 @@ export default function BlockContainer({
   style, 
   borderColor = "#b388ff", 
   gradient, 
-  size = "medium" 
+  size = "medium",
+  isLoading = false,
+  chainedResponse = null
 }) {
   const s = sizeStyles[size] || sizeStyles.medium;
   const [activeChained, setActiveChained] = useState(null);
@@ -170,8 +213,8 @@ export default function BlockContainer({
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          scrollbarWidth: "none",  /* Firefox */
-          msOverflowStyle: "none",  /* IE and Edge */
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
           ...style
         }}
       >
@@ -180,8 +223,13 @@ export default function BlockContainer({
             .block-container::-webkit-scrollbar {
               display: none;
             }
+            @keyframes shimmer {
+              0% { background-position: 200% 0; }
+              100% { background-position: -200% 0; }
+            }
           `}
         </style>
+        
         {/* X button */}
         <button
           onClick={onClose}
@@ -204,75 +252,85 @@ export default function BlockContainer({
         >
           ×
         </button>
-        {/* Back button for chained queries */}
-        {activeChained !== null && (
-          <button
-            onClick={() => setActiveChained(null)}
-            style={{
-              position: "absolute",
-              top: 18,
-              left: 18,
-              background: "rgba(255,255,255,0.8)",
-              border: "none",
-              borderRadius: 16,
-              width: 32,
-              height: 32,
-              fontSize: 18,
-              fontWeight: 700,
-              color: "#a259ff",
-              cursor: "pointer",
-              boxShadow: "0 2px 8px #a259ff11"
-            }}
-            aria-label="Back"
-          >
-            ←
-          </button>
-        )}
+
         {/* Title */}
-        <div style={{ fontWeight: 700, fontSize: 22, marginBottom: 16, color: "#222" }}>{activeChained === null ? title : showContent?.question}</div>
-        {/* Expanded images or chart */}
-        {showContent?.images && showContent.images.length > 0 && !renderChartBlock({ title, details: showContent.points, text: showContent.text }) && (
-          <div style={{ display: "flex", gap: 16, marginBottom: 18, width: "100%", flexWrap: "wrap" }}>
-            {showContent.images.map((img, i) => (
-              <img key={i} src={img} alt={`expanded visual ${i + 1}`} style={{ width: 180, borderRadius: 14, objectFit: "cover", maxHeight: 120 }} />
-            ))}
+        <div style={{ fontWeight: 700, fontSize: 22, marginBottom: 16, color: "#222" }}>
+          {activeChained === null ? title : showContent?.question}
+        </div>
+
+        {/* Loading state */}
+        {isLoading ? (
+          <SkeletonLoader />
+        ) : chainedResponse ? (
+          <div style={{ width: "100%" }}>
+            <div style={{ fontSize: 16, color: "#444", marginBottom: 18, lineHeight: 1.7 }}>
+              {chainedResponse.text}
+            </div>
+            {chainedResponse.points && (
+              <ul style={{ 
+                fontSize: 14, 
+                color: "#555", 
+                margin: "0 0 16px 0",
+                padding: "0 0 0 16px",
+                lineHeight: 1.6
+              }}>
+                {chainedResponse.points.map((point, i) => (
+                  <li key={i} style={{ marginBottom: 6 }}>{point}</li>
+                ))}
+              </ul>
+            )}
           </div>
+        ) : (
+          <>
+            {/* Expanded images or chart */}
+            {showContent?.images && showContent.images.length > 0 && !renderChartBlock({ title, details: showContent.points, text: showContent.text }) && (
+              <div style={{ display: "flex", gap: 16, marginBottom: 18, width: "100%", flexWrap: "wrap" }}>
+                {showContent.images.map((img, i) => (
+                  <img key={i} src={img} alt={`expanded visual ${i + 1}`} style={{ width: 180, borderRadius: 14, objectFit: "cover", maxHeight: 120 }} />
+                ))}
+              </div>
+            )}
+            {renderChartBlock({ title, details: showContent?.points, text: showContent?.text })}
+            
+            {/* Expanded text */}
+            {showContent?.text && (
+              <div style={{ fontSize: 16, color: "#444", marginBottom: 18, lineHeight: 1.7 }}>{showContent.text}</div>
+            )}
+            
+            {/* Expanded references/links */}
+            {showContent?.references && showContent.references.length > 0 && (
+              <div style={{ marginTop: 8, marginBottom: 8 }}>
+                <div style={{ fontWeight: 600, color: "#a259ff", marginBottom: 6 }}>References:</div>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                  {showContent.references.map((ref, i) => (
+                    <li key={i} style={{ marginBottom: 4 }}>
+                      <a href={ref.url} target="_blank" rel="noopener noreferrer" style={{ color: "#6ee7ff", textDecoration: "underline", fontSize: 15 }}>{ref.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            {/* Video if present */}
+            {showContent?.video && (
+              <div style={{ width: "100%", margin: "16px 0" }}>
+                <iframe
+                  width="100%"
+                  height="220"
+                  src={showContent.video.url}
+                  title={showContent.video.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ borderRadius: 12 }}
+                />
+              </div>
+            )}
+          </>
         )}
-        {renderChartBlock({ title, details: showContent?.points, text: showContent?.text })}
-        {/* Expanded text */}
-        {showContent?.text && (
-          <div style={{ fontSize: 16, color: "#444", marginBottom: 18, lineHeight: 1.7 }}>{showContent.text}</div>
-        )}
-        {/* Expanded references/links */}
-        {showContent?.references && showContent.references.length > 0 && (
-          <div style={{ marginTop: 8, marginBottom: 8 }}>
-            <div style={{ fontWeight: 600, color: "#a259ff", marginBottom: 6 }}>References:</div>
-            <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
-              {showContent.references.map((ref, i) => (
-                <li key={i} style={{ marginBottom: 4 }}>
-                  <a href={ref.url} target="_blank" rel="noopener noreferrer" style={{ color: "#6ee7ff", textDecoration: "underline", fontSize: 15 }}>{ref.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {/* Video if present */}
-        {showContent?.video && (
-          <div style={{ width: "100%", margin: "16px 0" }}>
-            <iframe
-              width="100%"
-              height="220"
-              src={showContent.video.url}
-              title={showContent.video.title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              style={{ borderRadius: 12 }}
-            />
-          </div>
-        )}
+
         {/* Chained queries navigation */}
-        {activeChained === null && expandedContent?.chainedQueries && expandedContent.chainedQueries.length > 0 && (
+        {!isLoading && !chainedResponse && activeChained === null && expandedContent?.chainedQueries && expandedContent.chainedQueries.length > 0 && (
           <div style={{ marginTop: 24, width: "100%" }}>
             <div style={{ fontWeight: 600, color: "#a259ff", marginBottom: 8 }}>Suggested follow-up questions:</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
