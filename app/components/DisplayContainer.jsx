@@ -1,5 +1,30 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Line, Bar, Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const spring = {
   type: "spring",
@@ -8,33 +33,93 @@ const spring = {
   mass: 0.7
 };
 
-// Sample dummy images for variety
-const dummyImages = [
-  "/api/placeholder/320/200",
-  "/api/placeholder/240/180",
-  "/api/placeholder/180/180",
-  "/api/placeholder/280/150",
-  "/api/placeholder/200/200"
-];
+// Function to generate chart data based on answer content
+const generateChartData = (answer) => {
+  if (!answer) return null;
+
+  // Extract numbers and categories from the answer
+  const lines = answer.split('\n').filter(line => line.trim());
+  const data = {
+    labels: [],
+    values: []
+  };
+
+  lines.forEach(line => {
+    const match = line.match(/([^:•]+):\s*(\d+(?:\.\d+)?)/);
+    if (match) {
+      data.labels.push(match[1].trim());
+      data.values.push(parseFloat(match[2]));
+    }
+  });
+
+  return data;
+};
+
+// Function to determine chart type based on content
+const getChartType = (answer) => {
+  if (answer.toLowerCase().includes('sales') || answer.toLowerCase().includes('revenue')) {
+    return 'bar';
+  } else if (answer.toLowerCase().includes('conversion') || answer.toLowerCase().includes('rate')) {
+    return 'doughnut';
+  } else {
+    return 'line';
+  }
+};
 
 export default function DisplayContainer({ qa }) {
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [activeChartIndex, setActiveChartIndex] = useState(0);
   
   if (!qa) return null;
   
-  // Create dummy images array if needed
-  const images = qa.images || 
-    (qa.image ? [qa.image, ...dummyImages.slice(0, 2)] : 
-    dummyImages.slice(0, 3));
+  const chartData = generateChartData(qa.answer);
+  const chartType = getChartType(qa.answer);
   
-  const nextImage = () => {
-    setActiveImageIndex((prev) => (prev + 1) % images.length);
+  const chartConfig = {
+    labels: chartData?.labels || [],
+    datasets: [{
+      label: 'Value',
+      data: chartData?.values || [],
+      backgroundColor: [
+        'rgba(162, 89, 255, 0.6)',
+        'rgba(110, 231, 255, 0.6)',
+        'rgba(255, 78, 205, 0.6)',
+        'rgba(255, 184, 108, 0.6)',
+      ],
+      borderColor: [
+        'rgba(162, 89, 255, 1)',
+        'rgba(110, 231, 255, 1)',
+        'rgba(255, 78, 205, 1)',
+        'rgba(255, 184, 108, 1)',
+      ],
+      borderWidth: 1,
+    }]
   };
-  
-  const prevImage = () => {
-    setActiveImageIndex((prev) => (prev - 1 + images.length) % images.length);
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: qa.question,
+      },
+    },
   };
-  
+
+  const renderChart = () => {
+    switch (chartType) {
+      case 'bar':
+        return <Bar data={chartConfig} options={chartOptions} />;
+      case 'doughnut':
+        return <Doughnut data={chartConfig} options={chartOptions} />;
+      default:
+        return <Line data={chartConfig} options={chartOptions} />;
+    }
+  };
+
   // Function to create structured content from the answer text
   const formatContent = (text) => {
     if (!text) return [];
@@ -50,9 +135,7 @@ export default function DisplayContainer({ qa }) {
       return { title, items };
     });
   };
-  
 
-  
   const formattedContent = formatContent(qa.answer);
   
   return (
@@ -129,7 +212,6 @@ export default function DisplayContainer({ qa }) {
                   className="mb-2"
                 >
                   <div className="flex items-center gap-1.5 mb-1">
-                    <span className="text-purple-500">{section.icon}</span>
                     <h3 className="font-medium text-gray-800 text-sm">{section.title}</h3>
                   </div>
                   
@@ -147,23 +229,11 @@ export default function DisplayContainer({ qa }) {
                   </ul>
                 </motion.div>
               ))}
-              
-              {qa.graph && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-2 w-full"
-                >
-                  <div className="p-3 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg text-xs text-gray-500 font-medium text-center">
-                    Interactive Graph Available
-                  </div>
-                </motion.div>
-              )}
             </motion.div>
           </AnimatePresence>
         </motion.div>
         
-        {/* Right Column - Images */}
+        {/* Right Column - Chart */}
         <motion.div 
           className="flex flex-col items-center"
           style={{ 
@@ -171,128 +241,13 @@ export default function DisplayContainer({ qa }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center" 
+            justifyContent: "center",
+            height: "100%"
           }}
         >
-          <AnimatePresence mode="wait">
-            {images && images.length > 0 && (
-              <motion.div 
-                className="relative rounded-xl overflow-hidden"
-                style={{ width: "100%", maxWidth: 320 }}
-              >
-                <motion.div 
-                  className="relative"
-                  key={`img-active-${activeImageIndex}`}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <img
-                    src={images[activeImageIndex] || dummyImages[0]}
-                    alt={`Visual ${activeImageIndex + 1}`}
-                    style={{ 
-                      width: "100%", 
-                      height: "auto", 
-                      maxHeight: 200,
-                      objectFit: "cover",
-                      borderRadius: 12
-                    }}
-                  />
-                  
-                  <div 
-                    className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
-                    style={{
-                      background: "linear-gradient(to top, rgba(0,0,0,0.2), transparent)",
-                      borderRadius: 12
-                    }}
-                  ></div>
-                </motion.div>
-                
-                {images.length > 1 && (
-                  <>
-                    <button 
-                      onClick={prevImage}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-1 shadow-md"
-                      style={{
-                        background: "rgba(255,255,255,0.8)",
-                        boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
-                      }}
-                    >
-                    </button>
-                    <button 
-                      onClick={nextImage}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-1 shadow-md"
-                      style={{
-                        background: "rgba(255,255,255,0.8)",
-                        boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
-                      }}
-                    >
-                    </button>
-                  </>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
-          
-          {/* Thumbnail row */}
-          {images && images.length > 1 && (
-            <motion.div 
-              className="flex gap-2 mt-3 justify-center"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              {images.map((img, idx) => (
-                <motion.button
-                  key={`thumb-${idx}`}
-                  onClick={() => setActiveImageIndex(idx)}
-                  className={`rounded-md overflow-hidden ${idx === activeImageIndex ? 'ring-2 ring-purple-500' : ''}`}
-                  whileHover={{ scale: 1.05 }}
-                  style={{
-                    width: 40,
-                    height: 40,
-                    overflow: "hidden",
-                    borderRadius: 6,
-                    border: idx === activeImageIndex ? "2px solid #8b5cf6" : "none"
-                  }}
-                >
-                  <img 
-                    src={img || dummyImages[idx % dummyImages.length]} 
-                    alt={`thumbnail ${idx}`}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                </motion.button>
-              ))}
-            </motion.div>
-          )}
-          
-          {/* Stats card */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-4 w-full bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-3"
-            style={{
-              marginTop: 16,
-              width: "100%",
-              background: "linear-gradient(to right, #f5f3ff, #eef2ff)",
-              borderRadius: 12,
-              padding: 12
-            }}
-          >
-            <div className="flex justify-between items-center">
-              <div className="text-xs font-medium text-purple-700" style={{ fontSize: 12, fontWeight: 500 }}>
-                Performance
-              </div>
-              <div className="text-xs text-indigo-500" style={{ fontSize: 12 }}>
-                +15%
-              </div>
-            </div>
-            <div className="w-full bg-white/50 h-1.5 rounded-full mt-2" style={{ height: 6, borderRadius: 999, background: "rgba(255,255,255,0.5)" }}>
-              <div className="bg-gradient-to-r from-purple-500 to-indigo-500 h-full rounded-full" style={{ width: "65%", height: "100%", borderRadius: 999 }}></div>
-            </div>
-          </motion.div>
+          <div style={{ width: "100%", height: 300 }}>
+            {renderChart()}
+          </div>
         </motion.div>
       </motion.div>
     </motion.div>
