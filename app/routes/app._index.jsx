@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SuggestionsList from "../components/SuggestionsList";
 import CenterInput from "../components/CenterInput";
@@ -85,7 +85,6 @@ export default function Index() {
   // Layout for blocks (relative positions)
   const blockAreaWidth = 1200;
   const blockAreaHeight = 500;
-  const blockSize = 320;
 
   const activeQA = QA_LIST.find(q => q.id === activeId);
 
@@ -107,7 +106,7 @@ export default function Index() {
         <div style={{
           position: "absolute",
           left: 0,
-          top: 0,
+          top: 45,
           width: "100%",
           height: "100%",
           display: (isLoading || showBlocks) ? "flex" : "none",

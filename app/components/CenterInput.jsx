@@ -15,7 +15,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
       // Stop the border animation after 8 seconds
       setTimeout(() => {
         setIsAnimating(false);
-      }, 7000);
+      }, 9000);
     }
   };
 
