@@ -1,5 +1,30 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Bar, Line, Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const sizeStyles = {
   large: {
@@ -31,6 +56,76 @@ const sizeStyles = {
     fontSize: 12
   }
 };
+
+// Function to generate chart data from details or text
+function extractChartData(details, text) {
+  const data = { labels: [], values: [] };
+  if (details && details.length > 0) {
+    details.forEach(line => {
+      const match = line.match(/([^:()]+)[(:]?\s*(\d+(?:\.\d+)?)/);
+      if (match) {
+        data.labels.push(match[1].replace(/\s*\(.*/, '').trim());
+        data.values.push(parseFloat(match[2]));
+      }
+    });
+  } else if (text) {
+    const lines = text.split('\n').filter(Boolean);
+    lines.forEach(line => {
+      const match = line.match(/([^:()]+)[(:]?\s*(\d+(?:\.\d+)?)/);
+      if (match) {
+        data.labels.push(match[1].replace(/\s*\(.*/, '').trim());
+        data.values.push(parseFloat(match[2]));
+      }
+    });
+  }
+  return data.labels.length > 0 ? data : null;
+}
+
+function getChartType(title, text) {
+  const t = (title + ' ' + (text || '')).toLowerCase();
+  if (t.includes('conversion') || t.includes('rate')) return 'doughnut';
+  if (t.includes('trend') || t.includes('sentiment')) return 'line';
+  return 'bar';
+}
+
+function renderChartBlock({ title, details, text }) {
+  const chartData = extractChartData(details, text);
+  if (!chartData) return null;
+  const chartType = getChartType(title, text);
+  const chartConfig = {
+    labels: chartData.labels,
+    datasets: [{
+      label: title,
+      data: chartData.values,
+      backgroundColor: [
+        'rgba(162, 89, 255, 0.6)',
+        'rgba(110, 231, 255, 0.6)',
+        'rgba(255, 78, 205, 0.6)',
+        'rgba(255, 184, 108, 0.6)',
+      ],
+      borderColor: [
+        'rgba(162, 89, 255, 1)',
+        'rgba(110, 231, 255, 1)',
+        'rgba(255, 78, 205, 1)',
+        'rgba(255, 184, 108, 1)',
+      ],
+      borderWidth: 1,
+    }]
+  };
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top' },
+      title: { display: false },
+    },
+    scales: chartType === 'bar' ? { y: { beginAtZero: true } } : {},
+  };
+  const style = { width: '100%', height: 80, marginBottom: 12 };
+  if (chartType === 'bar') return <div style={style}><Bar data={chartConfig} options={chartOptions} /></div>;
+  if (chartType === 'doughnut') return <div style={style}><Doughnut data={chartConfig} options={chartOptions} /></div>;
+  return <div style={style}><Line data={chartConfig} options={chartOptions} /></div>;
+}
 
 export default function BlockContainer({ 
   title, 
@@ -99,14 +194,15 @@ export default function BlockContainer({
         </button>
         {/* Title */}
         <div style={{ fontWeight: 700, fontSize: 22, marginBottom: 16, color: "#222" }}>{title}</div>
-        {/* Expanded images */}
-        {expandedContent?.images && expandedContent.images.length > 0 && (
+        {/* Expanded images or chart */}
+        {expandedContent?.images && expandedContent.images.length > 0 && !renderChartBlock({ title, details: expandedContent.points, text: expandedContent.text }) && (
           <div style={{ display: "flex", gap: 16, marginBottom: 18, width: "100%", flexWrap: "wrap" }}>
             {expandedContent.images.map((img, i) => (
               <img key={i} src={img} alt={`expanded visual ${i + 1}`} style={{ width: 180, borderRadius: 14, objectFit: "cover", maxHeight: 120 }} />
             ))}
           </div>
         )}
+        {renderChartBlock({ title, details: expandedContent?.points, text: expandedContent?.text })}
         {/* Expanded text */}
         {expandedContent?.text && (
           <div style={{ fontSize: 16, color: "#444", marginBottom: 18, lineHeight: 1.7 }}>{expandedContent.text}</div>
@@ -183,8 +279,8 @@ export default function BlockContainer({
         />
       )}
       
-      {/* Multiple images support */}
-      {images && images.length > 0 && (
+      {/* Multiple images or chart support */}
+      {images && images.length > 0 && !renderChartBlock({ title, details, text }) && (
         <div style={{ 
           display: "grid", 
           gridTemplateColumns: images.length === 2 ? "1fr 1fr" : "1fr 1fr 1fr",
@@ -208,6 +304,7 @@ export default function BlockContainer({
           ))}
         </div>
       )}
+      {renderChartBlock({ title, details, text })}
       
       <div style={{ 
         fontWeight: 700, 

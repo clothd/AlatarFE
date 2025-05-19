@@ -18,9 +18,9 @@ export const QUERY_DATA = [
         title: "Top Consumer Pain Points",
         text: "Based on 10,000+ reviews and support tickets, here are the main issues customers face:",
         images: [
-          "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop",
-          "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop",
-          "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop"
+          "/images/pain-points-chart.svg",
+          "/images/customer-feedback-trend.svg",
+          "/images/support-tickets-analysis.svg"
         ],
         details: [
           "Slow shipping times (mentioned by 34% of customers)",
@@ -38,9 +38,13 @@ export const QUERY_DATA = [
             "Customers want more accurate product descriptions."
           ],
           images: [
-            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=250&fit=crop",
-            "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=250&fit=crop"
+            "/images/shipping-analysis-map.svg",
+            "/images/returns-process-flow.svg"
           ],
+          video: {
+            url: "https://www.youtube.com/embed/8tPnX7OPo0Q",
+            title: "Understanding Customer Pain Points"
+          },
           references: [
             { label: "Shipping Report 2024", url: "https://example.com/shipping-report" },
             { label: "Returns Whitepaper", url: "https://example.com/returns-whitepaper" }
@@ -51,7 +55,7 @@ export const QUERY_DATA = [
       {
         title: "Customer Sentiment",
         text: "Overall satisfaction score: 3.4/5. Main concerns center around delivery and product quality.",
-        image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=240&h=120&fit=crop",
+        image: "/images/sentiment-trend-chart.svg",
         expandedContent: {
           text: "Customer sentiment analysis shows a dip in satisfaction during peak shipping periods. Product quality issues are often related to packaging and missing parts.",
           points: [
@@ -60,15 +64,19 @@ export const QUERY_DATA = [
             "Positive reviews highlight easy website navigation."
           ],
           images: [
-            "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&h=250&fit=crop"
-          ]
+            "/images/satisfaction-breakdown.svg"
+          ],
+          video: {
+            url: "https://www.youtube.com/embed/kLneJKAqRtk",
+            title: "Improving Customer Satisfaction"
+          }
         },
         size: "medium"
       },
       {
         title: "Support Trends",
         text: "40% increase in support tickets related to shipping delays in Q4.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=120&fit=crop",
+        image: "/images/support-trends-chart.svg",
         expandedContent: {
           text: "Support tickets peaked in December, with most inquiries about delayed shipments and refund requests. Automation of common responses reduced average resolution time by 20%.",
           points: [
@@ -77,15 +85,19 @@ export const QUERY_DATA = [
             "Average ticket resolution time: 18 hours (down from 23)."
           ],
           images: [
-            "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=250&fit=crop"
-          ]
+            "/images/ticket-resolution-timeline.svg"
+          ],
+          video: {
+            url: "https://www.youtube.com/embed/jIM_vNtebM8",
+            title: "Optimizing Customer Support"
+          }
         },
         size: "small"
       },
       {
         title: "Quick Wins",
         text: "Implement express shipping options and improve product descriptions for immediate impact.",
-        image: "https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=320&h=80&fit=crop",
+        image: "/images/quick-wins-timeline.svg",
         expandedContent: {
           text: "Quick wins include enabling express shipping at checkout and updating product pages with more detailed descriptions and photos. These changes can reduce complaints and boost satisfaction within weeks.",
           points: [
@@ -94,8 +106,12 @@ export const QUERY_DATA = [
             "Highlight return policy on product pages."
           ],
           images: [
-            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=250&fit=crop"
-          ]
+            "/images/implementation-roadmap.svg"
+          ],
+          video: {
+            url: "https://www.youtube.com/embed/ywk4eV6X1Ik",
+            title: "Quick Wins Implementation Guide"
+          }
         },
         size: "wide"
       }
@@ -119,8 +135,8 @@ export const QUERY_DATA = [
         title: "Conversion Optimization Strategy",
         text: "Data-driven recommendations to boost your conversion rates:",
         images: [
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=200&fit=crop",
-          "https://images.unsplash.com/photo-1484589065579-248aad0d8b13?w=300&h=200&fit=crop"
+          "/images/conversion-funnel.svg",
+          "/images/optimization-impact-chart.svg"
         ],
         details: [
           "Optimize product images (can increase conversions by 27%)",
@@ -138,9 +154,13 @@ export const QUERY_DATA = [
             "Personalized recommendations drive repeat purchases."
           ],
           images: [
-            "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=250&fit=crop",
-            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=250&fit=crop"
+            "/images/ab-test-results.svg",
+            "/images/conversion-impact-chart.svg"
           ],
+          video: {
+            url: "https://www.youtube.com/embed/8tPnX7OPo0Q",
+            title: "Product Optimization Strategies"
+          },
           references: [
             { label: "Conversion Study 2024", url: "https://example.com/conversion-study" },
             { label: "A/B Testing Guide", url: "https://example.com/ab-testing-guide" }
@@ -151,7 +171,7 @@ export const QUERY_DATA = [
       {
         title: "A/B Test Results",
         text: "Latest tests show new product page layout increased conversions by 15.3%.",
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=240&h=120&fit=crop",
+        image: "/images/ab-test-comparison.svg",
         expandedContent: {
           text: "Recent A/B tests compared the old and new product page layouts. The new layout, with larger images and clearer CTAs, led to a significant increase in conversion rate.",
           points: [
@@ -160,15 +180,19 @@ export const QUERY_DATA = [
             "Clearer call-to-action buttons."
           ],
           images: [
-            "https://images.unsplash.com/photo-1484589065579-248aad0d8b13?w=400&h=250&fit=crop"
-          ]
+            "/images/layout-comparison.svg"
+          ],
+          video: {
+            url: "https://www.youtube.com/embed/kLneJKAqRtk",
+            title: "A/B Testing Best Practices"
+          }
         },
         size: "small"
       },
       {
         title: "Performance Metrics",
         text: "Current conversion rate: 2.8%. Industry average: 3.1%. Room for 0.3% improvement.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=120&fit=crop",
+        image: "/images/performance-metrics-chart.svg",
         expandedContent: {
           text: "Your store's conversion rate is slightly below the industry average. Focus on optimizing mobile experience and reducing checkout steps to close the gap.",
           points: [
@@ -177,8 +201,12 @@ export const QUERY_DATA = [
             "Checkout abandonment: 68% (industry avg: 62%)"
           ],
           images: [
-            "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=250&fit=crop"
-          ]
+            "/images/device-comparison-chart.svg"
+          ],
+          video: {
+            url: "https://www.youtube.com/embed/jIM_vNtebM8",
+            title: "Improving Mobile Conversion Rates"
+          }
         },
         size: "medium"
       }
