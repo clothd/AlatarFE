@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const ITEM_HEIGHT = 56; // px
-const AUTO_SCROLL_INTERVAL = 4000; // ms
+const AUTO_SCROLL_INTERVAL = 8000; // ms
 const PAUSE_DURATION = 7000; // ms
 
 export default function SuggestionsList({ suggestions, activeId, onSelect }) {
@@ -107,6 +107,7 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
                 animation: isActive ? `gradientMoveSuggestionsBtn 16s ease-in-out infinite` : undefined,
                 outline: "none",
                 border: "none",
+                boxShadow: isActive ? "0 0 10px 0 rgba(0, 0, 0, 0.1)" : "none",
               }}
             >
               {item.question}

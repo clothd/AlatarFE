@@ -37,7 +37,7 @@ export default function Index() {
       setTimeout(() => {
         setIsLoading(false);
         setShowBlocks(true);
-      }, 6000);
+  }, 9000);
     } else {
       const qaFound = QA_LIST.find(q => q.question.toLowerCase() === input.trim().toLowerCase());
       if (qaFound) setActiveId(qaFound.id);
@@ -254,7 +254,7 @@ export default function Index() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                marginBottom: 24
+                marginBottom: '200px'
               }}>
                 <DisplayContainer qa={activeQA} />
               </div>
