@@ -17,6 +17,20 @@ export default function App() {
           rel="stylesheet"
           href="https://cdn.shopify.com/static/fonts/inter/v4/styles.css"
         />
+        <style>
+          {`
+            body {
+              background-color: white;
+              background-image: url('/Dot Grid Pattern (3).svg');
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: cover;
+              min-height: 100vh;
+              margin: 0;
+              padding: 0;
+            }
+          `}
+        </style>
         <Meta />
         <Links />
       </head>
