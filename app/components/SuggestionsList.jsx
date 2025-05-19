@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const ITEM_HEIGHT = 56; // px
-const AUTO_SCROLL_INTERVAL = 4000; // ms
+const AUTO_SCROLL_INTERVAL = 8000; // ms
 const PAUSE_DURATION = 7000; // ms
 
 export default function SuggestionsList({ suggestions, activeId, onSelect }) {
@@ -96,7 +96,7 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
                 fontWeight: 500,
                 cursor: "pointer",
                 fontSize: isActive ? 18 : 15,
-                opacity: isActive ? 1 : 0.85,
+                opacity: isActive ? 1 : 0.65,
                 transform: isActive ? "scale(1)" : "scale(0.96)",
                 marginBottom: isActive ? 0 : 8,
                 marginTop: isActive ? 0 : 0,

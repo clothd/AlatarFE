@@ -3,7 +3,7 @@
 client_id = "e32b0eafd11b55dff3d8b9ea54587c86"
 name = "Alatar-3"
 handle = "alatar-3"
-application_url = "https://kai-joke-inner-finished.trycloudflare.com"
+application_url = "https://quit-recovery-festivals-context.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://kai-joke-inner-finished.trycloudflare.com/auth/callback",
-  "https://kai-joke-inner-finished.trycloudflare.com/auth/shopify/callback",
-  "https://kai-joke-inner-finished.trycloudflare.com/api/auth/callback"
+  "https://quit-recovery-festivals-context.trycloudflare.com/auth/callback",
+  "https://quit-recovery-festivals-context.trycloudflare.com/auth/shopify/callback",
+  "https://quit-recovery-festivals-context.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
