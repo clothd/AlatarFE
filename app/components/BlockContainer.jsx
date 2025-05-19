@@ -264,20 +264,7 @@ export default function BlockContainer({
         }
       }}
     >
-      {/* Single image support (legacy) */}
-      {image && !images && (
-        <img 
-          src={image} 
-          alt="block visual" 
-          style={{ 
-            width: "100%", 
-            borderRadius: 16, 
-            marginBottom: 18, 
-            objectFit: "cover",
-            height: size === "wide" ? 80 : 120
-          }} 
-        />
-      )}
+     
       
       {/* Multiple images or chart support */}
       {images && images.length > 0 && !renderChartBlock({ title, details, text }) && (

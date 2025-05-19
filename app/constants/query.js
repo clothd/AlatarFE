@@ -55,7 +55,7 @@ export const QUERY_DATA = [
       {
         title: "Customer Sentiment",
         text: "Overall satisfaction score: 3.4/5. Main concerns center around delivery and product quality.",
-        image: "/images/sentiment-trend-chart.svg",
+        // image: "/images/sentiment-trend-chart.svg",
         expandedContent: {
           text: "Customer sentiment analysis shows a dip in satisfaction during peak shipping periods. Product quality issues are often related to packaging and missing parts.",
           points: [
