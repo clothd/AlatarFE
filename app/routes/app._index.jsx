@@ -88,6 +88,9 @@ export default function Index() {
 
   const activeQA = QA_LIST.find(q => q.id === activeId);
 
+  // Add a state to track if awaiting blocks
+  const isAwaitingBlocks = isLoading || (activeQuery && !showBlocks);
+
   return (
     <div style={{ minHeight: "100vh", background: "#f7f7fa", display: "flex", flexDirection: "column", overflowY: "hidden" }}>
       {/* Main Content */}
@@ -278,6 +281,7 @@ export default function Index() {
               onSend={handleSend}
               disabled={false}
               chatHistory={chatHistory}
+              isAwaitingBlocks={isAwaitingBlocks}
             />
           </div>
         </div>

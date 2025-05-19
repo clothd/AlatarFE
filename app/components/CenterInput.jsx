@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaPaperPlane ,FaPaperclip} from "react-icons/fa";
 
-export default function CenterInput({ value, onChange, onSend, disabled, chatHistory = [] }) {
-  const [isAnimating, setIsAnimating] = useState(false);
+export default function CenterInput({ value, onChange, onSend, disabled, chatHistory = [], isAwaitingBlocks }) {
   const [showHistory, setShowHistory] = useState(false);
   const [historyVisible, setHistoryVisible] = useState(chatHistory.length > 0);
 
+  // Border animation is controlled by isAwaitingBlocks
+  const isAnimating = !!isAwaitingBlocks;
+
   const handleSend = () => {
     if (value.trim()) {
-      setIsAnimating(true);
       onSend();
       
       // Stop the border animation after 8 seconds
       setTimeout(() => {
-        setIsAnimating(false);
+        // This is a placeholder for the animation logic
       }, 9000);
     }
   };
@@ -34,6 +35,9 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
       75% { border-color:rgb(110, 255, 182); box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
       100% { border-color:rgb(255, 231, 110); box-shadow: 0 0 0 4px rgba(110, 231, 255, 0.1); }
     }
+    /* Hide scrollbar but keep scroll */
+    .custom-history-scroll::-webkit-scrollbar { display: none; }
+    .custom-history-scroll { scrollbar-width: none; -ms-overflow-style: none; }
   `;
 
   // Delay showing chat history for 5 seconds after a new query is submitted
@@ -59,6 +63,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
       >
         {/* Chat History Panel */}
         <div
+          className="custom-history-scroll"
           style={{
             position: "absolute",
             left: 0,
@@ -76,22 +81,42 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
             overflow: "hidden",
             overflowY: "auto",
             filter: "blur(0.5px)",
-            backdropFilter: "blur(8px)",
-            WebkitBackdropFilter: "blur(8px)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
             border: "1.5px solid #eaeaf5",
             zIndex: 10,
             padding: showHistory ? "16px 18px 12px 18px" : "0 18px",
             display: chatHistory.length === 0 ? "none" : "block",
+            boxSizing: "border-box"
           }}
         >
           {chatHistory.slice(-10).map((item, idx) => (
-            <div key={idx} style={{ marginBottom: 14, padding: 0 }}>
-              <div style={{ fontWeight: 600, color: "#a259ff", fontSize: 13, marginBottom: 2 }}>
-                {item.question}
-              </div>
-              <div style={{ color: "#444", fontSize: 13, background: "rgba(245,245,255,0.7)", borderRadius: 10, padding: "7px 12px", boxShadow: "0 2px 8px #a259ff11" }}>
-                {item.answer}
-              </div>
+            <div key={idx} style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", marginBottom: 14, gap: 10 }}>
+              {/* Answer bubble (left) */}
+              <div style={{
+                background: "rgba(240,240,240,0.95)",
+                color: "#444",
+                borderRadius: "16px 8px 8px 16px",
+                padding: "10px 16px",
+                fontSize: 14,
+                maxWidth: "60%",
+                boxShadow: "0 2px 8px #a259ff11",
+                marginRight: "auto"
+              }}>{item.answer}</div>
+              {/* Query bubble (right) */}
+              <div style={{
+                background: "linear-gradient(90deg, #a259ff, #6ee7ff, #ff4ecd)",
+                color: "#fff",
+                borderRadius: "8px 16px 16px 8px",
+                padding: "10px 16px",
+                fontWeight: 600,
+                fontSize: 14,
+                maxWidth: "40%",
+                marginLeft: "auto",
+                boxShadow: "0 2px 8px #a259ff22",
+                textAlign: "right",
+                whiteSpace: "pre-line"
+              }}>{item.question}</div>
             </div>
           ))}
         </div>
@@ -106,7 +131,7 @@ export default function CenterInput({ value, onChange, onSend, disabled, chatHis
             ? "0 4px 32px rgba(162, 89, 255, 0.12)" 
             : "0 4px 24px rgba(0, 0, 0, 0.08)",
           padding: "2px 16px",
-          animation: isAnimating ? "borderColorTransition 5s linear" : "none",
+          animation: isAnimating ? "borderColorTransition 5s linear infinite" : "none",
           transition: "all 0.3s ease",
           position: "relative"
         }}>
