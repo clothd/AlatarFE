@@ -185,9 +185,9 @@ export default function Index() {
         <div style={{
           position: "absolute",
           left: 0,
-          top: 45,
+          top: '15vh',
           width: "100%",
-          height: "100%",
+          height: "calc(100% - 15vh)", // Adjust height to prevent overflow if content is large
           display: (isLoading || showBlocks) ? "flex" : "none",
           alignItems: "center",
           justifyContent: "center",

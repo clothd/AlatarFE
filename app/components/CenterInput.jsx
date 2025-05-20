@@ -200,7 +200,7 @@ export default function CenterInput({
               padding: "12px 10px",
               color: "#333"
             }}
-          />          <FaPaperclip style={{marginLeft: 10, marginRight: 10,fontSize: 16,color: "#999"}} />
+          />          <FaPaperclip strokeWidth={0.2} style={{marginLeft: 10, marginRight: 10,fontSize: 20,color: "#8888"}} />
 
           <motion.button
             onClick={handleSend}
@@ -208,13 +208,13 @@ export default function CenterInput({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             style={{
-              // background: value.trim() 
-              //   ? "linear-gradient(135deg, #a259ff, #ff4ecd)" 
-              //   : "#f0f0f0",
+              background: value.trim() 
+                ? "linear-gradient(135deg,rgba(161, 89, 255, 0),rgba(255, 78, 205, 0))" 
+                : "transparent",
               color: value.trim() ? "#fff" : "#999",
               border: "none",
               borderRadius: 20,
-              padding: "10px 10px",
+              padding: "0px 0px",
               cursor: value.trim() ? "pointer" : "not-allowed",
               fontWeight: 600,
               fontSize: 14,
@@ -224,7 +224,7 @@ export default function CenterInput({
               justifyContent: "center"
             }}
           >
-            <img src="/send.svg" alt="Send" style={{ width: 26, height: 20, display: "block" }} />
+            <img src="/send.svg" alt="Send" style={{ width: 35, height: 35, display: "block" }} />
           </motion.button>
         </div>
         {/* Audio Icon Floating Button */}
@@ -252,8 +252,8 @@ export default function CenterInput({
             src="/audio.jpeg"
             alt="audio icon"
             style={{
-              width: 24,
-              height: 24,
+              width: 20,
+              height: 20,
               borderRadius: "50%",
               objectFit: "cover",
               display: "block"
@@ -263,4 +263,4 @@ export default function CenterInput({
       </div>
     </>
   );
-} 
+}

@@ -3,7 +3,7 @@
 client_id = "e32b0eafd11b55dff3d8b9ea54587c86"
 name = "Alatar-3"
 handle = "alatar-3"
-application_url = "https://flesh-extend-skills-photos.trycloudflare.com"
+application_url = "https://operating-internship-cell-engaged.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://flesh-extend-skills-photos.trycloudflare.com/auth/callback",
-  "https://flesh-extend-skills-photos.trycloudflare.com/auth/shopify/callback",
-  "https://flesh-extend-skills-photos.trycloudflare.com/api/auth/callback"
+  "https://operating-internship-cell-engaged.trycloudflare.com/auth/callback",
+  "https://operating-internship-cell-engaged.trycloudflare.com/auth/shopify/callback",
+  "https://operating-internship-cell-engaged.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

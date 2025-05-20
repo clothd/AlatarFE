@@ -44,7 +44,7 @@ export default function Loader({ textArray = [], duration = 5000 }) {
           border: "none",
           position: "relative",
           overflow: "hidden",
-          background: "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)",
+          background: "linear-gradient(270deg,rgba(152, 86, 237, 0.9),rgb(87, 188, 208),rgba(217, 78, 178, 0.76),rgba(232, 216, 97, 0.7),rgba(161, 89, 255, 0.7))",
           backgroundSize: "400% 400%",
           animation: `gradientMoveLoader 16s ease-in-out infinite`,
           transition: "min-width 0.4s cubic-bezier(.4,0,.2,1), max-width 0.4s cubic-bezier(.4,0,.2,1), min-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.4s cubic-bezier(.4,0,.2,1)"

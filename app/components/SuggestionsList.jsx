@@ -91,14 +91,14 @@ export default function SuggestionsList({ suggestions, activeId, onSelect }) {
               onClick={() => handleClick(item.id)}
               style={{
                 background: isActive
-                  ? "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)"
+                  ? "linear-gradient(270deg,rgba(152, 86, 237, 0.9),rgb(87, 188, 208),rgba(217, 78, 178, 0.76),rgba(232, 216, 97, 0.7),rgba(161, 89, 255, 0.7))"
                   : "#f9f9f9",
                 color: isActive ? "#fff" : "#bbb",
                 borderRadius: 24,
                 padding: "12px 24px",
                 fontWeight: 500,
                 cursor: "pointer",
-                fontSize: isActive ? 18 : 15,
+                fontSize: isActive ? 17 : 15,
                 opacity: isActive ? 1 : 0.65,
                 // transform: isActive ? "scale(1)" : "scale(0.96)",
                 marginBottom: isActive ? 0 : 8,

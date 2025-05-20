@@ -142,10 +142,10 @@ export default function DisplayContainer({ qa }) {
         'rgba(255, 184, 108, 0.6)',
       ],
       borderColor: [
-        'rgba(162, 89, 255, 1)',
-        'rgba(110, 231, 255, 1)',
-        'rgba(255, 78, 205, 1)',
-        'rgba(255, 184, 108, 1)',
+        'rgba(162, 89, 255, 0.6)',
+        'rgba(110, 231, 255, 0.6)',
+        'rgba(255, 78, 205, 0.6)',
+        'rgba(255, 184, 108, 0.6)',
       ],
       borderWidth: 1,
     }]
