@@ -35,6 +35,9 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 100 }}>
+          <img src="/images/alatar-logo.svg" alt="Alatar Logo" style={{ height: 56, width: 56, display: "block" }} />
+        </div>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
