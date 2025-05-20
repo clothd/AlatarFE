@@ -224,7 +224,7 @@ export default function CenterInput({
               justifyContent: "center"
             }}
           >
-            <img src="/send.svg" alt="Send" style={{ width: 35, height: 35, display: "block" }} />
+            <img src="/arrow-up-circle.svg" alt="Send" style={{ width: 33, height: 33, display: "block" }} />
           </motion.button>
         </div>
         {/* Audio Icon Floating Button */}
