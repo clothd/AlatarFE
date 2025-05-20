@@ -324,7 +324,7 @@ export const QUERY_DATA = [
       },
       {
         title: "A/B Test Results",
-        text: "Latest tests show new product page layout increased conversions by 15.3%.",
+        text: "Latest tests show new product page layout increased conversions by 15.3%. Click here to see some of the most succssful owners who have implemented express shipping and their results. Click here to see a few other tests I've run and their results.",
         image: "/images/ab-test-comparison.svg",
         expandedContent: {
           text: "Recent A/B tests compared the old and new product page layouts. The new layout, with larger images and clearer CTAs, led to a significant increase in conversion rate.",
@@ -380,7 +380,7 @@ export const QUERY_DATA = [
       },
       {
         title: "Performance Metrics",
-        text: "Current conversion rate: 2.8%. Industry average: 3.1%. Room for 0.3% improvement.",
+        text: "Current conversion rate: 2.8%. Industry average: 3.1%. Room for 0.3% improvement. Did you know that 68% of customers abandon their cart because of slow loading? Click here to see some of the most succssful owners who have implemented express shipping and their results. You can ask in the chat me to help you implement these changes.",
         image: "/images/performance-metrics-chart.svg",
         expandedContent: {
           text: "Your store's conversion rate is slightly below the industry average. Focus on optimizing mobile experience and reducing checkout steps to close the gap.",
