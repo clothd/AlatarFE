@@ -35,12 +35,12 @@ export const QA_LIST = [
     {
       id: 4,
       question: "How can I reduce cart abandonment?",
-      answer: "Here's a comprehensive strategy to reduce cart abandonment:\n\n1. Checkout Optimization:\n• Simplify the checkout process\n• Offer guest checkout option\n• Reduce form fields to essential ones\n\n2. Pricing Transparency:\n• Show all costs upfront\n• Display shipping costs early\n• Include tax calculations\n\n3. Trust Building:\n• Add security badges\n• Show customer reviews\n• Display return policy\n\n4. Recovery Tactics:\n• Implement exit-intent popups\n• Send abandoned cart emails\n• Offer limited-time discounts\n\n5. Mobile Optimization:\n• Ensure mobile-friendly checkout\n• Optimize page load speed\n• Simplify mobile forms",
+      answer: "Cart Abandonment Analysis (Last Month):\n\n• Total Abandoned Carts: 312\n• Recovery Rate: 18%\n• Lost Revenue: $4,200\n\nKey Reasons for Abandonment:\n1. Unexpected shipping costs\n2. Complicated checkout process\n3. Lack of payment options\n\nRecovery Tactics Performance:\n• Abandonment Emails Sent: 210\n• Recovered Carts: 38\n• Email Conversion Rate: 18%\n\nRecommendations:\n• Simplify checkout steps\n• Offer more payment methods\n• Show shipping costs upfront",
       images: [
-        "https://www.youtube.com/watch?v=jIM_vNtebM8",
-        "https://www.youtube.com/watch?v=jIM_vNtebM8"
+        "/images/cart-abandonment-graph.png",
+        "/images/cart-abandonment-bar.png"
       ],
-      image: "https://www.youtube.com/watch?v=jIM_vNtebM8"
+      image: "/images/cart-abandonment-graph.png"
     },
     {
       id: 5,
@@ -65,12 +65,12 @@ export const QA_LIST = [
     {
       id: 7,
       question: "Suggest a marketing campaign for the holidays.",
-      answer: "Here's a comprehensive '12 Days of Deals' holiday campaign:\n\nCampaign Structure:\n1. Daily Deals:\n• Different product category each day\n• Increasing discounts (10% to 50%)\n• Limited quantity offers\n\n2. Gift Bundles:\n• Curated gift sets\n• Premium packaging options\n• Free gift wrapping\n\n3. Email Strategy:\n• Daily deal announcements\n• Countdown timers\n• Personalized recommendations\n\n4. Social Media:\n• Daily deal posts\n• User-generated content\n• Holiday-themed contests\n\n5. Special Features:\n• Early access for VIP customers\n• Referral rewards\n• Free shipping threshold\n\nImplementation Timeline:\n• Week 1: Campaign setup\n• Week 2: Email list preparation\n• Week 3: Social media planning\n• Week 4: Launch and monitoring",
+      answer: "Holiday Campaign Performance (Last Year):\n\n• Total Campaign Revenue: $18,500\n• Email Open Rate: 42%\n• Social Engagement: 1,200 likes\n• Conversion Rate: 4.1%\n\nTop Performing Days:\n1. Day 3: Gift Bundles\n2. Day 7: Flash Sale\n3. Day 12: Free Shipping\n\nRecommendations:\n• Increase daily deal variety\n• Use countdown timers\n• Promote on social media\n• Segment email lists for VIP offers",
       images: [
-        "/images/holiday-campaign-1.png",
-        "/images/holiday-campaign-2.webp"
+        "/images/holiday-campaign-graph.png",
+        "/images/holiday-campaign-bar.png"
       ],
-      image: "/images/holiday-campaign-1.png"
+      image: "/images/holiday-campaign-graph.png"
     },
     {
       id: 8,

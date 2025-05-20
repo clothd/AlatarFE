@@ -116,7 +116,7 @@ export default function CenterInput({
               maxHeight: showHistory ? (historyHover ? expandedHistoryHeight : defaultHistoryHeight) : 0,
               opacity: showHistory ? 1 : 0,
               pointerEvents: showHistory ? "auto" : "none",
-              transition: "opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 1.2s cubic-bezier(.4,2,.6,1)",
+              transition: "opacity 0.5s cubic-bezier(.4,0,.2,1), max-height 0.7s cubic-bezier(.4,0,.2,1)",
               background: "rgba(255,255,255,0.85)",
               boxShadow: "0 8px 32px 0 rgba(160,120,255,0.18)",
               borderRadius: 22,
