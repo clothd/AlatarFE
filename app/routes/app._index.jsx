@@ -278,13 +278,9 @@ export default function Index() {
                         size={size}
                         expanded={false}
                         onExpand={() => {
-                          console.log('onExpand called for block index:', i);
-                          console.log('Block title:', block.title);
-                          console.log('Current expandedBlock:', expandedBlock);
                           setExpandedBlock(i);
-                          console.log('Set expandedBlock to:', i);
                         }}
-                        shopItems={block.title === 'Customer Sentiment' && block.expandedContent && block.expandedContent.shopItems ? block.expandedContent.shopItems : []}
+                        shopItems={block.expandedContent?.shopItems}
                       />
                     </div>
                   );

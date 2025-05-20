@@ -419,7 +419,7 @@ export default function BlockContainer({
   }
 
   // Normal block (clickable to expand)
-  if (!expanded && shopItems && shopItems.length > 0) {
+  if (!expanded && onExpand) {
     return (
       <motion.div
         layout
@@ -458,36 +458,40 @@ export default function BlockContainer({
         }}
       >
         <div style={{ fontSize: s.fontSize, color: "#444", marginBottom: 10, lineHeight: 1.7, textAlign: 'left' }}>{text}</div>
-        <div style={{ display: 'flex', flexDirection: 'row', gap: 12, marginBottom: 8, justifyContent: 'flex-start', alignItems: 'flex-start', width: '100%' }}>
-          {shopItems.map((item, idx) => (
-            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: 60 }}>
-              <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 8,
-                background: '#eee',
-                marginBottom: 6,
-                display: 'flex',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                overflow: 'hidden',
-              }}>
-                {item.image ? (
-                  <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
-                ) : null}
+        {shopItems && shopItems.length > 0 && (
+          <div style={{ display: 'flex', flexDirection: 'row', gap: 12, marginBottom: 8, justifyContent: 'flex-start', alignItems: 'flex-start', width: '100%' }}>
+            {shopItems.map((item, idx) => (
+              <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: 60 }}>
+                <div style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 8,
+                  background: '#eee',
+                  marginBottom: 6,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-start',
+                  overflow: 'hidden',
+                }}>
+                  {item.image ? (
+                    <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                  ) : null}
+                </div>
+                <div style={{
+                  width: 40,
+                  height: 8,
+                  background: '#e0e0e0',
+                  borderRadius: 4,
+                  marginBottom: 2,
+                }} />
+                <div style={{ fontSize: 13, color: '#444', fontWeight: 500 }}>{item.price}</div>
               </div>
-              <div style={{
-                width: 40,
-                height: 8,
-                background: '#e0e0e0',
-                borderRadius: 4,
-                marginBottom: 2,
-              }} />
-              <div style={{ fontSize: 13, color: '#444', fontWeight: 500 }}>{item.price}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ fontSize: 12, color: '#bbb', marginTop: 4, fontWeight: 400 }}>{expandedContent?.fadedText}</div>
+            ))}
+          </div>
+        )}
+        {shopItems && shopItems.length > 0 && (
+          <div style={{ fontSize: 12, color: '#bbb', marginTop: 4, fontWeight: 400 }}>{expandedContent?.fadedText}</div>
+        )}
       </motion.div>
     );
   }
