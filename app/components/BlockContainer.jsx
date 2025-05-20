@@ -527,10 +527,8 @@ export default function BlockContainer({
         ...style
       }}
     >
-     
-      
-      {/* Multiple images or chart support */}
-      {images && images.length > 0 && !renderChartBlock({ title, details, text }) && (
+      {/* Always show images if present */}
+      {images && images.length > 0 && (
         <div style={{ 
           display: "grid", 
           gridTemplateColumns: images.length === 2 ? "1fr 1fr" : "1fr 1fr 1fr",
@@ -554,8 +552,8 @@ export default function BlockContainer({
           ))}
         </div>
       )}
+      {/* Show chart if available */}
       {renderChartBlock({ title, details, text })}
-      
       <div style={{ 
         fontWeight: 700, 
         fontSize: s.fontSize + 2, 
@@ -564,7 +562,6 @@ export default function BlockContainer({
       }}>
         {title}
       </div>
-      
       <div style={{ 
         fontSize: s.fontSize, 
         color: "#444", 
@@ -573,7 +570,6 @@ export default function BlockContainer({
       }}>
         {text}
       </div>
-      
       {/* Details list */}
       {details && (
         <ul style={{ 
@@ -590,7 +586,6 @@ export default function BlockContainer({
           ))}
         </ul>
       )}
-      
       {/* Learn more link */}
       {link && (
         <a 
