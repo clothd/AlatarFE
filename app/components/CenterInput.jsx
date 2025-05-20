@@ -131,9 +131,9 @@ export default function CenterInput({
               display: chatHistory.length === 0 ? "none" : "block",
               boxSizing: "border-box",
               position: "absolute",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%)",
-              maskImage: "linear-gradient(to bottom, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%)"
-            }}
+              WebkitMaskImage: "linear-gradient(to bottom, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%), linear-gradient(to right, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%)",
+              WebkitMaskComposite: "intersect",
+              maskComposite: "intersect",}}
           >
             {chatHistory.slice(-10).map((item, idx) => (
               <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "stretch", marginBottom: 18, gap: 8 }}>
@@ -150,7 +150,7 @@ export default function CenterInput({
                   textAlign: "right",
                   whiteSpace: "pre-line",
                   backgroundSize: "400% 400%",
-                  animation: "gradientMoveChatBubble 18s ease-in-out infinite"
+                  animation: "gradientMoveChatBubble 30s ease-in-out infinite"
                 }}>{item.question}</div>
                 {/* Answer bubble (bottom, left-aligned) */}
                 <div style={{
