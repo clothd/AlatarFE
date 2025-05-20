@@ -522,14 +522,6 @@ export default function BlockContainer({
         cursor: onExpand ? "pointer" : undefined,
         ...style
       }}
-      onClick={() => {
-        console.log('BlockContainer clicked:', title);
-        console.log('onExpand function:', onExpand);
-        console.log('expandedContent exists:', !!expandedContent);
-        if (onExpand) {
-          onExpand();
-        }
-      }}
     >
      
       
