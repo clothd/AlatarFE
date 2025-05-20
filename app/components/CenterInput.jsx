@@ -135,37 +135,54 @@ export default function CenterInput({
               WebkitMaskComposite: "intersect",
               maskComposite: "intersect",}}
           >
-            {chatHistory.slice(-10).map((item, idx) => (
-              <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "stretch", marginBottom: 18, gap: 8 }}>
-                {/* Query bubble (top, right-aligned) */}
-                <div style={{
-                  background: "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)",
-                  color: "#fff",
-                  borderRadius: "24px 24px 24px 24px",
-                  padding: "12px 12px",
-                  fontSize: 14,
-                  maxWidth: "90%",
-                  marginLeft: "auto",
-                  boxShadow: "0 2px 8px #a259ff22",
-                  textAlign: "right",
-                  whiteSpace: "pre-line",
-                  backgroundSize: "400% 400%",
-                  animation: "gradientMoveChatBubble 30s ease-in-out infinite"
-                }}>{item.question}</div>
-                {/* Answer bubble (bottom, left-aligned) */}
-                <div style={{
-                  background: "rgba(240,240,240,0.97)",
-                  color: "#444",
-                  borderRadius: "18px 10px 10px 18px",
-                  padding: "12px 12px",
-                  fontSize: 14,
-                  maxWidth: "70%",
-                  boxShadow: "0 2px 8px #a259ff11",
-                  marginRight: "auto",
-                  lineHeight: 1.7,
-                }}>{item.answer}</div>
-              </div>
-            ))}
+            {chatHistory.slice(-10).map((item, idx) => {
+              const isLatest = idx === chatHistory.slice(-10).length - 1;
+              return (
+                <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "stretch", marginBottom: 18, gap: 8 }}>
+                  {/* Query bubble (top, right-aligned) */}
+                  <div style={{
+                    background: "linear-gradient(270deg, #a259ff, #6ee7ff, #ff4ecd, #ffb86c, #a259ff)",
+                    color: "#fff",
+                    borderRadius: "24px 24px 24px 24px",
+                    padding: "12px 12px",
+                    fontSize: 14,
+                    maxWidth: "90%",
+                    marginLeft: "auto",
+                    boxShadow: "0 2px 8px #a259ff22",
+                    textAlign: "right",
+                    whiteSpace: "pre-line",
+                    backgroundSize: "400% 400%",
+                    animation: "gradientMoveChatBubble 30s ease-in-out infinite"
+                  }}>{item.question}</div>
+                  {/* Answer bubble (bottom, left-aligned) */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 10 }}>
+                    {isLatest && (
+                      <div style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #a259ff, #ff4ecd, #6ee7ff, #ffb86c, #a259ff)',
+                        backgroundSize: '200% 200%',
+                        animation: 'gradientAvatarMove 6s ease-in-out infinite',
+                        marginTop: 2,
+                        flexShrink: 0
+                      }} />
+                    )}
+                    <div style={{
+                      background: "rgba(240,240,240,0.97)",
+                      color: "#444",
+                      borderRadius: "18px 10px 10px 18px",
+                      padding: "12px 12px",
+                      fontSize: 14,
+                      maxWidth: "70%",
+                      boxShadow: "0 2px 8px #a259ff11",
+                      marginRight: "auto",
+                      lineHeight: 1.7,
+                    }}>{item.answer}</div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
         {/* Input Area */}
@@ -261,6 +278,13 @@ export default function CenterInput({
           />
         </button>
       </div>
+      <style>{`
+        @keyframes gradientAvatarMove {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
     </>
   );
 }
