@@ -263,7 +263,7 @@ export default function BlockContainer({
         </button>
 
         {/* Title */}
-        <div style={{ fontWeight: 700, fontSize: 22, marginBottom: 16, color: "#222" }}>
+        <div style={{ fontWeight: 700, fontSize: 22, marginBottom: 16, color: "#222", textAlign: 'left', width: '100%' }}>
           {activeChained === null ? title : showContent?.question}
         </div>
 
@@ -271,8 +271,8 @@ export default function BlockContainer({
         {isLoading ? (
           <SkeletonLoader />
         ) : chainedResponse ? (
-          <div style={{ width: "100%" }}>
-            <div style={{ fontSize: 16, color: "#444", marginBottom: 18, lineHeight: 1.7 }}>
+          <div style={{ width: "100%", textAlign: 'left' }}>
+            <div style={{ fontSize: 16, color: "#444", marginBottom: 18, lineHeight: 1.7, textAlign: 'left' }}>
               {chainedResponse.text}
             </div>
             {chainedResponse.points && (
@@ -281,7 +281,8 @@ export default function BlockContainer({
                 color: "#555", 
                 margin: "0 0 16px 0",
                 padding: "0 0 0 16px",
-                lineHeight: 1.6
+                lineHeight: 1.6,
+                textAlign: 'left'
               }}>
                 {chainedResponse.points.map((point, i) => (
                   <li key={i} style={{ marginBottom: 6 }}>{point}</li>
@@ -290,13 +291,13 @@ export default function BlockContainer({
             )}
           </div>
         ) : expandedContent?.shopItems ? (
-          <div style={{ width: "100%" }}>
-            <div style={{ fontSize: 15, color: "#444", marginBottom: 12, lineHeight: 1.7 }}>
+          <div style={{ width: "100%", textAlign: 'left' }}>
+            <div style={{ fontSize: 15, color: "#444", marginBottom: 12, lineHeight: 1.7, textAlign: 'left' }}>
               {expandedContent.text}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', gap: 16, marginBottom: 8, justifyContent: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: 16, marginBottom: 8, justifyContent: 'flex-start', width: '100%' }}>
               {expandedContent.shopItems.map((item, idx) => (
-                <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 80 }}>
+                <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: 80 }}>
                   <div style={{
                     width: 72,
                     height: 72,
@@ -304,8 +305,8 @@ export default function BlockContainer({
                     background: '#eee',
                     marginBottom: 8,
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    alignItems: 'left',
+                    justifyContent: 'left',
                     overflow: 'hidden',
                   }}>
                     {item.image ? (
@@ -329,22 +330,22 @@ export default function BlockContainer({
           <>
             {/* Expanded images or chart */}
             {showContent?.images && showContent.images.length > 0 && !renderChartBlock({ title, details: showContent.points, text: showContent.text }) && (
-              <div style={{ display: "flex", gap: 16, marginBottom: 18, width: "100%", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", gap: 16, marginBottom: 18, width: "100%", flexWrap: "wrap", justifyContent: 'flex-start' }}>
                 {showContent.images.map((img, i) => (
-                  <img key={i} src={img} alt={`expanded visual ${i + 1}`} style={{ width: 180, borderRadius: 14, objectFit: "cover", maxHeight: 120 }} />
+                  <img key={i} src={img} alt={`expanded visual ${i + 1}`} style={{ width: 180, borderRadius: 14, objectFit: "cover", maxHeight: 120, textAlign: 'left' }} />
                 ))}
               </div>
             )}
-            {renderChartBlock({ title, details: showContent?.points, text: showContent?.text })}
+            <div style={{ width: '100%', textAlign: 'left' }}>{renderChartBlock({ title, details: showContent?.points, text: showContent?.text })}</div>
             
             {/* Expanded text */}
             {showContent?.text && (
-              <div style={{ fontSize: 16, color: "#444", marginBottom: 18, lineHeight: 1.7 }}>{showContent.text}</div>
+              <div style={{ fontSize: 16, color: "#444", marginBottom: 18, lineHeight: 1.7, textAlign: 'left' }}>{showContent.text}</div>
             )}
             
             {/* Expanded references/links */}
             {showContent?.references && showContent.references.length > 0 && (
-              <div style={{ marginTop: 8, marginBottom: 8 }}>
+              <div style={{ marginTop: 8, marginBottom: 8, textAlign: 'left' }}>
                 <div style={{ fontWeight: 600, color: "#a259ff", marginBottom: 6 }}>References:</div>
                 <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
                   {showContent.references.map((ref, i) => (
@@ -358,7 +359,7 @@ export default function BlockContainer({
             
             {/* Video if present */}
             {showContent?.video && (
-              <div style={{ width: "100%", margin: "16px 0" }}>
+              <div style={{ width: "100%", margin: "16px 0", textAlign: 'left' }}>
                 <iframe
                   width="100%"
                   height="220"
@@ -447,6 +448,7 @@ export default function BlockContainer({
           flexDirection: "column",
           alignItems: "flex-start",
           cursor: onExpand ? "pointer" : undefined,
+          textAlign: 'left',
           ...style
         }}
         onClick={() => {
@@ -455,10 +457,10 @@ export default function BlockContainer({
           }
         }}
       >
-        <div style={{ fontSize: s.fontSize, color: "#444", marginBottom: 10, lineHeight: 1.7 }}>{text}</div>
-        <div style={{ display: 'flex', flexDirection: 'row', gap: 12, marginBottom: 8, justifyContent: 'center', width: '100%' }}>
+        <div style={{ fontSize: s.fontSize, color: "#444", marginBottom: 10, lineHeight: 1.7, textAlign: 'left' }}>{text}</div>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: 12, marginBottom: 8, justifyContent: 'flex-start', alignItems: 'flex-start', width: '100%' }}>
           {shopItems.map((item, idx) => (
-            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 60 }}>
+            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: 60 }}>
               <div style={{
                 width: 48,
                 height: 48,
@@ -466,8 +468,8 @@ export default function BlockContainer({
                 background: '#eee',
                 marginBottom: 6,
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
                 overflow: 'hidden',
               }}>
                 {item.image ? (

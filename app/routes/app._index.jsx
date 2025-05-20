@@ -171,8 +171,7 @@ export default function Index() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: 48,
-        paddingBottom: 24,
+        paddingTop: 8,
       }}>
         <span style={{
   fontSize: 18,
