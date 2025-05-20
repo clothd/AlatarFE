@@ -241,7 +241,7 @@ export default function DisplayContainer({ qa }) {
       style={{
         maxHeight: 250,
         width: "100%",
-        maxWidth: 1520,
+        width: 1220,
         margin: "0 auto",
         borderRadius: 30,
       }}
@@ -257,12 +257,12 @@ export default function DisplayContainer({ qa }) {
           background: "#f9f9f9",
           padding: 24,
           display: "flex",
-          overflow: "hidden"
+          overflow: "hidden",
         }}
       >
         {/* Left Column - Content */}
         <motion.div 
-          className="flex-1 flex flex-col overflow-y-auto pr-2"
+          className="flex-1 flex flex-col pr-2"
           style={{ 
             overflowY: "auto",
             flex: "1 1 60%",
