@@ -262,14 +262,31 @@ export default function DisplayContainer({ qa }) {
       >
         {/* Left Column - Content */}
         <motion.div 
-          className="flex-1 flex flex-col pr-2"
+          className="flex-1 flex flex-col pr-2 display-scroll-hide"
           style={{ 
             overflowY: "auto",
             flex: "1 1 60%",
             maxHeight: "100%",
-            paddingRight: 16
+            paddingRight: 16,
+            scrollbarWidth: "none", // Firefox
+            msOverflowStyle: "none", // IE/Edge
+            // For webkit browsers, will use a class below
           }}
         >
+          <style>{`
+            .display-scroll-hide::-webkit-scrollbar { display: none; }
+            @media (min-width: 768px) {
+              .display-two-cols {
+                column-count: 2;
+                column-gap: 32px;
+              }
+            }
+            @media (max-width: 767px) {
+              .display-two-cols {
+                column-count: 1;
+              }
+            }
+          `}</style>
           <motion.div
             layout
             initial={{ y: -10, opacity: 0 }}
@@ -290,7 +307,7 @@ export default function DisplayContainer({ qa }) {
           <AnimatePresence mode="wait">
             <motion.div
               key={qa.id + "-content"}
-              className="flex flex-col gap-3"
+              className="flex flex-col gap-3 display-two-cols"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -302,6 +319,7 @@ export default function DisplayContainer({ qa }) {
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: idx * 0.05 }}
                   className="mb-2"
+                  style={{ breakInside: 'avoid' }}
                 >
                   <div className="flex items-center gap-1.5 mb-1">
                     <h3 className="font-medium text-gray-800 text-sm">{section.title}</h3>

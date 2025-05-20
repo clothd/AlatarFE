@@ -155,9 +155,6 @@ export default function Index() {
 
   const activeQA = QA_LIST.find(q => q.id === activeId);
 
-  // Add a state to track if awaiting blocks
-  const isAwaitingBlocks = isLoading || (activeQuery && !showBlocks);
-
   return (
     <div style={{
       minHeight: "100vh",
@@ -169,6 +166,32 @@ export default function Index() {
       flexDirection: "column",
       overflowY: "hidden"
     }}>
+      <div style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingTop: 48,
+        paddingBottom: 24,
+      }}>
+        <span style={{
+  fontSize: 18,
+  letterSpacing: 2,
+  background: "linear-gradient(to right, #a259ff,rgb(93, 2, 251))",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  display: "inline-block",
+}}>ALATAR</span>
+
+
+        <span style={{
+          fontSize: 16,
+          color: "#222",
+          paddingLeft: 10,
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 300
+        }}>V1.1</span>
+      </div>
       {/* Main Content */}
       <div
         style={{
