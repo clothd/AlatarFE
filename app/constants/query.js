@@ -98,9 +98,9 @@ export const QUERY_DATA = [
       },
       {
         title: "Customer Sentiment",
-        text: "Check out some of our most popular items and their current prices.",
+        text: "Check out some of our most popular items and their current prices. A great way to boost your sales is to offer products that are in high demand. Here are some suggestions for you used by the most succssful owners. Here are some of your most popular products:",
         expandedContent: {
-          text: "Discover our trending products, handpicked for quality and value. These items are loved by our customers and come with exclusive offers.",
+          text: "Discover our trending products, handpicked for quality and value. These items are loved by our customers and come with exclusive offers. Here are some suggestions for you used by the most succssful owners",
           shopItems: [
             {
               name: "Minimalist Chair",
@@ -118,13 +118,13 @@ export const QUERY_DATA = [
               image: "https://imgs.search.brave.com/Dj5x5mwGNP1PxX0N2wEMwOuvI9ZgQEICRq0eAeRYm-w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTU3/MzE2NDI2L3Bob3Rv/L3NvYXAuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPW9GQi1f/dnNFWGU4cjQyLXpv/eXhjWVljVU9wb2Jm/VWZZd2xXMUE0RW44/VHc9"
             }
           ],
-          fadedText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit?"
+          fadedText: "Would you like to see more products?"
         },
         size: "medium"
       },
       {
         title: "Support Trends",
-        text: "40% increase in support tickets in Q4.",
+        text: "40% increase in support tickets in Q4. Here are some of the most common issues we've seen and how to solve them. Click here to see the full report.",
         image: "/images/support-trends-chart.svg",
         expandedContent: {
           text: "Support tickets peaked in December, with most inquiries about delayed shipments and refund requests. Automation of common responses reduced average resolution time by 20%.",
@@ -180,7 +180,7 @@ export const QUERY_DATA = [
       },
       {
         title: "Quick Wins",
-        text: "Implement express shipping options and improve product descriptions for immediate impact.",
+        text: "Implement express shipping options and improve product descriptions for immediate impact. Click here to see some of the most succssful owners who have implemented express shipping and their results. You can ask in the chat me to help you implement these changes.",
         image: "/images/quick-wins-timeline.svg",
         expandedContent: {
           text: "Quick wins include enabling express shipping at checkout and updating product pages with more detailed descriptions and photos. These changes can reduce complaints and boost satisfaction within weeks.",
@@ -199,7 +199,7 @@ export const QUERY_DATA = [
           chainedQueries: [
             {
               question: "How do I implement express shipping?",
-              text: "To implement express shipping, partner with fast carriers and update your checkout options.",
+              text: "To implement express shipping, partner with fast carriers and update your checkout options. Click here to see some of the most succssful owners who have implemented express shipping and their results.",
               points: [
                 "Negotiate express rates with carriers.",
                 "Add express option to checkout page.",
