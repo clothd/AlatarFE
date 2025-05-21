@@ -28,6 +28,7 @@ export default function App() {
               min-height: 100vh;
               margin: 0;
               padding: 0;
+              overflow: hidden;
             }
           `}
         </style>
@@ -36,7 +37,6 @@ export default function App() {
       </head>
       <body>
         <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 100 }}>
-          <img src="/images/alatar-logo.svg" alt="Alatar Logo" style={{ height: 56, width: 56, display: "block" }} />
         </div>
         <Outlet />
         <ScrollRestoration />
