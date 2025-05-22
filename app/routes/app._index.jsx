@@ -364,7 +364,7 @@ export default function Index() {
                 alignItems: "center",
                 marginBottom: '200px'
               }}>
-                {/* <DisplayContainer qa={activeQA} /> */}
+                <DisplayContainer qa={activeQA} />
               </div>
             </motion.div>
           )}
