@@ -178,6 +178,7 @@ export default function Index() {
   letterSpacing: 2,
   background: "linear-gradient(to right, #a259ff,rgb(93, 2, 251))",
   WebkitBackgroundClip: "text",
+  paddingTop: 10,
   WebkitTextFillColor: "transparent",
   display: "inline-block",
 }}>ALATAR</span>
@@ -186,7 +187,8 @@ export default function Index() {
         <span style={{
           fontSize: 16,
           color: "#222",
-          paddingLeft: 10,
+          paddingTop: 10,
+          paddingLeft: 8,
           fontFamily: 'Inter, sans-serif',
           fontWeight: 300
         }}>V1.1</span>

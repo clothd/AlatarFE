@@ -36,7 +36,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 100 }}>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", zIndex: 100 }}>
         </div>
         <Outlet />
         <ScrollRestoration />
